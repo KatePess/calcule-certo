@@ -1,0 +1,49 @@
+/* Tokens visuais tirados do prototipo de alta fidelidade feito no Figma. */
+:root {
+  --azul: #2f7bff;
+  --azul-escuro: #1c4a8a;
+  --azul-profundo: #123e7c;
+  --marinho: #0f2a4a;
+  --tinta: #12263f;
+  --tinta-suave: #4a5768;
+  --papel: #f4f5f7;
+  --campo: #e4e5e9;
+  --linha: #d8dae0;
+  --erro: #c0392b;
+  --erro-fundo: #fdecea;
+  --raio: 12px;
+  --fonte: 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--fonte);
+  color: var(--tinta);
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+input {
+  font-family: inherit;
+}
+
+.tela-carregando {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  color: var(--tinta-suave);
+}

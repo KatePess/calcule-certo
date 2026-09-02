@@ -1,0 +1,113 @@
+# Calcule Certo
+
+Sistema web para automatizar o cálculo de custos operacionais e margens de lucro
+de empresas privadas que participam de processos de licitação pública.
+
+Trabalho de Conclusão de Curso — Sistemas de Informação, UniNORTE
+Autora: Kate Pessoa dos Santos · Orientador: Prof. Juan Carlos Justiniano
+
+## Sprint 1 — Autenticação (entrega atual)
+
+Esta primeira entrega implementa o módulo de acesso ao sistema, que corresponde
+aos métodos `cadastrar()` e `autenticar()` da classe `Usuario` no diagrama de
+classes (Apêndice A do TCC).
+
+O que está funcionando:
+
+- Tela de login fiel ao protótipo de alta fidelidade feito no Figma
+- Tela de cadastro de novo usuário, com máscara de CNPJ
+- Senhas gravadas com hash **bcrypt** (a senha em texto puro nunca é armazenada)
+- Sessão mantida por **JWT**, com opção "Lembrar minha senha"
+- Rota protegida: a Home só abre com um token válido
+- Layout responsivo para desktop e celular (requisito não funcional do TCC)
+
+## Tecnologias
+
+Conforme a seção 2.5 do TCC:
+
+| Camada | Tecnologia |
+|---|---|
+| Front-end | React 18 + Vite + React Router |
+| Back-end | Node.js + Express |
+| Banco de dados | PostgreSQL 16 (via Docker) |
+| Segurança | bcryptjs (hash de senha) + jsonwebtoken (sessão) |
+
+## Estrutura do projeto
+
+```
+calcule-certo/
+├── docker-compose.yml        # sobe o PostgreSQL
+├── backend/                  # API em Node.js + Express
+│   ├── .env                  # configuração local (não vai para o Git)
+│   └── src/
+│       ├── server.js         # inicia a API
+│       ├── db.js             # conexão com o PostgreSQL
+│       ├── rotas/auth.js     # cadastrar, login e dados do usuário logado
+│       ├── middleware/       # verificação do token JWT
+│       └── scripts/          # criação da tabela e usuário de demonstração
+├── frontend/                 # interface em React
+│   └── src/
+│       ├── paginas/          # Login, Cadastro e Home
+│       ├── componentes/      # guardas de rota e ícones
+│       ├── estilos/          # CSS das telas
+│       ├── sessao.jsx        # estado de autenticação
+│       └── api.js            # chamadas à API
+└── docs/prototipo/           # telas do Figma usadas como referência
+```
+
+## Como rodar
+
+Pré-requisitos: **Node.js 18+** e **Docker Desktop** instalados.
+
+### 1. Subir o banco de dados
+
+```bash
+docker compose up -d
+```
+
+### 2. Preparar o back-end
+
+```bash
+cd backend
+npm install
+cp .env.example .env
+npm run db:setup
+npm run dev
+```
+
+A API sobe em http://localhost:3001
+
+### 3. Subir o front-end
+
+Em **outro terminal**:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+A aplicação abre em http://localhost:5173
+
+### Usuário de demonstração
+
+| E-mail | Senha |
+|---|---|
+| kate@calculecerto.com | calcule123 |
+
+## Endpoints da API
+
+| Método | Rota | Descrição |
+|---|---|---|
+| POST | `/api/auth/cadastrar` | Cria uma conta e já devolve o token |
+| POST | `/api/auth/login` | Autentica e devolve o token |
+| GET | `/api/auth/eu` | Dados do usuário logado (exige token) |
+| GET | `/api/saude` | Verificação de que a API está no ar |
+
+## Próximas sprints
+
+- Tela de entrada de parâmetros do cálculo (Figura C1 do TCC)
+- Motor de cálculo de custos e margem de lucro
+- Tela de resultado do cálculo (Figura C2 do TCC)
+- Central de relatórios e exportação em PDF (Figura C3 do TCC)
+- Recuperação de senha e login social (Google / LinkedIn)
