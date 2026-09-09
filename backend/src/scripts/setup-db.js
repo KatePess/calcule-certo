@@ -1,35 +1,33 @@
 // Cria a tabela de usuarios e insere um usuario de demonstracao.
 // Rodar com: npm run db:setup
-import bcrypt from 'bcryptjs';
-import { consultar, pool } from '../db.js';
+import { pool } from '../db.js';
+import { usuarioRepositorio } from '../repositorios/usuarioRepositorio.js';
+import { gerarHash } from '../utils/senha.js';
 
-const EMAIL_DEMO = 'kate@calculecerto.com';
-const SENHA_DEMO = 'calcule123';
+const USUARIO_DEMO = {
+  nome: 'Kate Pessoa dos Santos',
+  email: 'kate@calculecerto.com',
+  senha: 'calcule123',
+  cnpj: '12345678000199',
+};
 
 async function main() {
-  await consultar(`
-    CREATE TABLE IF NOT EXISTS usuarios (
-      id          SERIAL PRIMARY KEY,
-      nome        VARCHAR(120)  NOT NULL,
-      email       VARCHAR(160)  NOT NULL UNIQUE,
-      senha_hash  VARCHAR(255)  NOT NULL,
-      cnpj        VARCHAR(18),
-      criado_em   TIMESTAMPTZ   NOT NULL DEFAULT NOW()
-    )
-  `);
+  await usuarioRepositorio.criarTabela();
   console.log('Tabela "usuarios" pronta.');
 
-  const { rows } = await consultar('SELECT id FROM usuarios WHERE email = $1', [EMAIL_DEMO]);
-  if (rows.length === 0) {
-    const hash = await bcrypt.hash(SENHA_DEMO, 10);
-    await consultar(
-      'INSERT INTO usuarios (nome, email, senha_hash, cnpj) VALUES ($1, $2, $3, $4)',
-      ['Kate Pessoa dos Santos', EMAIL_DEMO, hash, '12345678000199'],
-    );
-    console.log(`Usuario de demonstracao criado -> ${EMAIL_DEMO} / ${SENHA_DEMO}`);
-  } else {
+  const jaExiste = await usuarioRepositorio.buscarPorEmail(USUARIO_DEMO.email);
+  if (jaExiste) {
     console.log('Usuario de demonstracao ja existia, nada a fazer.');
+    return;
   }
+
+  await usuarioRepositorio.inserir({
+    nome: USUARIO_DEMO.nome,
+    email: USUARIO_DEMO.email,
+    senhaHash: await gerarHash(USUARIO_DEMO.senha),
+    cnpj: USUARIO_DEMO.cnpj,
+  });
+  console.log(`Usuario de demonstracao criado -> ${USUARIO_DEMO.email} / ${USUARIO_DEMO.senha}`);
 }
 
 main()

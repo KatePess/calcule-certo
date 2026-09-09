@@ -1,16 +1,26 @@
+import { useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import RotaProtegida from './componentes/RotaProtegida.jsx';
 import SomenteVisitante from './componentes/SomenteVisitante.jsx';
+import { ROTAS } from './constantes/rotas.js';
 import Cadastro from './paginas/Cadastro.jsx';
 import Home from './paginas/Home.jsx';
 import Login from './paginas/Login.jsx';
+import { useSessaoStore } from './stores/index.jsx';
 
 export default function App() {
+  const sessao = useSessaoStore();
+
+  // Tenta recuperar a sessao uma unica vez, quando o app monta.
+  useEffect(() => {
+    sessao.restaurarSessao();
+  }, [sessao]);
+
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/login" replace />} />
+      <Route path={ROTAS.RAIZ} element={<Navigate to={ROTAS.LOGIN} replace />} />
       <Route
-        path="/login"
+        path={ROTAS.LOGIN}
         element={
           <SomenteVisitante>
             <Login />
@@ -18,7 +28,7 @@ export default function App() {
         }
       />
       <Route
-        path="/cadastro"
+        path={ROTAS.CADASTRO}
         element={
           <SomenteVisitante>
             <Cadastro />
@@ -26,14 +36,14 @@ export default function App() {
         }
       />
       <Route
-        path="/home"
+        path={ROTAS.HOME}
         element={
           <RotaProtegida>
             <Home />
           </RotaProtegida>
         }
       />
-      <Route path="*" element={<Navigate to="/login" replace />} />
+      <Route path="*" element={<Navigate to={ROTAS.LOGIN} replace />} />
     </Routes>
   );
 }

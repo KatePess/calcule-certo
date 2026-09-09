@@ -1,24 +1,26 @@
+import { observer } from 'mobx-react-lite';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { IconeGoogle, IconeLinkedin, IconeOlho, IconeOlhoCortado } from '../componentes/Icones.jsx';
-import { useSessao } from '../sessao.jsx';
+import {
+  IconeGoogle,
+  IconeLinkedin,
+  IconeOlho,
+  IconeOlhoCortado,
+} from '../componentes/Icones.jsx';
+import { DICAS, TEXTOS_CADASTRO } from '../constantes/mensagens.js';
+import { ROTAS } from '../constantes/rotas.js';
+import { TAMANHO_MINIMO_SENHA } from '../constantes/validacao.js';
+import { useSessaoStore } from '../stores/index.jsx';
+import { apenasDigitos, formatarCnpj } from '../utils/formatadores.js';
 import '../estilos/auth.css';
 
-// Formata o CNPJ enquanto o usuario digita: 00.000.000/0000-00
-function formatarCnpj(valor) {
-  const digitos = valor.replace(/\D/g, '').slice(0, 14);
-  return digitos
-    .replace(/^(\d{2})(\d)/, '$1.$2')
-    .replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3')
-    .replace(/\.(\d{3})(\d)/, '.$1/$2')
-    .replace(/(\d{4})(\d)/, '$1-$2');
-}
+const FORMULARIO_VAZIO = { nome: '', cnpj: '', email: '', senha: '' };
 
-export default function Cadastro() {
-  const { cadastrar } = useSessao();
+export default observer(function Cadastro() {
+  const sessao = useSessaoStore();
   const navegar = useNavigate();
 
-  const [form, setForm] = useState({ nome: '', cnpj: '', email: '', senha: '' });
+  const [form, setForm] = useState(FORMULARIO_VAZIO);
   const [mostrarSenha, setMostrarSenha] = useState(false);
   const [erro, setErro] = useState('');
   const [enviando, setEnviando] = useState(false);
@@ -32,8 +34,8 @@ export default function Cadastro() {
     setErro('');
     setEnviando(true);
     try {
-      await cadastrar({ ...form, cnpj: form.cnpj.replace(/\D/g, '') });
-      navegar('/home', { replace: true });
+      await sessao.cadastrar({ ...form, cnpj: apenasDigitos(form.cnpj) });
+      navegar(ROTAS.HOME, { replace: true });
     } catch (falha) {
       setErro(falha.message);
     } finally {
@@ -49,14 +51,14 @@ export default function Cadastro() {
             <p className="auth-painel__marca">
               Calcule <span>Certo</span>
             </p>
-            <h1 className="auth-painel__titulo">Olá!</h1>
-            <p className="auth-painel__legenda">Crie sua conta gratuitamente, de forma rápida e segura.</p>
+            <h1 className="auth-painel__titulo">{TEXTOS_CADASTRO.PAINEL_TITULO}</h1>
+            <p className="auth-painel__legenda">{TEXTOS_CADASTRO.PAINEL_LEGENDA}</p>
           </div>
         </section>
 
         <section className="auth-lado auth-lado--destaque">
-          <h2 className="auth-titulo">Criar conta</h2>
-          <p className="auth-legenda">Preencha os dados abaixo para começar a usar o sistema.</p>
+          <h2 className="auth-titulo">{TEXTOS_CADASTRO.TITULO}</h2>
+          <p className="auth-legenda">{TEXTOS_CADASTRO.LEGENDA}</p>
 
           <form onSubmit={aoEnviar} noValidate>
             {erro && (
@@ -138,29 +140,29 @@ export default function Cadastro() {
                   {mostrarSenha ? <IconeOlho /> : <IconeOlhoCortado />}
                 </button>
               </div>
-              <small className="campo__ajuda">Mínimo de 8 caracteres.</small>
+              <small className="campo__ajuda">Mínimo de {TAMANHO_MINIMO_SENHA} caracteres.</small>
             </div>
 
             <button className="botao botao--claro" type="submit" disabled={enviando}>
-              {enviando ? 'Criando conta...' : 'Criar conta'}
+              {enviando ? TEXTOS_CADASTRO.BOTAO_ENVIANDO : TEXTOS_CADASTRO.BOTAO}
             </button>
           </form>
 
           <p className="auth-divisor">Ou continue com</p>
           <div className="auth-social">
-            <button type="button" disabled title="Cadastro social previsto para uma sprint futura">
+            <button type="button" disabled title={DICAS.LOGIN_SOCIAL}>
               <IconeGoogle />
             </button>
-            <button type="button" disabled title="Cadastro social previsto para uma sprint futura">
+            <button type="button" disabled title={DICAS.LOGIN_SOCIAL}>
               <IconeLinkedin />
             </button>
           </div>
 
           <p className="auth-rodape">
-            Já possui uma conta? <Link to="/login">Entrar</Link>
+            Já possui uma conta? <Link to={ROTAS.LOGIN}>Entrar</Link>
           </p>
         </section>
       </main>
     </div>
   );
-}
+});

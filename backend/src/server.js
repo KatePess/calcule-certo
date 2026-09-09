@@ -1,19 +1,22 @@
-import 'dotenv/config';
 import cors from 'cors';
 import express from 'express';
+import { AMBIENTE } from './config/ambiente.js';
+import { STATUS } from './constantes/http.js';
+import { CAMINHOS } from './constantes/rotas.js';
+import { rotaNaoEncontrada, tratarErros } from './middleware/tratarErros.js';
 import { rotasAuth } from './rotas/auth.js';
 
 const app = express();
-const PORTA = Number(process.env.PORTA || 3001);
 
 app.use(cors());
 app.use(express.json());
 
-app.get('/api/saude', (_req, res) => res.json({ status: 'ok' }));
-app.use('/api/auth', rotasAuth);
+app.get(CAMINHOS.SAUDE, (_req, res) => res.status(STATUS.OK).json({ status: 'ok' }));
+app.use(CAMINHOS.AUTH, rotasAuth);
 
-app.use((_req, res) => res.status(404).json({ erro: 'Rota nao encontrada.' }));
+app.use(rotaNaoEncontrada);
+app.use(tratarErros);
 
-app.listen(PORTA, () => {
-  console.log(`API do Calcule Certo rodando em http://localhost:${PORTA}`);
+app.listen(AMBIENTE.PORTA, () => {
+  console.log(`API do Calcule Certo rodando em http://localhost:${AMBIENTE.PORTA}`);
 });

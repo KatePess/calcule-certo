@@ -1,11 +1,14 @@
+import { observer } from 'mobx-react-lite';
 import { Navigate } from 'react-router-dom';
-import { useSessao } from '../sessao.jsx';
+import { MENSAGENS } from '../constantes/mensagens.js';
+import { ROTAS } from '../constantes/rotas.js';
+import { useSessaoStore } from '../stores/index.jsx';
 
 // Impede que a Home seja aberta digitando a URL sem estar logado.
-export default function RotaProtegida({ children }) {
-  const { usuario, carregando } = useSessao();
+export default observer(function RotaProtegida({ children }) {
+  const sessao = useSessaoStore();
 
-  if (carregando) return <div className="tela-carregando">Carregando...</div>;
-  if (!usuario) return <Navigate to="/login" replace />;
+  if (sessao.carregando) return <div className="tela-carregando">{MENSAGENS.CARREGANDO}</div>;
+  if (!sessao.estaAutenticado) return <Navigate to={ROTAS.LOGIN} replace />;
   return children;
-}
+});

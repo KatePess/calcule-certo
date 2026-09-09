@@ -1,11 +1,14 @@
+import { observer } from 'mobx-react-lite';
 import { Navigate } from 'react-router-dom';
-import { useSessao } from '../sessao.jsx';
+import { MENSAGENS } from '../constantes/mensagens.js';
+import { ROTAS } from '../constantes/rotas.js';
+import { useSessaoStore } from '../stores/index.jsx';
 
 // Quem ja esta autenticado nao precisa ver login/cadastro de novo.
-export default function SomenteVisitante({ children }) {
-  const { usuario, carregando } = useSessao();
+export default observer(function SomenteVisitante({ children }) {
+  const sessao = useSessaoStore();
 
-  if (carregando) return <div className="tela-carregando">Carregando...</div>;
-  if (usuario) return <Navigate to="/home" replace />;
+  if (sessao.carregando) return <div className="tela-carregando">{MENSAGENS.CARREGANDO}</div>;
+  if (sessao.estaAutenticado) return <Navigate to={ROTAS.HOME} replace />;
   return children;
-}
+});

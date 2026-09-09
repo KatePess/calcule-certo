@@ -1,11 +1,20 @@
+import { observer } from 'mobx-react-lite';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { IconeGoogle, IconeLinkedin, IconeOlho, IconeOlhoCortado, IconePessoa } from '../componentes/Icones.jsx';
-import { useSessao } from '../sessao.jsx';
+import {
+  IconeGoogle,
+  IconeLinkedin,
+  IconeOlho,
+  IconeOlhoCortado,
+  IconePessoa,
+} from '../componentes/Icones.jsx';
+import { DICAS, MENSAGENS, TEXTOS_LOGIN } from '../constantes/mensagens.js';
+import { ROTAS } from '../constantes/rotas.js';
+import { useSessaoStore } from '../stores/index.jsx';
 import '../estilos/auth.css';
 
-export default function Login() {
-  const { entrar } = useSessao();
+export default observer(function Login() {
+  const sessao = useSessaoStore();
   const navegar = useNavigate();
 
   const [email, setEmail] = useState('');
@@ -20,8 +29,8 @@ export default function Login() {
     setErro('');
     setEnviando(true);
     try {
-      await entrar(email, senha, lembrar);
-      navegar('/home', { replace: true });
+      await sessao.entrar(email, senha, lembrar);
+      navegar(ROTAS.HOME, { replace: true });
     } catch (falha) {
       setErro(falha.message);
     } finally {
@@ -34,14 +43,14 @@ export default function Login() {
       <main className="auth-cartao">
         <section className="auth-painel">
           <div className="auth-painel__texto">
-            <h1 className="auth-painel__titulo">BEM-VINDO AO CALCULE CERTO</h1>
-            <p className="auth-painel__legenda">Seu sistema mais completo de cálculo de licitações!</p>
+            <h1 className="auth-painel__titulo">{TEXTOS_LOGIN.PAINEL_TITULO}</h1>
+            <p className="auth-painel__legenda">{TEXTOS_LOGIN.PAINEL_LEGENDA}</p>
           </div>
         </section>
 
         <section className="auth-lado">
-          <h2 className="auth-titulo">Acesse sua conta</h2>
-          <p className="auth-legenda">Use o e-mail e a senha cadastrados para acessar sua conta.</p>
+          <h2 className="auth-titulo">{TEXTOS_LOGIN.TITULO}</h2>
+          <p className="auth-legenda">{TEXTOS_LOGIN.LEGENDA}</p>
 
           <form onSubmit={aoEnviar} noValidate>
             {erro && (
@@ -98,39 +107,43 @@ export default function Login() {
 
             <div className="auth-opcoes">
               <label>
-                <input type="checkbox" checked={lembrar} onChange={(e) => setLembrar(e.target.checked)} />
+                <input
+                  type="checkbox"
+                  checked={lembrar}
+                  onChange={(e) => setLembrar(e.target.checked)}
+                />
                 Lembrar minha senha
               </label>
               <button
                 type="button"
                 className="auth-link"
-                title="Recuperação de senha prevista para a próxima sprint"
-                onClick={() => setErro('Recuperação de senha ainda não implementada (próxima sprint).')}
+                title={DICAS.RECUPERAR_SENHA}
+                onClick={() => setErro(MENSAGENS.RECUPERACAO_INDISPONIVEL)}
               >
                 Esqueci minha senha →
               </button>
             </div>
 
             <button className="botao" type="submit" disabled={enviando}>
-              {enviando ? 'Entrando...' : 'Entrar'}
+              {enviando ? TEXTOS_LOGIN.BOTAO_ENVIANDO : TEXTOS_LOGIN.BOTAO}
             </button>
           </form>
 
           <p className="auth-divisor">Ou continue com</p>
           <div className="auth-social">
-            <button type="button" disabled title="Login social previsto para uma sprint futura">
+            <button type="button" disabled title={DICAS.LOGIN_SOCIAL}>
               <IconeGoogle />
             </button>
-            <button type="button" disabled title="Login social previsto para uma sprint futura">
+            <button type="button" disabled title={DICAS.LOGIN_SOCIAL}>
               <IconeLinkedin />
             </button>
           </div>
 
           <p className="auth-rodape">
-            Ainda não tem conta? <Link to="/cadastro">Cadastre-se</Link>
+            Ainda não tem conta? <Link to={ROTAS.CADASTRO}>Cadastre-se</Link>
           </p>
         </section>
       </main>
     </div>
   );
-}
+});

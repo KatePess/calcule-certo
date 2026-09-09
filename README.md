@@ -27,31 +27,78 @@ Conforme a seção 2.5 do TCC:
 
 | Camada | Tecnologia |
 |---|---|
-| Front-end | React 18 + Vite + React Router |
+| Front-end | React 18 + Vite + React Router + MobX |
 | Back-end | Node.js + Express |
 | Banco de dados | PostgreSQL 16 (via Docker) |
 | Segurança | bcryptjs (hash de senha) + jsonwebtoken (sessão) |
 
-## Estrutura do projeto
+## Arquitetura
+
+O código está separado em camadas, cada uma com uma responsabilidade única.
+Uma mudança de regra, de texto ou de banco atinge um arquivo só.
+
+**Back-end** — requisição → rota → controlador → serviço → repositório → banco:
+
+| Camada | Responsabilidade |
+|---|---|
+| `rotas/` | Mapeia caminhos para métodos do controlador |
+| `controladores/` | Traduz HTTP em chamada de serviço e vice-versa |
+| `servicos/` | Regras de negócio e validações |
+| `repositorios/` | Único lugar que conhece SQL |
+| `middleware/` | Autenticação por token e tratamento central de erros |
+| `constantes/` | Mensagens, códigos HTTP, regras de validação, caminhos |
+| `utils/` | Hash de senha, token, formatação, validadores |
+| `config/` | Leitura centralizada do `.env` |
+
+**Front-end** — componente → store → serviço → API:
+
+| Camada | Responsabilidade |
+|---|---|
+| `paginas/` | Telas (Login, Cadastro, Home) |
+| `componentes/` | Guardas de rota e ícones |
+| `stores/` | Estado da aplicação com **MobX** |
+| `servicos/` | Chamadas à API |
+| `constantes/` | Rotas, endpoints, textos, regras de validação |
+| `utils/` | Formatadores, validadores, acesso ao armazenamento |
+| `estilos/` | CSS de cada tela |
+
+### Sobre o MobX
+
+O estado da sessão vive em `stores/SessaoStore.js`. Componentes marcados com
+`observer()` são redesenhados sozinhos quando a store muda — não é preciso
+repassar dados de tela em tela. Novas stores (orçamento, relatórios) entram em
+`stores/index.jsx` nas próximas sprints.
+
+## Estrutura de pastas
 
 ```
 calcule-certo/
-├── docker-compose.yml        # sobe o PostgreSQL
-├── backend/                  # API em Node.js + Express
+├── docker-compose.yml
+├── backend/
 │   ├── .env                  # configuração local (não vai para o Git)
 │   └── src/
-│       ├── server.js         # inicia a API
-│       ├── db.js             # conexão com o PostgreSQL
-│       ├── rotas/auth.js     # cadastrar, login e dados do usuário logado
-│       ├── middleware/       # verificação do token JWT
-│       └── scripts/          # criação da tabela e usuário de demonstração
-├── frontend/                 # interface em React
+│       ├── server.js
+│       ├── db.js
+│       ├── config/
+│       ├── constantes/
+│       ├── controladores/
+│       ├── middleware/
+│       ├── repositorios/
+│       ├── rotas/
+│       ├── servicos/
+│       ├── utils/
+│       └── scripts/
+├── frontend/
 │   └── src/
-│       ├── paginas/          # Login, Cadastro e Home
-│       ├── componentes/      # guardas de rota e ícones
-│       ├── estilos/          # CSS das telas
-│       ├── sessao.jsx        # estado de autenticação
-│       └── api.js            # chamadas à API
+│       ├── main.jsx
+│       ├── App.jsx
+│       ├── componentes/
+│       ├── constantes/
+│       ├── estilos/
+│       ├── paginas/
+│       ├── servicos/
+│       ├── stores/
+│       └── utils/
 └── docs/prototipo/           # telas do Figma usadas como referência
 ```
 
