@@ -7,11 +7,18 @@ import {
   IconeOlho,
   IconeOlhoCortado,
 } from '../componentes/Icones.jsx';
-import { DICAS, TEXTOS_CADASTRO } from '../constantes/mensagens.js';
+import { DICAS, TEXTOS_CADASTRO, VALIDACAO } from '../constantes/mensagens.js';
 import { ROTAS } from '../constantes/rotas.js';
 import { TAMANHO_MINIMO_SENHA } from '../constantes/validacao.js';
 import { useSessaoStore } from '../stores/index.jsx';
 import { apenasDigitos, formatarCnpj } from '../utils/formatadores.js';
+import {
+  ehCnpjValido,
+  ehEmailValido,
+  ehNomeValido,
+  ehSenhaValida,
+  primeiroErro,
+} from '../utils/validadores.js';
 import '../estilos/auth.css';
 
 const FORMULARIO_VAZIO = { nome: '', cnpj: '', email: '', senha: '' };
@@ -31,6 +38,18 @@ export default observer(function Cadastro() {
 
   async function aoEnviar(evento) {
     evento.preventDefault();
+    // Valida na tela para avisar na hora; o servidor valida de novo.
+    const problema = primeiroErro([
+      [ehNomeValido(form.nome), VALIDACAO.NOME],
+      [ehCnpjValido(form.cnpj), VALIDACAO.CNPJ],
+      [ehEmailValido(form.email), VALIDACAO.EMAIL],
+      [ehSenhaValida(form.senha), VALIDACAO.SENHA_CURTA],
+    ]);
+    if (problema) {
+      setErro(problema);
+      return;
+    }
+
     setErro('');
     setEnviando(true);
     try {
@@ -143,7 +162,7 @@ export default observer(function Cadastro() {
               <small className="campo__ajuda">Mínimo de {TAMANHO_MINIMO_SENHA} caracteres.</small>
             </div>
 
-            <button className="botao botao--claro" type="submit" disabled={enviando}>
+            <button className="auth-botao auth-botao--claro" type="submit" disabled={enviando}>
               {enviando ? TEXTOS_CADASTRO.BOTAO_ENVIANDO : TEXTOS_CADASTRO.BOTAO}
             </button>
           </form>

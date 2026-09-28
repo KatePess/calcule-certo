@@ -8,9 +8,10 @@ import {
   IconeOlhoCortado,
   IconePessoa,
 } from '../componentes/Icones.jsx';
-import { DICAS, MENSAGENS, TEXTOS_LOGIN } from '../constantes/mensagens.js';
+import { DICAS, MENSAGENS, TEXTOS_LOGIN, VALIDACAO } from '../constantes/mensagens.js';
 import { ROTAS } from '../constantes/rotas.js';
 import { useSessaoStore } from '../stores/index.jsx';
+import { ehEmailValido, estaPreenchido, primeiroErro } from '../utils/validadores.js';
 import '../estilos/auth.css';
 
 export default observer(function Login() {
@@ -26,6 +27,16 @@ export default observer(function Login() {
 
   async function aoEnviar(evento) {
     evento.preventDefault();
+    // Valida na tela para avisar na hora; o servidor valida de novo.
+    const problema = primeiroErro([
+      [ehEmailValido(email), VALIDACAO.EMAIL],
+      [estaPreenchido(senha), VALIDACAO.SENHA_VAZIA],
+    ]);
+    if (problema) {
+      setErro(problema);
+      return;
+    }
+
     setErro('');
     setEnviando(true);
     try {
@@ -56,6 +67,11 @@ export default observer(function Login() {
             {erro && (
               <p className="aviso-erro" role="alert">
                 {erro}
+              </p>
+            )}
+            {!erro && sessao.aviso && (
+              <p className="aviso-info" role="status">
+                {sessao.aviso}
               </p>
             )}
 
@@ -124,7 +140,7 @@ export default observer(function Login() {
               </button>
             </div>
 
-            <button className="botao" type="submit" disabled={enviando}>
+            <button className="auth-botao" type="submit" disabled={enviando}>
               {enviando ? TEXTOS_LOGIN.BOTAO_ENVIANDO : TEXTOS_LOGIN.BOTAO}
             </button>
           </form>

@@ -5,4 +5,8 @@ export const ROTAS = {
   LOGIN: '/login',
   CADASTRO: '/cadastro',
   HOME: '/home',
+  ORCAMENTO: '/orcamento',
+  RELATORIOS: '/relatorios',
+  PERFIL: '/perfil',
+  RESUMO: '/resumo',
 };

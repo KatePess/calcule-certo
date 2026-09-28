@@ -122,6 +122,9 @@ npm run db:setup
 npm run dev
 ```
 
+O `db:setup` aplica as migrações do banco e cria os dados de demonstração.
+Pode rodar quantas vezes quiser: ele nunca duplica nada.
+
 A API sobe em http://localhost:3001
 
 ### 3. Subir o front-end
@@ -136,11 +139,45 @@ npm run dev
 
 A aplicação abre em http://localhost:5173
 
+### Depois de baixar uma versão nova do código
+
+Se a atualização trouxe tabelas novas, aplique as migrações pendentes:
+
+```bash
+cd backend
+npm run migrar
+```
+
 ### Usuário de demonstração
 
 | E-mail | Senha |
 |---|---|
 | kate@calculecerto.com | calcule123 |
+
+## Testes
+
+```bash
+cd backend
+npm test
+```
+
+Os testes usam um banco **separado** (`calcule_certo_teste`), criado
+automaticamente. Eles se recusam a rodar em qualquer banco cujo nome não
+termine em `_teste`, para nunca apagar os dados de desenvolvimento.
+
+## Problemas comuns
+
+| Sintoma | Causa | Solução |
+|---|---|---|
+| Login responde **erro 500** e o log da API mostra `ECONNREFUSED 127.0.0.1:5432` | O Docker Desktop está fechado, então o banco não subiu | Abra o Docker Desktop e rode `docker compose up -d` |
+| `npm run dev` falha com `EADDRINUSE: address already in use :::3001` | Um servidor antigo continua rodando em segundo plano | Encerre o processo (comando abaixo) e rode de novo |
+| O terminal "trava" depois de `npm run dev` | Não travou: o servidor fica ocupando aquele terminal | Deixe-o aberto e use outro terminal; para parar, `Ctrl+C` |
+
+Para liberar a porta 3001 no Windows (PowerShell):
+
+```powershell
+Get-NetTCPConnection -State Listen -LocalPort 3001 | ForEach-Object { Stop-Process -Id $_.OwningProcess -Force }
+```
 
 ## Endpoints da API
 
@@ -149,6 +186,10 @@ A aplicação abre em http://localhost:5173
 | POST | `/api/auth/cadastrar` | Cria uma conta e já devolve o token |
 | POST | `/api/auth/login` | Autentica e devolve o token |
 | GET | `/api/auth/eu` | Dados do usuário logado (exige token) |
+| GET | `/api/licitacoes` | Lista paginada, com filtro por status e busca |
+| POST | `/api/licitacoes` | Cadastra licitação |
+| GET, PUT, DELETE | `/api/licitacoes/:id` | Consulta, edita e exclui |
+| PATCH | `/api/licitacoes/:id/status` | Muda o status |
 | GET | `/api/saude` | Verificação de que a API está no ar |
 
 ## Próximas sprints

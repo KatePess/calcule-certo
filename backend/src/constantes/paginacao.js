@@ -1,0 +1,2 @@
+export const TAMANHO_PAGINA_PADRAO = 10;
+export const TAMANHO_PAGINA_MAXIMO = 50;

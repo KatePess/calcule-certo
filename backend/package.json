@@ -1,13 +1,15 @@
 {
   "name": "calcule-certo-backend",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
-  "description": "API do Calcule Certo - autenticacao de usuarios",
+  "description": "API do Calcule Certo",
   "scripts": {
     "dev": "node --watch src/server.js",
     "start": "node src/server.js",
-    "db:setup": "node src/scripts/setup-db.js"
+    "migrar": "node src/scripts/migrar.js",
+    "db:setup": "node src/scripts/setup-db.js",
+    "test": "node --env-file=.env.teste --test --test-concurrency=1"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

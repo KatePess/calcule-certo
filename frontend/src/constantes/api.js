@@ -6,9 +6,20 @@ export const ENDPOINTS = {
   CADASTRAR: '/auth/cadastrar',
   LOGIN: '/auth/login',
   USUARIO_LOGADO: '/auth/eu',
+  LICITACOES: '/licitacoes',
+  licitacao: (id) => `/licitacoes/${id}`,
+  statusLicitacao: (id) => `/licitacoes/${id}/status`,
 };
 
 export const METODOS = {
   GET: 'GET',
   POST: 'POST',
+  PUT: 'PUT',
+  PATCH: 'PATCH',
+  DELETE: 'DELETE',
+};
+
+export const STATUS_HTTP = {
+  SEM_CONTEUDO: 204,
+  NAO_AUTORIZADO: 401,
 };

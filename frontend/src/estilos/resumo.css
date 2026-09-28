@@ -1,0 +1,21 @@
+/* Resumo do sistema: a tabela usa os estilos compartilhados de componentes.css.
+   Aqui ficam so os ajustes para caber numa tela de celular (375 px). */
+@media (max-width: 640px) {
+  .tabela th,
+  .tabela td {
+    padding: 10px 8px;
+  }
+
+  .tabela .etiqueta {
+    white-space: normal;
+  }
+
+  .tabela__principal {
+    min-width: 130px;
+  }
+
+  .botao-status {
+    width: 44px;
+    height: 40px;
+  }
+}

@@ -21,3 +21,11 @@ export function ehSenhaValida(senha) {
 export function ehCnpjValido(digitosCnpj) {
   return digitosCnpj.length === 0 || digitosCnpj.length === QUANTIDADE_DIGITOS_CNPJ;
 }
+
+// Data no formato AAAA-MM-DD que exista no calendario (recusa 2026-02-30).
+export function ehDataValida(texto) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(texto)) return false;
+  const [ano, mes, dia] = texto.split('-').map(Number);
+  const data = new Date(Date.UTC(ano, mes - 1, dia));
+  return data.getUTCFullYear() === ano && data.getUTCMonth() === mes - 1 && data.getUTCDate() === dia;
+}

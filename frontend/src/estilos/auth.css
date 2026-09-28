@@ -237,7 +237,7 @@
 }
 
 /* ---------- Botoes ---------- */
-.botao {
+.auth-botao {
   width: 100%;
   padding: 13px 18px;
   font-size: 0.98rem;
@@ -249,34 +249,21 @@
   transition: filter 0.15s, opacity 0.15s;
 }
 
-.botao:hover:not(:disabled) {
+.auth-botao:hover:not(:disabled) {
   filter: brightness(1.07);
 }
 
-.botao:disabled {
+.auth-botao:disabled {
   opacity: 0.65;
   cursor: progress;
 }
 
-.botao--claro {
+.auth-botao--claro {
   color: var(--azul);
   background: #fff;
 }
 
-/* ---------- Aviso de erro ---------- */
-.aviso-erro {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  margin-bottom: 16px;
-  padding: 11px 13px;
-  font-size: 0.86rem;
-  color: var(--erro);
-  background: var(--erro-fundo);
-  border: 1px solid #f5c6c0;
-  border-radius: var(--raio);
-}
-
+/* ---------- Aviso de erro (base em global.css) ---------- */
 .auth-lado--destaque .aviso-erro {
   color: #7a1f16;
 }

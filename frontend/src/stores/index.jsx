@@ -1,11 +1,18 @@
 import { createContext, useContext } from 'react';
+import { LicitacaoStore } from './LicitacaoStore.js';
 import { SessaoStore } from './SessaoStore.js';
 
-// Reune todas as stores da aplicacao. Novas stores (orcamento, relatorios)
-// entram aqui nas proximas sprints.
+// Reune todas as stores da aplicacao.
 export class RaizStore {
   constructor() {
-    this.sessao = new SessaoStore();
+    this.licitacoes = new LicitacaoStore();
+    // Quando a sessao termina, os dados do usuario anterior sao apagados,
+    // para que a proxima pessoa a entrar nao os veja.
+    this.sessao = new SessaoStore(() => this.limparDadosDoUsuario());
+  }
+
+  limparDadosDoUsuario() {
+    this.licitacoes.limpar();
   }
 }
 
@@ -20,7 +27,11 @@ export function useStores() {
   return useContext(ContextoStore);
 }
 
-// Atalho para a store mais usada.
+// Atalhos para as stores mais usadas.
 export function useSessaoStore() {
   return useStores().sessao;
+}
+
+export function useLicitacaoStore() {
+  return useStores().licitacoes;
 }

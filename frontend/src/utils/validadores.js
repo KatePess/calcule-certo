@@ -23,3 +23,14 @@ export function ehCnpjValido(cnpj) {
   const digitos = apenasDigitos(cnpj);
   return digitos.length === 0 || digitos.length === QUANTIDADE_DIGITOS_CNPJ;
 }
+
+export function estaPreenchido(valor) {
+  return String(valor ?? '').trim().length > 0;
+}
+
+// Recebe pares [regraAtendida, mensagem] e devolve a mensagem da primeira
+// regra nao atendida, ou null se estiver tudo certo.
+export function primeiroErro(regras) {
+  const falha = regras.find(([atendida]) => !atendida);
+  return falha ? falha[1] : null;
+}

@@ -1,5 +1,7 @@
 import { makeAutoObservable, runInAction } from 'mobx';
+import { MENSAGENS } from '../constantes/mensagens.js';
 import { autenticacaoServico } from '../servicos/autenticacaoServico.js';
+import { aoExpirarSessao } from '../servicos/httpCliente.js';
 import { guardarToken, lerToken, limparToken } from '../utils/armazenamento.js';
 
 // Store MobX responsavel pelo estado de autenticacao.
@@ -8,9 +10,14 @@ import { guardarToken, lerToken, limparToken } from '../utils/armazenamento.js';
 export class SessaoStore {
   usuario = null;
   carregando = true;
+  aviso = '';
 
-  constructor() {
-    makeAutoObservable(this);
+  // aoEncerrar: chamado quando a sessao termina, para as outras stores
+  // apagarem os dados do usuario que saiu.
+  constructor(aoEncerrar = () => {}) {
+    this.aoEncerrar = aoEncerrar;
+    makeAutoObservable(this, { aoEncerrar: false });
+    aoExpirarSessao(() => this.encerrar(MENSAGENS.SESSAO_EXPIRADA));
   }
 
   get estaAutenticado() {
@@ -45,6 +52,7 @@ export class SessaoStore {
     guardarToken(token, lembrar);
     runInAction(() => {
       this.usuario = usuario;
+      this.aviso = '';
     });
   }
 
@@ -53,11 +61,18 @@ export class SessaoStore {
     guardarToken(token, false);
     runInAction(() => {
       this.usuario = usuario;
+      this.aviso = '';
     });
   }
 
   sair() {
+    this.encerrar('');
+  }
+
+  encerrar(aviso) {
     limparToken();
     this.usuario = null;
+    this.aviso = aviso;
+    this.aoEncerrar();
   }
 }
