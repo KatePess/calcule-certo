@@ -6,20 +6,21 @@ de empresas privadas que participam de processos de licitação pública.
 Trabalho de Conclusão de Curso — Sistemas de Informação, UniNORTE
 Autora: Kate Pessoa dos Santos · Orientador: Prof. Juan Carlos Justiniano
 
-## Sprint 1 — Autenticação (entrega atual)
+## O que o sistema já faz
 
-Esta primeira entrega implementa o módulo de acesso ao sistema, que corresponde
-aos métodos `cadastrar()` e `autenticar()` da classe `Usuario` no diagrama de
-classes (Apêndice A do TCC).
+| Sprint | Entrega |
+|---|---|
+| 1 | Login e cadastro, senha com hash **bcrypt**, sessão por **JWT** com "Lembrar minha senha" |
+| 2 | Menu lateral, cadastro de licitações (criar, editar, mudar status, excluir) com busca e paginação |
+| 3 | Tela de novo cálculo (Figura C1), motor de cálculo com precisão de centavos e resumo (Figura C2) |
+| 4 | Central de relatórios (Figura C3): filtros, PDF de uma página, editar e excluir — **fecha o MVP** |
+| 5 | Painel inicial com alertas de prazo, taxas salvas para reutilizar e tela de perfil (dados e senha) |
 
-O que está funcionando:
+Tudo com layout responsivo para desktop e celular (requisito não funcional do TCC).
 
-- Tela de login fiel ao protótipo de alta fidelidade feito no Figma
-- Tela de cadastro de novo usuário, com máscara de CNPJ
-- Senhas gravadas com hash **bcrypt** (a senha em texto puro nunca é armazenada)
-- Sessão mantida por **JWT**, com opção "Lembrar minha senha"
-- Rota protegida: a Home só abre com um token válido
-- Layout responsivo para desktop e celular (requisito não funcional do TCC)
+> **Atenção:** a fórmula do cálculo segue a proposta da seção 5 do
+> [plano de implementação](docs/PLANO-DE-IMPLEMENTACAO.md) e ainda precisa ser
+> validada com a empresa parceira (perguntas Q1 a Q5).
 
 ## Tecnologias
 
@@ -31,6 +32,8 @@ Conforme a seção 2.5 do TCC:
 | Back-end | Node.js + Express |
 | Banco de dados | PostgreSQL 16 (via Docker) |
 | Segurança | bcryptjs (hash de senha) + jsonwebtoken (sessão) |
+| Cálculo | decimal.js (contas em centavos exatos, sem erro de ponto flutuante) |
+| PDF | pdfmake (gerado no servidor) |
 
 ## Arquitetura
 
@@ -45,17 +48,22 @@ Uma mudança de regra, de texto ou de banco atinge um arquivo só.
 | `controladores/` | Traduz HTTP em chamada de serviço e vice-versa |
 | `servicos/` | Regras de negócio e validações |
 | `repositorios/` | Único lugar que conhece SQL |
-| `middleware/` | Autenticação por token e tratamento central de erros |
+| `middleware/` | Autenticação por token, validação de id e tratamento central de erros |
 | `constantes/` | Mensagens, códigos HTTP, regras de validação, caminhos |
-| `utils/` | Hash de senha, token, formatação, validadores |
+| `utils/` | Hash de senha, token, dinheiro, datas, formatação, validadores |
 | `config/` | Leitura centralizada do `.env` |
+| `migracoes/` | Arquivos SQL numerados que criam e alteram as tabelas |
+
+O motor de cálculo (`servicos/motorCalculo.js`) é uma função pura: recebe os
+números e devolve o resultado, sem tocar no banco. Isso permite testá-lo
+isoladamente e o servidor sempre recalcula antes de salvar.
 
 **Front-end** — componente → store → serviço → API:
 
 | Camada | Responsabilidade |
 |---|---|
-| `paginas/` | Telas (Login, Cadastro, Home) |
-| `componentes/` | Guardas de rota e ícones |
+| `paginas/` | Telas (Login, Cadastro, Painel, Resumo, Novo cálculo, Relatórios, Perfil) |
+| `componentes/` | Layout (menu e cabeçalho), campos de moeda e percentual, modal, ícones |
 | `stores/` | Estado da aplicação com **MobX** |
 | `servicos/` | Chamadas à API |
 | `constantes/` | Rotas, endpoints, textos, regras de validação |
@@ -64,10 +72,11 @@ Uma mudança de regra, de texto ou de banco atinge um arquivo só.
 
 ### Sobre o MobX
 
-O estado da sessão vive em `stores/SessaoStore.js`. Componentes marcados com
-`observer()` são redesenhados sozinhos quando a store muda — não é preciso
-repassar dados de tela em tela. Novas stores (orçamento, relatórios) entram em
-`stores/index.jsx` nas próximas sprints.
+Cada assunto tem sua store em `stores/`: sessão, licitações, cálculo,
+relatórios, painel e taxas salvas. Todas ficam reunidas em `stores/index.jsx`.
+Componentes marcados com `observer()` são redesenhados sozinhos quando a store
+muda — não é preciso repassar dados de tela em tela. Ao sair da conta, todas as
+stores são limpas.
 
 ## Estrutura de pastas
 
@@ -76,18 +85,21 @@ calcule-certo/
 ├── docker-compose.yml
 ├── backend/
 │   ├── .env                  # configuração local (não vai para o Git)
-│   └── src/
-│       ├── server.js
-│       ├── db.js
-│       ├── config/
-│       ├── constantes/
-│       ├── controladores/
-│       ├── middleware/
-│       ├── repositorios/
-│       ├── rotas/
-│       ├── servicos/
-│       ├── utils/
-│       └── scripts/
+│   ├── src/
+│   │   ├── app.js            # monta o Express e registra as rotas
+│   │   ├── server.js         # só coloca a API no ar
+│   │   ├── db.js
+│   │   ├── config/
+│   │   ├── constantes/
+│   │   ├── controladores/
+│   │   ├── middleware/
+│   │   ├── repositorios/
+│   │   ├── rotas/
+│   │   ├── servicos/
+│   │   ├── utils/
+│   │   ├── migracoes/        # SQL numerado (001, 002, ...)
+│   │   └── scripts/          # migrar e db:setup
+│   └── testes/               # testes do motor e da API
 ├── frontend/
 │   └── src/
 │       ├── main.jsx
@@ -99,7 +111,9 @@ calcule-certo/
 │       ├── servicos/
 │       ├── stores/
 │       └── utils/
-└── docs/prototipo/           # telas do Figma usadas como referência
+└── docs/
+    ├── PLANO-DE-IMPLEMENTACAO.md
+    └── prototipo/            # telas do Figma usadas como referência
 ```
 
 ## Como rodar
@@ -186,6 +200,8 @@ Get-NetTCPConnection -State Listen -LocalPort 3001 | ForEach-Object { Stop-Proce
 | POST | `/api/auth/cadastrar` | Cria uma conta e já devolve o token |
 | POST | `/api/auth/login` | Autentica e devolve o token |
 | GET | `/api/auth/eu` | Dados do usuário logado (exige token) |
+| PUT | `/api/auth/perfil` | Atualiza nome e CNPJ |
+| PUT | `/api/auth/senha` | Troca a senha (exige a senha atual) |
 | GET | `/api/licitacoes` | Lista paginada, com filtro por status e busca |
 | POST | `/api/licitacoes` | Cadastra licitação |
 | GET, PUT, DELETE | `/api/licitacoes/:id` | Consulta, edita e exclui |
@@ -196,12 +212,13 @@ Get-NetTCPConnection -State Listen -LocalPort 3001 | ForEach-Object { Stop-Proce
 | GET | `/api/relatorios` | Lista com filtro por período e licitação |
 | GET | `/api/relatorios/:id/pdf` | Gera e baixa o PDF |
 | DELETE | `/api/relatorios/:id` | Exclui relatório e cálculo |
+| GET, POST | `/api/taxas` | Lista e cadastra taxas salvas |
+| PUT, DELETE | `/api/taxas/:id` | Edita e exclui uma taxa salva |
+| GET | `/api/painel` | Licitações e relatórios recentes e alertas de prazo |
 | GET | `/api/saude` | Verificação de que a API está no ar |
 
 ## Próximas sprints
 
-- Tela de entrada de parâmetros do cálculo (Figura C1 do TCC)
-- Motor de cálculo de custos e margem de lucro
-- Tela de resultado do cálculo (Figura C2 do TCC)
-- Central de relatórios e exportação em PDF (Figura C3 do TCC)
-- Recuperação de senha e login social (Google / LinkedIn)
+- Sprint 6: recuperação de senha por e-mail, revisão de segurança e homologação
+  com a empresa parceira
+- Fora do escopo do TCC: login social (Google / LinkedIn) e busca geral

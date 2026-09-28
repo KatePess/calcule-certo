@@ -21,6 +21,23 @@ export const usuarioRepositorio = {
     return rows[0] ?? null;
   },
 
+  async buscarHashPorId(id) {
+    const { rows } = await consultar('SELECT senha_hash FROM usuarios WHERE id = $1', [id]);
+    return rows[0]?.senha_hash ?? null;
+  },
+
+  async atualizarPerfil(id, { nome, cnpj }) {
+    const { rows } = await consultar(
+      'UPDATE usuarios SET nome = $2, cnpj = $3 WHERE id = $1 RETURNING id, nome, email, cnpj',
+      [id, nome, cnpj || null],
+    );
+    return rows[0] ?? null;
+  },
+
+  async atualizarSenha(id, senhaHash, cliente) {
+    await consultar('UPDATE usuarios SET senha_hash = $2 WHERE id = $1', [id, senhaHash], cliente);
+  },
+
   async buscarPorId(id) {
     const { rows } = await consultar(
       'SELECT id, nome, email, cnpj FROM usuarios WHERE id = $1',

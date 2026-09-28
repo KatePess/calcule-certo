@@ -85,6 +85,22 @@ export const licitacaoRepositorio = {
     return rowCount > 0;
   },
 
+  // Alertas do painel: licitacoes ainda em aberto cuja data de abertura cai
+  // entre "desde" e "ate" (datas AAAA-MM-DD), das mais proximas as mais distantes.
+  async listarComAberturaEntre({ usuarioId, desde, ate, statusIgnorados, limite }) {
+    const { rows } = await consultar(
+      `SELECT ${COLUNAS}
+         FROM licitacoes l
+        WHERE l.usuario_id = $1
+          AND l.data_abertura BETWEEN $2 AND $3
+          AND l.status <> ALL($4)
+        ORDER BY l.data_abertura, l.id
+        LIMIT $5`,
+      [usuarioId, desde, ate, statusIgnorados, limite],
+    );
+    return rows;
+  },
+
   // Registra atividade na licitacao (ex.: novo calculo), para ela subir nas
   // listas ordenadas pela mais recente.
   async registrarAtividade(id, cliente) {

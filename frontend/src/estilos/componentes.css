@@ -239,6 +239,75 @@ select:focus-visible {
   color: var(--tinta-fraca);
 }
 
+/* ---------- Campos de moeda e percentual (CampoMoeda, CampoPercentual) ---------- */
+.campo-calculo {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+
+.campo-calculo label {
+  font-size: 0.78rem;
+  color: var(--tinta);
+}
+
+.campo-calculo__caixa {
+  display: flex;
+  align-items: center;
+  background: var(--branco);
+  border: 1px solid transparent;
+  border-radius: 6px;
+}
+
+.campo-calculo__caixa:focus-within {
+  border-color: var(--azul);
+  box-shadow: 0 0 0 3px rgba(47, 123, 255, 0.15);
+}
+
+.campo-calculo__caixa input {
+  flex: 1;
+  min-width: 0;
+  padding: 9px 12px;
+  font-size: 0.95rem;
+  color: var(--tinta);
+  background: none;
+  border: none;
+}
+
+.campo-calculo__caixa input:focus {
+  outline: none;
+}
+
+/* Melhoria do estudo de caso: diferenciar valor preenchido de placeholder. */
+.campo-calculo__caixa input::placeholder {
+  color: #aab2bf;
+  font-style: italic;
+}
+
+.campo-calculo__caixa:has(input:not(:placeholder-shown)) {
+  border-color: #9cc2ff;
+}
+
+.campo-calculo__caixa input:not(:placeholder-shown) {
+  font-weight: 600;
+}
+
+.campo-calculo__marca {
+  padding-left: 12px;
+  font-size: 0.85rem;
+  color: var(--tinta-fraca);
+}
+
+.campo-calculo__marca--fim {
+  padding: 0 12px 0 0;
+}
+
+.campo-calculo__ajuda {
+  font-size: 0.72rem;
+  color: var(--tinta-suave);
+}
+
 /* ---------- Modal ---------- */
 .modal {
   position: fixed;

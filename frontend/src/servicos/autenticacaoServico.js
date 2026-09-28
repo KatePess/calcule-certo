@@ -20,4 +20,12 @@ export const autenticacaoServico = {
   usuarioLogado() {
     return requisitar(ENDPOINTS.USUARIO_LOGADO, { autenticado: true });
   },
+
+  atualizarPerfil(dados) {
+    return requisitar(ENDPOINTS.PERFIL, { metodo: METODOS.PUT, corpo: dados, autenticado: true });
+  },
+
+  trocarSenha(senhaAtual, novaSenha) {
+    return requisitar(ENDPOINTS.SENHA, { metodo: METODOS.PUT, corpo: { senhaAtual, novaSenha }, autenticado: true });
+  },
 };

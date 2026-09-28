@@ -44,22 +44,36 @@ export class CalculoStore {
 
   alterar(campo, valor) {
     this.form[campo] = valor;
+    this.descartarResultado();
   }
 
   selecionarLicitacao(id) {
     this.licitacaoId = id ? String(id) : '';
+    this.descartarResultado();
   }
 
   adicionarTaxa(nome = '', percentual = '') {
     this.taxasAdicionais.push({ nome, percentual });
+    this.descartarResultado();
   }
 
   alterarTaxa(indice, campo, valor) {
     this.taxasAdicionais[indice][campo] = valor;
+    this.descartarResultado();
   }
 
   removerTaxa(indice) {
     this.taxasAdicionais.splice(indice, 1);
+    this.descartarResultado();
+  }
+
+  // O resumo so vale para os dados de quando a pessoa clicou em Confirmar.
+  // Se algo muda depois, ele sai da tela; sem isso, "Salvar em Relatorios"
+  // gravaria valores diferentes dos que ela viu.
+  descartarResultado() {
+    this.resultado = null;
+    this.avisos = [];
+    this.erroResumo = '';
   }
 
   // Antecipa na tela os erros mais comuns; o servidor valida tudo de novo.
@@ -153,9 +167,7 @@ export class CalculoStore {
 
   // "Atualizar calculo" (Figura C2): fecha o resumo e volta ao formulario.
   voltarParaEdicao() {
-    this.resultado = null;
-    this.avisos = [];
-    this.erroResumo = '';
+    this.descartarResultado();
   }
 
   // "Salvar em Relatorios" (Figura C2). O servidor recalcula antes de gravar.

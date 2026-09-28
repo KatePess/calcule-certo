@@ -79,6 +79,8 @@ export default observer(function Relatorios() {
 
   return (
     <section className="pagina">
+      {/* No layout o titulo visivel e a trilha abaixo; o h1 fica para leitores de tela. */}
+      <h1 className="visualmente-oculto">{TEXTOS_RELATORIOS.TITULO}</h1>
       <nav className="migalhas" aria-label="Você está em">
         <Link to={ROTAS.HOME}>
           <IconeCasa tamanho={16} /> Home

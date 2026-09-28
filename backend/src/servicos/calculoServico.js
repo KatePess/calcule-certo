@@ -7,41 +7,14 @@ import { licitacaoRepositorio } from '../repositorios/licitacaoRepositorio.js';
 import { relatorioRepositorio } from '../repositorios/relatorioRepositorio.js';
 import { ErroDeAplicacao } from '../utils/ErroDeAplicacao.js';
 import { Dec, ZERO, emTextoMonetario, emTextoPercentual } from '../utils/dinheiro.js';
+import { lerDinheiro, lerPercentual, lerTexto } from '../utils/entradaNumerica.js';
 import { textoLimpo } from '../utils/formatadores.js';
 import { calcular, compararComOrcamento } from './motorCalculo.js';
 
-// Formatos aceitos na API: ponto como separador decimal, sem milhar.
-// A tela converte "1.234,56" para "1234.56" antes de enviar.
-const FORMATO_DINHEIRO = /^\d{1,12}(\.\d{1,2})?$/;
-const FORMATO_PERCENTUAL = /^\d{1,3}(\.\d{1,4})?$/;
 const FORMATO_QUANTIDADE = /^\d{1,7}$/;
 
 function invalido(mensagem) {
   return new ErroDeAplicacao(mensagem, STATUS.REQUISICAO_INVALIDA);
-}
-
-function lerTexto(valor) {
-  return valor === undefined || valor === null ? '' : String(valor).trim();
-}
-
-function lerDinheiro(dados, campo, { obrigatorio = true } = {}) {
-  const rotulo = ROTULOS_CAMPOS[campo];
-  const texto = lerTexto(dados?.[campo]);
-  if (texto === '') {
-    if (obrigatorio) throw invalido(ERROS.CALCULO_CAMPO_OBRIGATORIO(rotulo));
-    return null;
-  }
-  if (texto.startsWith('-')) throw invalido(ERROS.CALCULO_VALOR_NEGATIVO(rotulo));
-  if (!FORMATO_DINHEIRO.test(texto)) throw invalido(ERROS.CALCULO_VALOR_INVALIDO(rotulo));
-  return new Dec(texto);
-}
-
-function lerPercentual(valor, rotulo) {
-  const texto = lerTexto(valor);
-  if (texto === '') throw invalido(ERROS.CALCULO_CAMPO_OBRIGATORIO(rotulo));
-  if (texto.startsWith('-')) throw invalido(ERROS.CALCULO_PERCENTUAL_FORA(rotulo));
-  if (!FORMATO_PERCENTUAL.test(texto)) throw invalido(ERROS.CALCULO_PERCENTUAL_INVALIDO(rotulo));
-  return new Dec(texto);
 }
 
 function lerQuantidade(valor) {
@@ -65,11 +38,11 @@ function lerTaxasAdicionais(lista) {
 // FORMATO; as regras (soma < 100%, custo > 0...) ficam no motor.
 export function lerEntrada(dados) {
   return {
-    orcamentoEmpresa: lerDinheiro(dados, 'orcamentoEmpresa', { obrigatorio: false }),
+    orcamentoEmpresa: lerDinheiro(dados?.orcamentoEmpresa, ROTULOS_CAMPOS.orcamentoEmpresa, { obrigatorio: false }),
     quantidadeItens: lerQuantidade(dados?.quantidadeItens),
-    custoFixo: lerDinheiro(dados, 'custoFixo'),
-    custoVariavel: lerDinheiro(dados, 'custoVariavel'),
-    seguro: lerDinheiro(dados, 'seguro', { obrigatorio: false }) ?? ZERO,
+    custoFixo: lerDinheiro(dados?.custoFixo, ROTULOS_CAMPOS.custoFixo),
+    custoVariavel: lerDinheiro(dados?.custoVariavel, ROTULOS_CAMPOS.custoVariavel),
+    seguro: lerDinheiro(dados?.seguro, ROTULOS_CAMPOS.seguro, { obrigatorio: false }) ?? ZERO,
     taxaPlataforma: lerPercentual(dados?.taxaPlataforma, ROTULOS_CAMPOS.taxaPlataforma),
     comissaoTerceiros: lerPercentual(dados?.comissaoTerceiros, ROTULOS_CAMPOS.comissaoTerceiros),
     margemLucro: lerPercentual(dados?.margemLucro, ROTULOS_CAMPOS.margemLucro),

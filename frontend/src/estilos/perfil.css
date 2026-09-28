@@ -1,0 +1,90 @@
+/* Tela de perfil: dados, senha e taxas salvas. */
+.perfil {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 16px;
+}
+
+.perfil__taxas {
+  grid-column: 1 / -1;
+}
+
+.perfil__legenda {
+  margin: 0 0 14px;
+  font-size: 0.88rem;
+  color: var(--tinta-suave);
+}
+
+.formulario__campo input:disabled {
+  color: var(--tinta-suave);
+  background: var(--papel);
+}
+
+.taxas {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 0 14px;
+  padding: 0;
+  list-style: none;
+}
+
+.taxa {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto auto;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--azul-bloco);
+  border-radius: 8px;
+}
+
+.taxa > div {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.taxa__nome {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.taxa small {
+  font-size: 0.78rem;
+  color: var(--tinta-suave);
+}
+
+.taxa-form {
+  padding: 14px;
+  background: var(--papel);
+  border: 1px solid var(--linha);
+  border-radius: 10px;
+}
+
+.taxa-form__campos {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+}
+
+.taxa-form .campo-calculo__caixa {
+  border: 1px solid var(--linha);
+  border-radius: 8px;
+}
+
+.taxa-form__acoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+@media (max-width: 900px) {
+  .perfil,
+  .taxa-form__campos {
+    grid-template-columns: 1fr;
+  }
+}

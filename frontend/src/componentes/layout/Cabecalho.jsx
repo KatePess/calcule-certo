@@ -1,14 +1,23 @@
 import { observer } from 'mobx-react-lite';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { DICAS } from '../../constantes/mensagens.js';
-import { useSessaoStore } from '../../stores/index.jsx';
+import { ROTAS } from '../../constantes/rotas.js';
+import { usePainelStore, useSessaoStore } from '../../stores/index.jsx';
 import { iniciais } from '../../utils/formatadores.js';
-import { IconeAjuda, IconeBusca, IconeMenu } from '../Icones.jsx';
+import { IconeAjuda, IconeBusca, IconeMenu, IconeSino } from '../Icones.jsx';
 import Modal from '../Modal.jsx';
 
 export default observer(function Cabecalho({ aoAbrirMenu }) {
   const sessao = useSessaoStore();
+  const painel = usePainelStore();
   const [ajudaAberta, setAjudaAberta] = useState(false);
+  const totalAlertas = painel.alertas.length;
+
+  // Os alertas de prazo alimentam o contador do sino.
+  useEffect(() => {
+    painel.carregarSeNecessario();
+  }, [painel]);
 
   return (
     <header className="cabecalho">
@@ -26,6 +35,15 @@ export default observer(function Cabecalho({ aoAbrirMenu }) {
         <button type="button" className="cabecalho__icone" aria-label="Ajuda" onClick={() => setAjudaAberta(true)}>
           <IconeAjuda tamanho={22} />
         </button>
+        <Link
+          to={`${ROTAS.HOME}#alertas`}
+          className="cabecalho__icone"
+          aria-label={totalAlertas ? `${totalAlertas} alertas de prazo` : 'Nenhum alerta de prazo'}
+          title={totalAlertas ? `${totalAlertas} licitação(ões) abrindo nos próximos 7 dias` : 'Nenhum alerta de prazo'}
+        >
+          <IconeSino tamanho={22} />
+          {totalAlertas > 0 && <span className="cabecalho__contador">{totalAlertas}</span>}
+        </Link>
         <span className="cabecalho__avatar" title={sessao.usuario?.nome}>
           {iniciais(sessao.usuario?.nome)}
         </span>

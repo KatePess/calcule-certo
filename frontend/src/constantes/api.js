@@ -15,6 +15,11 @@ export const ENDPOINTS = {
   RELATORIOS: '/relatorios',
   relatorio: (id) => `/relatorios/${id}`,
   pdfRelatorio: (id) => `/relatorios/${id}/pdf`,
+  TAXAS: '/taxas',
+  taxa: (id) => `/taxas/${id}`,
+  PAINEL: '/painel',
+  PERFIL: '/auth/perfil',
+  SENHA: '/auth/senha',
 };
 
 export const METODOS = {

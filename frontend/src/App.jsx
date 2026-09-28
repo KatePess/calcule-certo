@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import EmConstrucao from './componentes/EmConstrucao.jsx';
 import LayoutInterno from './componentes/layout/LayoutInterno.jsx';
 import RotaProtegida from './componentes/RotaProtegida.jsx';
 import SomenteVisitante from './componentes/SomenteVisitante.jsx';
 import { ROTAS } from './constantes/rotas.js';
 import Cadastro from './paginas/Cadastro.jsx';
-import Home from './paginas/Home.jsx';
 import Login from './paginas/Login.jsx';
 import NovoCalculo from './paginas/NovoCalculo.jsx';
+import Painel from './paginas/Painel.jsx';
+import Perfil from './paginas/Perfil.jsx';
 import Relatorios from './paginas/Relatorios.jsx';
 import ResumoSistema from './paginas/ResumoSistema.jsx';
 import { useSessaoStore } from './stores/index.jsx';
@@ -49,11 +49,11 @@ export default function App() {
           </RotaProtegida>
         }
       >
-        <Route path={ROTAS.HOME} element={<Home />} />
+        <Route path={ROTAS.HOME} element={<Painel />} />
         <Route path={ROTAS.ORCAMENTO} element={<NovoCalculo />} />
         <Route path={`${ROTAS.ORCAMENTO}/:calculoId`} element={<NovoCalculo />} />
         <Route path={ROTAS.RELATORIOS} element={<Relatorios />} />
-        <Route path={ROTAS.PERFIL} element={<EmConstrucao titulo="Perfil" sprint={5} />} />
+        <Route path={ROTAS.PERFIL} element={<Perfil />} />
         <Route path={ROTAS.RESUMO} element={<ResumoSistema />} />
       </Route>
 

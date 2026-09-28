@@ -109,6 +109,40 @@ export const TEXTOS_RELATORIOS = {
     `O cálculo da licitação ${numero} feito em ${data} será excluído. Esta ação não pode ser desfeita.`,
 };
 
+export const TEXTOS_PAINEL = {
+  LEGENDA: 'Acompanhe por aqui o status das suas atividades',
+  NOVO_CALCULO: 'Gerar novo cálculo de licitação',
+  LICITACOES: 'Minhas licitações',
+  SEM_LICITACOES: 'Nenhuma licitação cadastrada ainda.',
+  VER_TODAS: 'Ver todas',
+  RELATORIOS: 'Relatórios recentes',
+  SEM_RELATORIOS: 'Os relatórios dos cálculos salvos aparecem aqui.',
+  ALERTAS: 'Alertas e prazos',
+  SEM_ALERTAS: 'Nenhuma licitação abre nos próximos 7 dias.',
+  quandoAbre: (dias) => (dias === 0 ? 'abre hoje' : dias === 1 ? 'abre amanhã' : `abre em ${dias} dias`),
+  calculos: (n) => (n === 1 ? '1 cálculo' : `${n} cálculos`),
+};
+
+export const TEXTOS_PERFIL = {
+  TITULO: 'Perfil',
+  DADOS: 'Meus dados',
+  SALVAR_DADOS: 'Salvar dados',
+  DADOS_SALVOS: 'Dados atualizados.',
+  SENHA: 'Trocar senha',
+  SENHA_ATUAL: 'Senha atual',
+  NOVA_SENHA: 'Nova senha',
+  CONFIRMAR_SENHA: 'Repita a nova senha',
+  SALVAR_SENHA: 'Trocar senha',
+  SENHA_TROCADA: 'Senha alterada. Use a nova senha no próximo login.',
+  SENHAS_DIFERENTES: 'A confirmação não é igual à nova senha.',
+  TAXAS: 'Taxas salvas',
+  TAXAS_LEGENDA: 'Salve as taxas que você usa com frequência para preenchê-las com um clique na tela de cálculo.',
+  SEM_TAXAS: 'Nenhuma taxa salva ainda.',
+  NOVA_TAXA: 'Nova taxa',
+  NOME_TAXA_VAZIO: 'Informe o nome da taxa.',
+  PERCENTUAL_VAZIO: 'Informe o percentual da taxa.',
+};
+
 export const DICAS = {
   LOGIN_SOCIAL: 'Login social previsto para uma sprint futura',
   RECUPERAR_SENHA: 'Recuperação de senha prevista para a próxima sprint',

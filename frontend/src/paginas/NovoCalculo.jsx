@@ -7,16 +7,21 @@ import { IconeCartao, IconeCasa, IconeCheck, IconeChevron, IconeResumo } from '.
 import Modal from '../componentes/Modal.jsx';
 import ResumoCalculo from '../componentes/ResumoCalculo.jsx';
 import SeletorLicitacao from '../componentes/SeletorLicitacao.jsx';
+import SeletorTaxaSalva from '../componentes/SeletorTaxaSalva.jsx';
+import TaxasAdicionais from '../componentes/TaxasAdicionais.jsx';
 import { ROTULOS_CALCULO } from '../constantes/calculo.js';
 import { TEXTOS_CALCULO } from '../constantes/mensagens.js';
 import { ROTAS } from '../constantes/rotas.js';
-import { useCalculoStore } from '../stores/index.jsx';
+import { TIPOS_TAXA } from '../constantes/taxa.js';
+import { useCalculoStore, useTaxaStore } from '../stores/index.jsx';
 import { formatarDataLocal } from '../utils/datas.js';
+import { apiParaPercentual } from '../utils/moeda.js';
 import '../estilos/calculo.css';
 
 // Figura C1 (formulario) + Figura C2 (modal de resumo) do TCC.
 export default observer(function NovoCalculo() {
   const calculo = useCalculoStore();
+  const taxas = useTaxaStore();
   const navegar = useNavigate();
   const { calculoId } = useParams();
   const { form } = calculo;
@@ -24,7 +29,19 @@ export default observer(function NovoCalculo() {
 
   useEffect(() => {
     calculo.carregarLicitacoes();
-  }, [calculo]);
+    taxas.carregarSeNecessario();
+  }, [calculo, taxas]);
+
+  // Preenche o campo com uma taxa salva no Perfil.
+  function usarTaxaSalva(campo, tipo) {
+    return (
+      <SeletorTaxaSalva
+        tipo={tipo}
+        descricao={`Usar taxa salva em ${ROTULOS_CALCULO[campo]}`}
+        aoEscolher={(taxa) => calculo.alterar(campo, apiParaPercentual(taxa.percentual))}
+      />
+    );
+  }
 
   // /orcamento/:calculoId = refazer a partir de um relatorio;
   // /orcamento = calculo novo (descarta uma edicao que estava aberta).
@@ -132,10 +149,11 @@ export default observer(function NovoCalculo() {
               <IconeResumo tamanho={22} />
               {TEXTOS_CALCULO.BLOCO_PARAMETROS}
             </h2>
-            {campoPercentual('taxaPlataforma', { placeholder: 'Ex.: 5' })}
+            {campoPercentual('taxaPlataforma', { placeholder: 'Ex.: 5', acessorio: usarTaxaSalva('taxaPlataforma', TIPOS_TAXA.PLATAFORMA) })}
             {campoMoeda('seguro', { ajuda: 'Opcional. Valor em reais somado ao custo.' })}
-            {campoPercentual('comissaoTerceiros', { placeholder: 'Ex.: 10' })}
+            {campoPercentual('comissaoTerceiros', { placeholder: 'Ex.: 10', acessorio: usarTaxaSalva('comissaoTerceiros', TIPOS_TAXA.COMISSAO) })}
             {campoPercentual('margemLucro', { placeholder: 'Ex.: 10' })}
+            <TaxasAdicionais />
           </section>
         </div>
 

@@ -15,6 +15,9 @@ export const ERROS = {
   FALHA_CADASTRO: 'Não foi possível concluir o cadastro.',
   FALHA_LOGIN: 'Não foi possível entrar agora. Tente novamente.',
   USUARIO_NAO_ENCONTRADO: 'Usuário não encontrado.',
+  SENHA_ATUAL_INCORRETA: 'A senha atual está incorreta.',
+  SENHA_ATUAL_VAZIA: 'Informe a senha atual.',
+  SENHA_NOVA_IGUAL: 'A nova senha precisa ser diferente da atual.',
   TOKEN_AUSENTE: 'Token de acesso não enviado.',
   TOKEN_INVALIDO: 'Sessão expirada ou token inválido.',
   ROTA_NAO_ENCONTRADA: 'Rota não encontrada.',
@@ -49,6 +52,12 @@ export const ERROS = {
   CALCULO_ACIMA_LIMITE: 'O valor calculado passa do limite suportado. Revise os custos e percentuais.',
   CALCULO_TAXAS_ADICIONAIS: `Informe no máximo ${TAXAS_ADICIONAIS_MAXIMO} taxas adicionais, cada uma com nome e percentual.`,
   CALCULO_NOME_TAXA: `O nome de cada taxa adicional deve ter entre 1 e ${TAMANHO_MAXIMO_NOME_TAXA} caracteres.`,
+
+  TAXA_NAO_ENCONTRADA: 'Taxa não encontrada.',
+  TAXA_NOME: `Informe o nome da taxa (até ${TAMANHO_MAXIMO_NOME_TAXA} caracteres).`,
+  TAXA_TIPO_INVALIDO: 'Escolha se a taxa é da plataforma, uma comissão ou uma taxa adicional.',
+  TAXA_DUPLICADA: 'Você já tem uma taxa salva com este nome.',
+  TAXA_LIMITE: 'Você atingiu o limite de taxas salvas. Exclua alguma para cadastrar outra.',
 };
 
 // Avisos nao bloqueiam a operacao: so pedem atencao.

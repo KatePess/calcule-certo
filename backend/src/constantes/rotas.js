@@ -5,6 +5,8 @@ export const CAMINHOS = {
   LICITACOES: '/api/licitacoes',
   CALCULOS: '/api/calculos',
   RELATORIOS: '/api/relatorios',
+  TAXAS: '/api/taxas',
+  PAINEL: '/api/painel',
 };
 
 export const CAMINHOS_CALCULO = {
@@ -19,6 +21,8 @@ export const CAMINHOS_AUTH = {
   CADASTRAR: '/cadastrar',
   LOGIN: '/login',
   USUARIO_LOGADO: '/eu',
+  PERFIL: '/perfil',
+  SENHA: '/senha',
 };
 
 // Padrao usado pelos modulos de cadastro (licitacoes, taxas...).

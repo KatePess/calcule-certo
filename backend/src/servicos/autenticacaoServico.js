@@ -71,6 +71,33 @@ export const autenticacaoServico = {
     return { usuario: usuarioPublico(usuario), token: gerarToken(usuario) };
   },
 
+  async atualizarPerfil(usuarioId, dados) {
+    const nome = textoLimpo(dados?.nome);
+    const cnpj = apenasDigitos(dados?.cnpj);
+    if (!ehNomeValido(nome)) throw new ErroDeAplicacao(ERROS.NOME_INVALIDO, STATUS.REQUISICAO_INVALIDA);
+    if (!ehCnpjValido(cnpj)) throw new ErroDeAplicacao(ERROS.CNPJ_INVALIDO, STATUS.REQUISICAO_INVALIDA);
+
+    const usuario = await usuarioRepositorio.atualizarPerfil(usuarioId, { nome, cnpj });
+    if (!usuario) throw new ErroDeAplicacao(ERROS.USUARIO_NAO_ENCONTRADO, STATUS.NAO_ENCONTRADO);
+    return usuarioPublico(usuario);
+  },
+
+  // Exige a senha atual: quem pegou um computador com a sessao aberta nao
+  // consegue trocar a senha da pessoa.
+  async trocarSenha(usuarioId, dados) {
+    const senhaAtual = String(dados?.senhaAtual ?? '');
+    const novaSenha = String(dados?.novaSenha ?? '');
+    if (!senhaAtual) throw new ErroDeAplicacao(ERROS.SENHA_ATUAL_VAZIA, STATUS.REQUISICAO_INVALIDA);
+    if (!ehSenhaValida(novaSenha)) throw new ErroDeAplicacao(ERROS.SENHA_CURTA, STATUS.REQUISICAO_INVALIDA);
+    if (novaSenha === senhaAtual) throw new ErroDeAplicacao(ERROS.SENHA_NOVA_IGUAL, STATUS.REQUISICAO_INVALIDA);
+
+    const hashAtual = await usuarioRepositorio.buscarHashPorId(usuarioId);
+    if (!hashAtual || !(await conferirSenha(senhaAtual, hashAtual))) {
+      throw new ErroDeAplicacao(ERROS.SENHA_ATUAL_INCORRETA, STATUS.REQUISICAO_INVALIDA);
+    }
+    await usuarioRepositorio.atualizarSenha(usuarioId, await gerarHash(novaSenha));
+  },
+
   async buscarUsuarioLogado(id) {
     const usuario = await usuarioRepositorio.buscarPorId(id);
     if (!usuario) {

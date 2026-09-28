@@ -65,6 +65,17 @@ export class SessaoStore {
     });
   }
 
+  async atualizarPerfil(dados) {
+    const { usuario } = await autenticacaoServico.atualizarPerfil(dados);
+    runInAction(() => {
+      this.usuario = usuario;
+    });
+  }
+
+  trocarSenha(senhaAtual, novaSenha) {
+    return autenticacaoServico.trocarSenha(senhaAtual, novaSenha);
+  }
+
   sair() {
     this.encerrar('');
   }
