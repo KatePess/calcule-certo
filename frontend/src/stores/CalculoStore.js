@@ -9,7 +9,7 @@ import {
 import { VALIDACAO } from '../constantes/mensagens.js';
 import { calculoServico } from '../servicos/calculoServico.js';
 import { licitacaoServico } from '../servicos/licitacaoServico.js';
-import { moedaParaApi, percentualParaApi } from '../utils/moeda.js';
+import { apiParaMoeda, apiParaPercentual, moedaParaApi, percentualParaApi } from '../utils/moeda.js';
 import { estaPreenchido, primeiroErro } from '../utils/validadores.js';
 
 // Estado da tela "Novo calculo de licitacao" (Figuras C1 e C2).
@@ -29,6 +29,10 @@ export class CalculoStore {
   erro = '';
   erroResumo = '';
   salvo = null;
+
+  // Preenchido quando o formulario veio de um relatorio (botao editar).
+  edicao = null;
+  carregandoEdicao = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -175,8 +179,53 @@ export class CalculoStore {
     }
   }
 
+  // Editar (Figura C3): preenche o formulario com um calculo salvo. Ao salvar,
+  // um NOVO calculo e criado; o original continua no historico.
+  async carregarParaEdicao(calculoId) {
+    if (this.edicao?.calculoId === Number(calculoId)) return;
+    this.carregandoEdicao = true;
+    this.erro = '';
+    try {
+      const [{ calculo }] = await Promise.all([
+        calculoServico.obter(calculoId),
+        this.licitacoes.length ? null : this.carregarLicitacoes(),
+      ]);
+      runInAction(() => {
+        const { entradas } = calculo;
+        this.form = {
+          orcamentoEmpresa: apiParaMoeda(entradas.orcamentoEmpresa),
+          quantidadeItens: String(entradas.quantidadeItens),
+          custoFixo: apiParaMoeda(entradas.custoFixo),
+          custoVariavel: apiParaMoeda(entradas.custoVariavel),
+          seguro: apiParaMoeda(entradas.seguro),
+          taxaPlataforma: apiParaPercentual(entradas.taxaPlataforma),
+          comissaoTerceiros: apiParaPercentual(entradas.comissaoTerceiros),
+          margemLucro: apiParaPercentual(entradas.margemLucro),
+        };
+        this.taxasAdicionais = entradas.taxasAdicionais.map((taxa) => ({
+          nome: taxa.nome,
+          percentual: apiParaPercentual(taxa.percentual),
+        }));
+        this.licitacaoId = String(calculo.licitacao.id);
+        this.resultado = null;
+        this.avisos = [];
+        this.salvo = null;
+        this.edicao = { calculoId: calculo.id, criadoEm: calculo.criadoEm };
+      });
+    } catch (falha) {
+      runInAction(() => {
+        this.erro = falha.message;
+      });
+    } finally {
+      runInAction(() => {
+        this.carregandoEdicao = false;
+      });
+    }
+  }
+
   // Limpa o formulario para um novo calculo, mantendo a licitacao escolhida.
   novoCalculo() {
+    this.edicao = null;
     this.form = { ...CALCULO_VAZIO };
     this.taxasAdicionais = [];
     this.resultado = null;

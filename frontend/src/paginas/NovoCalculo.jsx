@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import CampoMoeda from '../componentes/CampoMoeda.jsx';
 import CampoPercentual from '../componentes/CampoPercentual.jsx';
 import { IconeCartao, IconeCasa, IconeCheck, IconeChevron, IconeResumo } from '../componentes/Icones.jsx';
@@ -11,18 +11,32 @@ import { ROTULOS_CALCULO } from '../constantes/calculo.js';
 import { TEXTOS_CALCULO } from '../constantes/mensagens.js';
 import { ROTAS } from '../constantes/rotas.js';
 import { useCalculoStore } from '../stores/index.jsx';
+import { formatarDataLocal } from '../utils/datas.js';
 import '../estilos/calculo.css';
 
 // Figura C1 (formulario) + Figura C2 (modal de resumo) do TCC.
 export default observer(function NovoCalculo() {
   const calculo = useCalculoStore();
   const navegar = useNavigate();
+  const { calculoId } = useParams();
   const { form } = calculo;
   const licitacao = calculo.licitacaoSelecionada;
 
   useEffect(() => {
     calculo.carregarLicitacoes();
   }, [calculo]);
+
+  // /orcamento/:calculoId = refazer a partir de um relatorio;
+  // /orcamento = calculo novo (descarta uma edicao que estava aberta).
+  useEffect(() => {
+    if (calculoId) calculo.carregarParaEdicao(calculoId);
+    else if (calculo.edicao) calculo.novoCalculo();
+  }, [calculo, calculoId]);
+
+  function fazerOutroCalculo() {
+    calculo.novoCalculo();
+    if (calculoId) navegar(ROTAS.ORCAMENTO);
+  }
 
   function campoMoeda(campo, extras = {}) {
     return (
@@ -57,13 +71,20 @@ export default observer(function NovoCalculo() {
         <IconeChevron tamanho={14} />
         <span>Orçamento</span>
         <IconeChevron tamanho={14} />
-        <span className="migalhas__atual">Novo cálculo</span>
+        <span className="migalhas__atual">{calculo.edicao ? 'Refazer cálculo' : 'Novo cálculo'}</span>
       </nav>
 
       <h1 className="pagina__titulo calculo__titulo">{TEXTOS_CALCULO.TITULO}</h1>
       <p className="calculo__licitacao">
         {licitacao ? `(Licitação ${licitacao.numero} · ${licitacao.orgao})` : '(escolha a licitação abaixo)'}
       </p>
+
+      {calculo.edicao && (
+        <p className="aviso-info calculo__edicao" role="status">
+          Você está refazendo o cálculo de {formatarDataLocal(calculo.edicao.criadoEm)}. Ao salvar, um novo relatório
+          será criado; o anterior continua no histórico.
+        </p>
+      )}
 
       <SeletorLicitacao />
 
@@ -144,7 +165,7 @@ export default observer(function NovoCalculo() {
       )}
 
       {calculo.salvo && (
-        <Modal aoFechar={() => calculo.novoCalculo()} largura="estreita">
+        <Modal aoFechar={fazerOutroCalculo} largura="estreita">
           <div className="salvo">
             <span className="resumo__check">
               <IconeCheck tamanho={26} />
@@ -152,7 +173,7 @@ export default observer(function NovoCalculo() {
             <h2>{TEXTOS_CALCULO.SALVO_TITULO}</h2>
             <p>{TEXTOS_CALCULO.SALVO_TEXTO}</p>
             <div className="resumo__acoes">
-              <button type="button" className="botao botao--secundario" onClick={() => calculo.novoCalculo()}>
+              <button type="button" className="botao botao--secundario" onClick={fazerOutroCalculo}>
                 {TEXTOS_CALCULO.OUTRO_CALCULO}
               </button>
               <button

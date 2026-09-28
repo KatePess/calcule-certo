@@ -1,0 +1,179 @@
+/* Central de relatorios (Figura C3). */
+.relatorios__topo {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  max-width: 900px;
+  margin-bottom: 14px;
+}
+
+.relatorios__legenda {
+  margin: 0;
+  font-size: 1.05rem;
+  color: var(--tinta);
+}
+
+.relatorios__filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.relatorios__filtros select {
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  color: var(--tinta);
+  background: var(--branco);
+  border: 1px solid var(--linha);
+  border-radius: 999px;
+  box-shadow: 0 2px 5px rgba(15, 42, 74, 0.08);
+}
+
+.relatorios__dia {
+  margin: 22px 0 10px;
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--tinta);
+}
+
+.relatorios__lista {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 900px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.relatorio {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1.4fr) minmax(0, 1fr) auto auto auto auto;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 18px;
+  background: var(--branco);
+  border-radius: 6px;
+  box-shadow: 0 3px 8px rgba(15, 42, 74, 0.12);
+}
+
+.relatorio__licitacao,
+.relatorio__data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.8rem;
+  color: var(--tinta-suave);
+  text-align: center;
+}
+
+.relatorio__licitacao small,
+.relatorio__data small {
+  font-size: 0.7rem;
+}
+
+.relatorio__valor {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--tinta);
+  white-space: nowrap;
+}
+
+.relatorio__baixar {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 84px;
+  justify-content: center;
+  padding: 5px 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #fff;
+  background: #22a860;
+  border: none;
+  border-radius: 6px;
+}
+
+.relatorio__baixar--feito {
+  background: var(--azul);
+}
+
+.relatorio__baixar:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+
+.relatorios__vazio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  max-width: 900px;
+  margin-top: 20px;
+  padding: 32px 20px;
+  text-align: center;
+  color: var(--tinta-suave);
+  background: var(--branco);
+  border-radius: 12px;
+}
+
+.relatorios__vazio p {
+  margin: 0;
+}
+
+.relatorios__confirmacao {
+  margin: 0;
+  color: var(--tinta-suave);
+}
+
+@media (max-width: 720px) {
+  .relatorio {
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas:
+      'icone licitacao valor'
+      'icone data baixar'
+      'acoes acoes acoes';
+    row-gap: 6px;
+    padding: 12px 14px;
+  }
+
+  .relatorio > svg {
+    grid-area: icone;
+  }
+
+  .relatorio__licitacao {
+    grid-area: licitacao;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .relatorio__data {
+    grid-area: data;
+    flex-direction: row;
+    gap: 6px;
+    align-items: baseline;
+  }
+
+  .relatorio__valor {
+    grid-area: valor;
+  }
+
+  .relatorio__baixar {
+    grid-area: baixar;
+  }
+
+  .relatorio > a,
+  .relatorio > .botao-icone {
+    grid-area: acoes;
+  }
+
+  .relatorio > a {
+    justify-self: end;
+    margin-right: 40px;
+  }
+
+  .relatorio > button.botao-icone {
+    justify-self: end;
+  }
+}

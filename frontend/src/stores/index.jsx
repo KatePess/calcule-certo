@@ -1,6 +1,7 @@
 import { createContext, useContext } from 'react';
 import { CalculoStore } from './CalculoStore.js';
 import { LicitacaoStore } from './LicitacaoStore.js';
+import { RelatorioStore } from './RelatorioStore.js';
 import { SessaoStore } from './SessaoStore.js';
 
 // Reune todas as stores da aplicacao.
@@ -8,6 +9,7 @@ export class RaizStore {
   constructor() {
     this.licitacoes = new LicitacaoStore();
     this.calculo = new CalculoStore();
+    this.relatorios = new RelatorioStore();
     // Quando a sessao termina, os dados do usuario anterior sao apagados,
     // para que a proxima pessoa a entrar nao os veja.
     this.sessao = new SessaoStore(() => this.limparDadosDoUsuario());
@@ -16,6 +18,7 @@ export class RaizStore {
   limparDadosDoUsuario() {
     this.licitacoes.limpar();
     this.calculo.limpar();
+    this.relatorios.limpar();
   }
 }
 
@@ -41,4 +44,8 @@ export function useLicitacaoStore() {
 
 export function useCalculoStore() {
   return useStores().calculo;
+}
+
+export function useRelatorioStore() {
+  return useStores().relatorios;
 }

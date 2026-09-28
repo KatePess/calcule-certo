@@ -342,3 +342,7 @@
     grid-template-columns: 1fr;
   }
 }
+
+.calculo__edicao {
+  max-width: 820px;
+}

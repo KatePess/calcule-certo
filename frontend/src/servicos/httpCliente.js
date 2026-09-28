@@ -62,3 +62,17 @@ export async function requisitar(caminho, opcoes = {}) {
   if (resposta.status === STATUS_HTTP.SEM_CONTEUDO) return null;
   return resposta.json().catch(() => ({}));
 }
+
+// Nome enviado pelo servidor em: Content-Disposition: attachment; filename="x.pdf"
+function nomeDoArquivo(resposta, padrao) {
+  const cabecalho = resposta.headers.get('Content-Disposition') || '';
+  const encontrado = cabecalho.match(/filename="([^"]+)"/);
+  return encontrado ? encontrado[1] : padrao;
+}
+
+// Para downloads (ex.: PDF): devolve o arquivo e o nome sugerido pelo servidor.
+export async function baixarArquivo(caminho, { nomePadrao = 'arquivo', parametros } = {}) {
+  const resposta = await buscar(caminho, { autenticado: true, parametros });
+  if (!resposta.ok) throw await lerErro(resposta);
+  return { arquivo: await resposta.blob(), nome: nomeDoArquivo(resposta, nomePadrao) };
+}

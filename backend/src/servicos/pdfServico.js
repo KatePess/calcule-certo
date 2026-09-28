@@ -49,8 +49,8 @@ function tabelaDuasColunas(linhas, { destaqueUltima = false } = {}) {
       body: linhas.map(([rotulo, valor], indice) => {
         const destaque = destaqueUltima && indice === linhas.length - 1;
         return [
-          { text: rotulo, bold: destaque, margin: [4, 4, 4, 4] },
-          { text: valor, bold: destaque, alignment: 'right', margin: [4, 4, 4, 4] },
+          { text: rotulo, bold: destaque, margin: [4, 3, 4, 3] },
+          { text: valor, bold: destaque, alignment: 'right', margin: [4, 3, 4, 3] },
         ];
       }),
     },
@@ -60,7 +60,7 @@ function tabelaDuasColunas(linhas, { destaqueUltima = false } = {}) {
       hLineColor: () => COR.linha,
       fillColor: (linha) => (destaqueUltima && linha === linhas.length - 1 ? COR.fundo : null),
     },
-    margin: [0, 0, 0, 14],
+    margin: [0, 0, 0, 10],
   };
 }
 
@@ -68,11 +68,32 @@ function titulo(texto) {
   return { text: texto, style: 'secao' };
 }
 
+// Quanto a empresa ganharia ou perderia mantendo o orcamento que usaria hoje.
+function secaoComparacao(comparacao) {
+  if (!comparacao) return [];
+  const { orcamentoEmpresa, lucroComOrcamentoAtual, diferenca } = comparacao;
+  const prejuizo = String(lucroComOrcamentoAtual).startsWith('-');
+  return [
+    titulo('Comparação com o orçamento atual'),
+    {
+      text: [
+        `Mantendo o orçamento de ${formatarMoedaBR(orcamentoEmpresa)}, a empresa teria `,
+        {
+          text: `${prejuizo ? 'prejuízo' : 'lucro'} de ${formatarMoedaBR(String(lucroComOrcamentoAtual).replace(/^-/, ''))}`,
+          bold: true,
+          color: prejuizo ? COR.vermelho : COR.verde,
+        },
+        `. O novo orçamento é ${formatarMoedaBR(String(diferenca).replace(/^-/, ''))} ${String(diferenca).startsWith('-') ? 'menor' : 'maior'}.`,
+      ],
+      margin: [0, 0, 0, 10],
+    },
+  ];
+}
+
 // Monta a definicao do documento a partir do calculo salvo. Recebe dados ja
 // prontos (calculoPublico + usuario), sem acessar o banco.
-export function gerarEstruturaPDF({ calculo, usuario, geradoEm }) {
+export function gerarEstruturaPDF({ calculo, usuario, geradoEm, fuso = AMBIENTE.FUSO_HORARIO }) {
   const { entradas, resultado, licitacao } = calculo;
-  const fuso = AMBIENTE.FUSO_HORARIO;
 
   const parametros = [
     ['Quantidade de itens', String(entradas.quantidadeItens)],
@@ -104,8 +125,8 @@ export function gerarEstruturaPDF({ calculo, usuario, geradoEm }) {
         { text: `Gerado em ${formatarDataHoraBR(geradoEm, fuso)}`, alignment: 'right', color: COR.cinza, fontSize: 9, margin: [0, 8, 0, 0] },
       ],
     },
-    { text: 'Relatório de cálculo de licitação', fontSize: 13, color: COR.cinza, margin: [0, 2, 0, 12] },
-    { canvas: [{ type: 'line', x1: 0, y1: 0, x2: 515, y2: 0, lineWidth: 1.5, lineColor: COR.azul }], margin: [0, 0, 0, 14] },
+    { text: 'Relatório de cálculo de licitação', fontSize: 13, color: COR.cinza, margin: [0, 2, 0, 10] },
+    { canvas: [{ type: 'line', x1: 0, y1: 0, x2: 515, y2: 0, lineWidth: 1.5, lineColor: COR.azul }], margin: [0, 0, 0, 10] },
 
     titulo('Identificação'),
     tabelaDuasColunas([
@@ -131,12 +152,14 @@ export function gerarEstruturaPDF({ calculo, usuario, geradoEm }) {
           ],
           alignment: 'center',
           fillColor: COR.fundo,
-          margin: [0, 10, 0, 10],
+          margin: [0, 8, 0, 8],
         }]],
       },
       layout: 'noBorders',
-      margin: [0, 0, 0, 16],
+      margin: [0, 0, 0, 10],
     },
+
+    ...secaoComparacao(resultado.comparacao),
 
     titulo('Parâmetros informados'),
     tabelaDuasColunas(parametros),
@@ -144,26 +167,6 @@ export function gerarEstruturaPDF({ calculo, usuario, geradoEm }) {
     titulo('Composição do novo orçamento'),
     tabelaDuasColunas(composicao, { destaqueUltima: true }),
   ];
-
-  if (resultado.comparacao) {
-    const { orcamentoEmpresa, lucroComOrcamentoAtual, diferenca } = resultado.comparacao;
-    const prejuizo = String(lucroComOrcamentoAtual).startsWith('-');
-    conteudo.push(
-      titulo('Comparação com o orçamento atual'),
-      {
-        text: [
-          `Mantendo o orçamento de ${formatarMoedaBR(orcamentoEmpresa)}, a empresa teria `,
-          {
-            text: `${prejuizo ? 'prejuízo' : 'lucro'} de ${formatarMoedaBR(String(lucroComOrcamentoAtual).replace(/^-/, ''))}`,
-            bold: true,
-            color: prejuizo ? COR.vermelho : COR.verde,
-          },
-          `. O novo orçamento é ${formatarMoedaBR(String(diferenca).replace(/^-/, ''))} ${String(diferenca).startsWith('-') ? 'menor' : 'maior'}.`,
-        ],
-        margin: [0, 0, 0, 14],
-      },
-    );
-  }
 
   conteudo.push({
     text:
@@ -177,14 +180,14 @@ export function gerarEstruturaPDF({ calculo, usuario, geradoEm }) {
 
   return {
     pageSize: 'A4',
-    pageMargins: [40, 40, 40, 50],
+    pageMargins: [40, 34, 40, 46],
     info: {
       title: `Cálculo da licitação ${licitacao.numero}`,
       author: usuario.nome,
       creator: 'Calcule Certo',
     },
     defaultStyle: { font: 'Roboto', fontSize: 10, color: COR.marinho },
-    styles: { secao: { fontSize: 11, bold: true, color: COR.azul, margin: [0, 4, 0, 6] } },
+    styles: { secao: { fontSize: 11, bold: true, color: COR.azul, margin: [0, 2, 0, 4] } },
     content: conteudo,
     footer: (paginaAtual, totalPaginas) => ({
       columns: [

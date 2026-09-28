@@ -12,7 +12,11 @@ export const relatorioControlador = {
 
   async baixar(req, res, proximo) {
     try {
-      const { nomeArquivo, conteudo } = await relatorioServico.disponibilizarDownload(req.usuario.id, req.params.id);
+      const { nomeArquivo, conteudo } = await relatorioServico.disponibilizarDownload(
+        req.usuario.id,
+        req.params.id,
+        req.query.fuso,
+      );
       res.status(STATUS.OK);
       res.setHeader('Content-Type', 'application/pdf');
       res.setHeader('Content-Disposition', `attachment; filename="${nomeArquivo}"`);

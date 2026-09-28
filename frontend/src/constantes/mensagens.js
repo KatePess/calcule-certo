@@ -91,6 +91,24 @@ export const TEXTOS_CALCULO = {
   OUTRO_CALCULO: 'Fazer outro cálculo',
 };
 
+export const TEXTOS_RELATORIOS = {
+  TITULO: 'Relatórios',
+  LEGENDA: 'Aqui você irá encontrar todos os seus relatórios prontos para baixar.',
+  TODAS_LICITACOES: 'Todas as licitações',
+  VAZIO: 'Você ainda não salvou nenhum cálculo. Os relatórios aparecem aqui depois de salvar um cálculo.',
+  SEM_RESULTADO: 'Nenhum relatório encontrado com esses filtros.',
+  NOVO_CALCULO: 'Fazer um cálculo',
+  BAIXAR: 'Baixar',
+  BAIXANDO: 'Baixando...',
+  FEITO: 'Feito',
+  DICA_FEITO: 'Já baixado. Clique para baixar de novo.',
+  EDITAR: 'Refazer o cálculo a partir deste',
+  EXCLUIR: 'Excluir relatório',
+  CONFIRMAR_EXCLUSAO_TITULO: 'Excluir relatório?',
+  CONFIRMAR_EXCLUSAO: (numero, data) =>
+    `O cálculo da licitação ${numero} feito em ${data} será excluído. Esta ação não pode ser desfeita.`,
+};
+
 export const DICAS = {
   LOGIN_SOCIAL: 'Login social previsto para uma sprint futura',
   RECUPERAR_SENHA: 'Recuperação de senha prevista para a próxima sprint',

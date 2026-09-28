@@ -190,6 +190,12 @@ Get-NetTCPConnection -State Listen -LocalPort 3001 | ForEach-Object { Stop-Proce
 | POST | `/api/licitacoes` | Cadastra licitação |
 | GET, PUT, DELETE | `/api/licitacoes/:id` | Consulta, edita e exclui |
 | PATCH | `/api/licitacoes/:id/status` | Muda o status |
+| POST | `/api/calculos/simular` | Calcula sem salvar (modal de resumo) |
+| POST | `/api/calculos` | Recalcula no servidor e salva cálculo + relatório |
+| GET | `/api/calculos/:id` | Entradas e resultado de um cálculo salvo |
+| GET | `/api/relatorios` | Lista com filtro por período e licitação |
+| GET | `/api/relatorios/:id/pdf` | Gera e baixa o PDF |
+| DELETE | `/api/relatorios/:id` | Exclui relatório e cálculo |
 | GET | `/api/saude` | Verificação de que a API está no ar |
 
 ## Próximas sprints

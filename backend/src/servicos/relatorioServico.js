@@ -46,10 +46,23 @@ export function relatorioPublico(linha) {
   };
 }
 
+// A tela informa o fuso de quem esta usando, para que as datas do PDF batam
+// com as da tela. Fuso desconhecido ou ausente usa o padrao do servidor.
+function lerFuso(valor) {
+  const fuso = textoLimpo(valor);
+  if (!fuso) return AMBIENTE.FUSO_HORARIO;
+  try {
+    new Intl.DateTimeFormat('pt-BR', { timeZone: fuso });
+    return fuso;
+  } catch {
+    return AMBIENTE.FUSO_HORARIO;
+  }
+}
+
 // Nome legivel e seguro para o arquivo: calculo-licitacao-1101-2026-10-30.pdf
-function nomeDoArquivo(relatorio) {
+function nomeDoArquivo(relatorio, fuso) {
   const numero = relatorio.licitacao_numero.replace(/[^\w-]+/g, '-').replace(/^-+|-+$/g, '') || 'sem-numero';
-  return `calculo-licitacao-${numero}-${dataIsoNoFuso(relatorio.gerado_em, AMBIENTE.FUSO_HORARIO)}.pdf`;
+  return `calculo-licitacao-${numero}-${dataIsoNoFuso(relatorio.gerado_em, fuso)}.pdf`;
 }
 
 export const relatorioServico = {
@@ -68,7 +81,8 @@ export const relatorioServico = {
 
   // Classe RelatorioPDF do diagrama: disponibilizarDownload(). O PDF e
   // gerado na hora, a partir do calculo gravado, e nao fica guardado em disco.
-  async disponibilizarDownload(usuarioId, id) {
+  async disponibilizarDownload(usuarioId, id, fusoInformado) {
+    const fuso = lerFuso(fusoInformado);
     const relatorio = await relatorioRepositorio.buscarPorId(id, usuarioId);
     if (!relatorio) throw naoEncontrado();
 
@@ -81,10 +95,11 @@ export const relatorioServico = {
       calculo: calculoPublico(linhaCalculo),
       usuario,
       geradoEm: new Date(),
+      fuso,
     });
     await relatorioRepositorio.marcarBaixado(id);
 
-    return { nomeArquivo: nomeDoArquivo(relatorio), conteudo };
+    return { nomeArquivo: nomeDoArquivo(relatorio, fuso), conteudo };
   },
 
   // Excluir o relatorio exclui o calculo; o relatorio sai junto pelo

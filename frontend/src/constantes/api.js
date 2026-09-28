@@ -12,6 +12,9 @@ export const ENDPOINTS = {
   CALCULOS: '/calculos',
   SIMULAR_CALCULO: '/calculos/simular',
   calculo: (id) => `/calculos/${id}`,
+  RELATORIOS: '/relatorios',
+  relatorio: (id) => `/relatorios/${id}`,
+  pdfRelatorio: (id) => `/relatorios/${id}/pdf`,
 };
 
 export const METODOS = {
