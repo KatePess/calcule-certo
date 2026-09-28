@@ -4,6 +4,10 @@ export const ROTAS = {
   RAIZ: '/',
   LOGIN: '/login',
   CADASTRO: '/cadastro',
+  ESQUECI_SENHA: '/esqueci-senha',
+  // O link do e-mail aponta para ca: precisa bater com CAMINHO_TELA_REDEFINIR
+  // em backend/src/constantes/recuperacaoSenha.js.
+  REDEFINIR_SENHA: '/redefinir-senha',
   HOME: '/home',
   ORCAMENTO: '/orcamento',
   RELATORIOS: '/relatorios',

@@ -23,6 +23,8 @@ export const CAMINHOS_AUTH = {
   USUARIO_LOGADO: '/eu',
   PERFIL: '/perfil',
   SENHA: '/senha',
+  ESQUECI_SENHA: '/esqueci-senha',
+  REDEFINIR_SENHA: '/redefinir-senha',
 };
 
 // Padrao usado pelos modulos de cadastro (licitacoes, taxas...).

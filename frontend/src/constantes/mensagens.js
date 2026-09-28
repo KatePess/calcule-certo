@@ -7,7 +7,7 @@ export const MENSAGENS = {
   SERVIDOR_INDISPONIVEL: 'Não foi possível falar com o servidor. Ele está rodando?',
   ERRO_INESPERADO: 'Erro inesperado. Tente novamente.',
   SESSAO_EXPIRADA: 'Sua sessão expirou. Entre novamente para continuar.',
-  RECUPERACAO_INDISPONIVEL: 'Recuperação de senha ainda não implementada (próxima sprint).',
+  SENHA_REDEFINIDA: 'Senha redefinida. Entre com a nova senha.',
   CARREGANDO: 'Carregando...',
 };
 
@@ -44,6 +44,33 @@ export const TEXTOS_CADASTRO = {
   PAINEL_LEGENDA: 'Crie sua conta gratuitamente, de forma rápida e segura.',
   BOTAO: 'Criar conta',
   BOTAO_ENVIANDO: 'Criando conta...',
+};
+
+export const TEXTOS_ESQUECI_SENHA = {
+  TITULO: 'Esqueci minha senha',
+  LEGENDA: 'Informe o e-mail da sua conta. Vamos enviar um link para você criar uma nova senha.',
+  PAINEL_TITULO: 'Sem problemas!',
+  PAINEL_LEGENDA: 'Em poucos passos você volta a acessar seus cálculos.',
+  BOTAO: 'Enviar link',
+  BOTAO_ENVIANDO: 'Enviando...',
+  ENVIADO_TITULO: 'Confira seu e-mail',
+  enviado: (email, minutos) =>
+    `Se houver uma conta com ${email}, enviamos um link para redefinir a senha. Ele vale por ${minutos} minutos.`,
+  ENVIADO_DICA: 'Não chegou? Confira a caixa de spam ou peça de novo daqui a um minuto.',
+  OUTRO_EMAIL: 'Usar outro e-mail',
+  VOLTAR: 'Voltar para o login',
+};
+
+export const TEXTOS_REDEFINIR_SENHA = {
+  TITULO: 'Criar nova senha',
+  LEGENDA: 'Escolha uma senha nova para a sua conta.',
+  PAINEL_TITULO: 'Quase lá!',
+  PAINEL_LEGENDA: 'Depois de salvar, é só entrar com a nova senha.',
+  BOTAO: 'Salvar nova senha',
+  BOTAO_ENVIANDO: 'Salvando...',
+  LINK_INCOMPLETO: 'Este link está incompleto. Abra o link do e-mail de novo ou peça outro.',
+  SENHAS_DIFERENTES: 'A confirmação não é igual à nova senha.',
+  PEDIR_NOVO: 'Pedir um novo link',
 };
 
 export const TEXTOS_RESUMO = {
@@ -145,6 +172,5 @@ export const TEXTOS_PERFIL = {
 
 export const DICAS = {
   LOGIN_SOCIAL: 'Login social previsto para uma sprint futura',
-  RECUPERAR_SENHA: 'Recuperação de senha prevista para a próxima sprint',
   BUSCA_GLOBAL: 'Busca geral prevista para uma versão futura',
 };

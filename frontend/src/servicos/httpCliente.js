@@ -50,9 +50,12 @@ async function buscar(caminho, { metodo = METODOS.GET, corpo, autenticado = fals
   return resposta;
 }
 
+// O status acompanha a mensagem para a tela saber o tipo da recusa.
 async function lerErro(resposta) {
   const dados = await resposta.json().catch(() => ({}));
-  return new Error(dados.erro || MENSAGENS.ERRO_INESPERADO);
+  const erro = new Error(dados.erro || MENSAGENS.ERRO_INESPERADO);
+  erro.status = resposta.status;
+  return erro;
 }
 
 // Ponto unico de saida das requisicoes HTTP que trocam JSON.

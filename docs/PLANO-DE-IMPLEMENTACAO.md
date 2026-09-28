@@ -592,6 +592,10 @@ Os testes usam o executor nativo do Node (`node --test`), sem instalar nada. O f
 
 ## 9. Plano por sprint
 
+> **Situação em 28/09/2026:** as Sprints 2 a 6 estão implementadas e testadas.
+> Continuam abertos só os itens que dependem da empresa parceira (fórmula e
+> homologação) ou do texto do TCC (diagrama de classes e resultados).
+
 **Rotina de cada sprint** (TCC 2.8): planejamento no primeiro dia · desenvolvimento · revisão com o stakeholder na reunião quinzenal · commit e push no GitHub · cartões atualizados no Trello.
 
 > As datas assumem início em 28/09. Ajuste ao calendário da banca: se o prazo for antes de 06/12, a prioridade é fechar o **MVP (Sprints 2–4) e homologá-lo com o stakeholder**; as funcionalidades das Sprints 5 e 6 é que cedem.
@@ -603,22 +607,22 @@ Os testes usam o executor nativo do Node (`node --test`), sem instalar nada. O f
 **Objetivo:** preparar a base para os módulos novos, fechar as pendências da Sprint 1 e entregar o cadastro de licitações.
 
 **Back-end**
-- [ ] Separar `app.js` de `server.js`
-- [ ] Migrações: pasta `migracoes/`, `scripts/migrar.js`, comando `npm run migrar`; mover o `CREATE TABLE usuarios` para `001_usuarios.sql`
-- [ ] `db.transacao()`
-- [ ] Testes: comando `npm test` com `node --test`; primeiros testes dos validadores existentes
-- [ ] Banco de teste separado (`calcule_certo_teste`), para que os testes de API não apaguem nem sujem os dados de desenvolvimento
-- [ ] README: primeira instalação passa a ser `npm run migrar` e depois `npm run db:setup`; nova seção **Problemas comuns** (Docker Desktop fechado, porta 3001 ocupada), os dois incidentes que já aconteceram
-- [ ] Colocar acento em todas as mensagens de `constantes/mensagens.js` (hoje: "Nao foi possivel", "Ja existe", "Sessao expirada"…)
-- [ ] Módulo de licitações completo: migração `002`, repositório, serviço, controlador, rotas, incluindo troca de status
-- [ ] `middleware/validarId.js` e `utils/paginacao.js`
+- [x] Separar `app.js` de `server.js`
+- [x] Migrações: pasta `migracoes/`, `scripts/migrar.js`, comando `npm run migrar`; mover o `CREATE TABLE usuarios` para `001_usuarios.sql`
+- [x] `db.transacao()`
+- [x] Testes: comando `npm test` com `node --test`; primeiros testes dos validadores existentes
+- [x] Banco de teste separado (`calcule_certo_teste`), para que os testes de API não apaguem nem sujem os dados de desenvolvimento
+- [x] README: primeira instalação passa a ser `npm run migrar` e depois `npm run db:setup`; nova seção **Problemas comuns** (Docker Desktop fechado, porta 3001 ocupada), os dois incidentes que já aconteceram
+- [x] Colocar acento em todas as mensagens de `constantes/mensagens.js` (hoje: "Nao foi possivel", "Ja existe", "Sessao expirada"…)
+- [x] Módulo de licitações completo: migração `002`, repositório, serviço, controlador, rotas, incluindo troca de status
+- [x] `middleware/validarId.js` e `utils/paginacao.js`
 
 **Front-end**
-- [ ] `LayoutInterno` com menu lateral e cabeçalho do protótipo; menu passa a navegar
-- [ ] `httpCliente`: métodos PUT/PATCH/DELETE e **sessão expirada** — resposta 401 em requisição **autenticada** encerra a sessão e volta ao login. O 401 do login com senha errada não entra nessa regra: continua sendo mostrado na tela. Para evitar importação circular (a store usa o `httpCliente`), a `SessaoStore` registra no `httpCliente` a função a chamar quando a sessão expirar
-- [ ] **Ligar `utils/validadores.js` aos formulários de Login e Cadastro** — corrige a afirmação do documento de Andamento, que diz que a tela valida os dados
-- [ ] `ResumoSistema.jsx` como lista de licitações: tabela, paginação, etiquetas de status, "+ Nova licitação" em modal, troca de status. A coluna *Quantidade* fica oculta até a Sprint 3, quando passam a existir cálculos para contar
-- [ ] `LicitacaoStore` e `licitacaoServico`
+- [x] `LayoutInterno` com menu lateral e cabeçalho do protótipo; menu passa a navegar
+- [x] `httpCliente`: métodos PUT/PATCH/DELETE e **sessão expirada** — resposta 401 em requisição **autenticada** encerra a sessão e volta ao login. O 401 do login com senha errada não entra nessa regra: continua sendo mostrado na tela. Para evitar importação circular (a store usa o `httpCliente`), a `SessaoStore` registra no `httpCliente` a função a chamar quando a sessão expirar
+- [x] **Ligar `utils/validadores.js` aos formulários de Login e Cadastro** — corrige a afirmação do documento de Andamento, que diz que a tela valida os dados
+- [x] `ResumoSistema.jsx` como lista de licitações: tabela, paginação, etiquetas de status, "+ Nova licitação" em modal, troca de status. A coluna *Quantidade* fica oculta até a Sprint 3, quando passam a existir cálculos para contar
+- [x] `LicitacaoStore` e `licitacaoServico`
 
 **Critérios de aceite**
 - `npm run migrar` funciona em banco vazio e no banco atual
@@ -638,23 +642,23 @@ Os testes usam o executor nativo do Node (`node --test`), sem instalar nada. O f
 **Pré-requisito:** perguntas Q1 a Q5 respondidas pelo stakeholder e planilha de referência em mãos.
 
 **Back-end**
-- [ ] `decimal.js`; `utils/dinheiro.js`; `constantes/calculo.js`
-- [ ] **`servicos/motorCalculo.js`** — função pura, com `processarCustos()` e `aplicarTaxas()`; já aceita `taxasAdicionais`, para não exigir mudança no motor e no banco na Sprint 5
-- [ ] **Testes do motor** (lista na seção 10.1) — escritos **antes** de ligar o motor às telas
-- [ ] Migrações `003_calculos` e `004_relatorios`
-- [ ] `calculoRepositorio`, `relatorioRepositorio.inserir()`
-- [ ] `calculoServico`: `simular()` sem salvar; `salvar()` confere que a licitação é do usuário, recalcula no servidor e grava cálculo + relatório em uma transação
-- [ ] Rotas `POST /api/calculos/simular`, `POST /api/calculos`, `GET /api/calculos/:id`
-- [ ] Licitações: a listagem passa a trazer a quantidade de cálculos; excluir licitação com cálculos responde 409
+- [x] `decimal.js`; `utils/dinheiro.js`; `constantes/calculo.js`
+- [x] **`servicos/motorCalculo.js`** — função pura, com `processarCustos()` e `aplicarTaxas()`; já aceita `taxasAdicionais`, para não exigir mudança no motor e no banco na Sprint 5
+- [x] **Testes do motor** (lista na seção 10.1) — escritos **antes** de ligar o motor às telas
+- [x] Migrações `003_calculos` e `004_relatorios`
+- [x] `calculoRepositorio`, `relatorioRepositorio.inserir()`
+- [x] `calculoServico`: `simular()` sem salvar; `salvar()` confere que a licitação é do usuário, recalcula no servidor e grava cálculo + relatório em uma transação
+- [x] Rotas `POST /api/calculos/simular`, `POST /api/calculos`, `GET /api/calculos/:id`
+- [x] Licitações: a listagem passa a trazer a quantidade de cálculos; excluir licitação com cálculos responde 409
 
 **Front-end**
-- [ ] `utils/moeda.js`, `CampoMoeda`, `CampoPercentual`
-- [ ] `SeletorLicitacao` no topo da tela, reaproveitando o modal de nova licitação da Sprint 2
-- [ ] Coluna *Quantidade* ativada no Resumo do sistema
-- [ ] **`NovoCalculo.jsx`** — Figura C1, com os blocos *Custo base* e *Parâmetros da licitação*
-- [ ] **Modal de resumo** — Figura C2, com o detalhamento do cálculo, a comparação com o orçamento da empresa e os botões *Atualizar cálculo* e *Salvar em Relatórios*
-- [ ] `CalculoStore`
-- [ ] Diferenciar visualmente valor preenchido de placeholder (melhoria apontada no estudo de caso)
+- [x] `utils/moeda.js`, `CampoMoeda`, `CampoPercentual`
+- [x] `SeletorLicitacao` no topo da tela, reaproveitando o modal de nova licitação da Sprint 2
+- [x] Coluna *Quantidade* ativada no Resumo do sistema
+- [x] **`NovoCalculo.jsx`** — Figura C1, com os blocos *Custo base* e *Parâmetros da licitação*
+- [x] **Modal de resumo** — Figura C2, com o detalhamento do cálculo, a comparação com o orçamento da empresa e os botões *Atualizar cálculo* e *Salvar em Relatórios*
+- [x] `CalculoStore`
+- [x] Diferenciar visualmente valor preenchido de placeholder (melhoria apontada no estudo de caso)
 
 **Critérios de aceite**
 - O exemplo da seção 5.4 aparece na tela **centavo por centavo**
@@ -671,16 +675,16 @@ Os testes usam o executor nativo do Node (`node --test`), sem instalar nada. O f
 ### Sprint 4 — Relatórios e PDF · 26/10 a 08/11 🎯 fecha o MVP
 
 **Back-end**
-- [ ] `pdfmake`; **prova de conceito do PDF no primeiro dia**. No servidor, o pdfmake exige declarar os arquivos de fonte; a prova de conceito deve confirmar que `ç`, `ã` e `é` saem corretos
-- [ ] `pdfServico.gerarEstruturaPDF()`: cabeçalho com o nome do sistema e o nome e CNPJ do usuário, dados da licitação, entradas, detalhamento do resultado, comparação, data de geração e rodapé com numeração. *(O cadastro não tem campo de razão social; se o stakeholder quiser o nome da empresa no PDF, ele entra no Perfil, na Sprint 5.)*
-- [ ] `GET /api/relatorios` com filtros por período e licitação, paginação e ordem cronológica decrescente
-- [ ] `GET /api/relatorios/:id/pdf`: `Content-Type: application/pdf`, `Content-Disposition: attachment` com nome legível (ex.: `calculo-licitacao-1101-2026-10-30.pdf`); marca `baixado_em`
-- [ ] `DELETE /api/relatorios/:id`
+- [x] `pdfmake`; **prova de conceito do PDF no primeiro dia**. No servidor, o pdfmake exige declarar os arquivos de fonte; a prova de conceito deve confirmar que `ç`, `ã` e `é` saem corretos
+- [x] `pdfServico.gerarEstruturaPDF()`: cabeçalho com o nome do sistema e o nome e CNPJ do usuário, dados da licitação, entradas, detalhamento do resultado, comparação, data de geração e rodapé com numeração. *(O cadastro não tem campo de razão social; se o stakeholder quiser o nome da empresa no PDF, ele entra no Perfil, na Sprint 5.)*
+- [x] `GET /api/relatorios` com filtros por período e licitação, paginação e ordem cronológica decrescente
+- [x] `GET /api/relatorios/:id/pdf`: `Content-Type: application/pdf`, `Content-Disposition: attachment` com nome legível (ex.: `calculo-licitacao-1101-2026-10-30.pdf`); marca `baixado_em`
+- [x] `DELETE /api/relatorios/:id`
 
 **Front-end**
-- [ ] **`Relatorios.jsx`** — Figura C3: grupos *Hoje*, *Ontem*, *Anteontem* e data; filtro; botões *Baixar* e *Feito*; editar abre a C1 preenchida; excluir com confirmação
-- [ ] `httpCliente.baixarArquivo()` e `utils/datas.js`
-- [ ] `RelatorioStore`
+- [x] **`Relatorios.jsx`** — Figura C3: grupos *Hoje*, *Ontem*, *Anteontem* e data; filtro; botões *Baixar* e *Feito*; editar abre a C1 preenchida; excluir com confirmação
+- [x] `httpCliente.baixarArquivo()` e `utils/datas.js`
+- [x] `RelatorioStore`
 
 **Critérios de aceite**
 - O PDF abre sem erro no Adobe Reader, no Edge, no Chrome e no celular (RNF03)
@@ -700,16 +704,16 @@ Os testes usam o executor nativo do Node (`node --test`), sem instalar nada. O f
 ### Sprint 5 — Painel, taxas salvas e perfil · 09/11 a 22/11
 
 **Back-end**
-- [ ] `GET /api/painel`: 3 licitações mais recentes, relatórios recentes e alertas (licitações com abertura nos próximos 7 dias, sem contar as já aprovadas ou reprovadas)
-- [ ] Migração `005_taxas_customizadas`; CRUD `/api/taxas`
-- [ ] `PUT /api/auth/perfil` e `PUT /api/auth/senha`
+- [x] `GET /api/painel`: 3 licitações mais recentes, relatórios recentes e alertas (licitações com abertura nos próximos 7 dias, sem contar as já aprovadas ou reprovadas)
+- [x] Migração `005_taxas_customizadas`; CRUD `/api/taxas`
+- [x] `PUT /api/auth/perfil` e `PUT /api/auth/senha`
 
 **Front-end**
-- [ ] **`Painel.jsx`** no lugar da Home provisória: saudação, *Minhas licitações*, *Relatórios recentes* em **um único bloco** (corrige a duplicação apontada no estudo de caso), *Alertas e prazos*, botão *Gerar novo cálculo de licitação*
-- [ ] Sino do cabeçalho com a contagem de alertas
-- [ ] **`Perfil.jsx`**: dados, troca de senha e lista de taxas salvas
-- [ ] Na C1: "Usar taxa salva" preenche o campo; "+ Adicionar taxa" inclui taxas adicionais (o motor e o banco já as aceitam desde a Sprint 3)
-- [ ] Revisão de responsividade de todas as telas internas em 375 px (RNF01)
+- [x] **`Painel.jsx`** no lugar da Home provisória: saudação, *Minhas licitações*, *Relatórios recentes* em **um único bloco** (corrige a duplicação apontada no estudo de caso), *Alertas e prazos*, botão *Gerar novo cálculo de licitação*
+- [x] Sino do cabeçalho com a contagem de alertas
+- [x] **`Perfil.jsx`**: dados, troca de senha e lista de taxas salvas
+- [x] Na C1: "Usar taxa salva" preenche o campo; "+ Adicionar taxa" inclui taxas adicionais (o motor e o banco já as aceitam desde a Sprint 3)
+- [x] Revisão de responsividade de todas as telas internas em 375 px (RNF01)
 
 **Critérios de aceite:** o painel reflete os dados reais; uma taxa salva pode ser aplicada em um cálculo novo; alterar essa taxa depois não muda relatórios antigos.
 
@@ -720,20 +724,21 @@ Os testes usam o executor nativo do Node (`node --test`), sem instalar nada. O f
 ### Sprint 6 — Recuperação de senha, segurança e homologação · 23/11 a 06/12
 
 **Back-end**
-- [ ] Migração `006`; `esqueci-senha` e `redefinir-senha` com token de uso único, validade de 30 minutos e resposta sempre genérica; em desenvolvimento, o link aparece no terminal
-- [ ] Atualizar dependências e zerar os alertas do `npm audit` (hoje: 3 moderados no back-end, 2 no front-end)
-- [ ] Segredo do JWT longo e aleatório fora do ambiente de desenvolvimento
+- [x] Migração `006`; `esqueci-senha` e `redefinir-senha` com token de uso único, validade de 30 minutos e resposta sempre genérica; em desenvolvimento, o link aparece no terminal
+- [x] Atualizar dependências e zerar os alertas do `npm audit` (hoje: 3 moderados no back-end, 2 no front-end)
+- [x] Segredo do JWT longo e aleatório fora do ambiente de desenvolvimento
 
 **Front-end**
-- [ ] `EsqueciSenha.jsx` e `RedefinirSenha.jsx`; ativar o link da tela de login
+- [x] `EsqueciSenha.jsx` e `RedefinirSenha.jsx`; ativar o link da tela de login
 
-**Homologação final** (TCC 2.9)
+**Homologação final** (TCC 2.9) — roteiro pronto em [HOMOLOGACAO.md](HOMOLOGACAO.md)
 - [ ] Sessão com o stakeholder usando cenários reais; comparar com a planilha centavo a centavo
 - [ ] Cronometrar a tarefa completa — meta: menos de 3 minutos
 - [ ] Registrar o feedback de usabilidade e fazer os ajustes
 
 **Documentação**
-- [ ] Atualizar README, documento de arquitetura e o diagrama de classes do TCC (seção 6.3)
+- [x] Atualizar o README
+- [ ] Atualizar o documento de arquitetura (PDF) e o diagrama de classes do TCC (seção 6.3)
 - [ ] Registrar os resultados da homologação para a seção de resultados do TCC
 - [ ] *(Se exigido pela banca)* publicar em um serviço com Node.js e PostgreSQL
 

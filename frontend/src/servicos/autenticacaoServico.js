@@ -28,4 +28,12 @@ export const autenticacaoServico = {
   trocarSenha(senhaAtual, novaSenha) {
     return requisitar(ENDPOINTS.SENHA, { metodo: METODOS.PUT, corpo: { senhaAtual, novaSenha }, autenticado: true });
   },
+
+  solicitarRecuperacao(email) {
+    return requisitar(ENDPOINTS.ESQUECI_SENHA, { metodo: METODOS.POST, corpo: { email } });
+  },
+
+  redefinirSenha(token, novaSenha) {
+    return requisitar(ENDPOINTS.REDEFINIR_SENHA, { metodo: METODOS.POST, corpo: { token, novaSenha } });
+  },
 };

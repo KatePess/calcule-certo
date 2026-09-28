@@ -76,6 +76,19 @@ export class SessaoStore {
     return autenticacaoServico.trocarSenha(senhaAtual, novaSenha);
   }
 
+  solicitarRecuperacao(email) {
+    return autenticacaoServico.solicitarRecuperacao(email);
+  }
+
+  // Depois de redefinir, a sessao deste navegador (se houver) e encerrada e o
+  // login mostra o aviso de sucesso.
+  async redefinirSenha(token, novaSenha) {
+    await autenticacaoServico.redefinirSenha(token, novaSenha);
+    runInAction(() => {
+      this.encerrar(MENSAGENS.SENHA_REDEFINIDA);
+    });
+  }
+
   sair() {
     this.encerrar('');
   }

@@ -18,6 +18,7 @@ export const ERROS = {
   SENHA_ATUAL_INCORRETA: 'A senha atual está incorreta.',
   SENHA_ATUAL_VAZIA: 'Informe a senha atual.',
   SENHA_NOVA_IGUAL: 'A nova senha precisa ser diferente da atual.',
+  LINK_RECUPERACAO_INVALIDO: 'Este link para redefinir a senha é inválido, expirou ou já foi usado. Peça um novo.',
   TOKEN_AUSENTE: 'Token de acesso não enviado.',
   TOKEN_INVALIDO: 'Sessão expirada ou token inválido.',
   ROTA_NAO_ENCONTRADA: 'Rota não encontrada.',

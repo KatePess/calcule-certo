@@ -20,6 +20,8 @@ export const ENDPOINTS = {
   PAINEL: '/painel',
   PERFIL: '/auth/perfil',
   SENHA: '/auth/senha',
+  ESQUECI_SENHA: '/auth/esqueci-senha',
+  REDEFINIR_SENHA: '/auth/redefinir-senha',
 };
 
 export const METODOS = {
@@ -32,5 +34,6 @@ export const METODOS = {
 
 export const STATUS_HTTP = {
   SEM_CONTEUDO: 204,
+  REQUISICAO_INVALIDA: 400,
   NAO_AUTORIZADO: 401,
 };

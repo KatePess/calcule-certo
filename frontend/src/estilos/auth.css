@@ -249,6 +249,13 @@
   transition: filter 0.15s, opacity 0.15s;
 }
 
+/* Links com cara de botao (ex.: "Voltar para o login"). */
+a.auth-botao {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+}
+
 .auth-botao:hover:not(:disabled) {
   filter: brightness(1.07);
 }

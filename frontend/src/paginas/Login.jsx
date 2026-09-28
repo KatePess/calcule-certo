@@ -8,7 +8,7 @@ import {
   IconeOlhoCortado,
   IconePessoa,
 } from '../componentes/Icones.jsx';
-import { DICAS, MENSAGENS, TEXTOS_LOGIN, VALIDACAO } from '../constantes/mensagens.js';
+import { DICAS, TEXTOS_LOGIN, VALIDACAO } from '../constantes/mensagens.js';
 import { ROTAS } from '../constantes/rotas.js';
 import { useSessaoStore } from '../stores/index.jsx';
 import { ehEmailValido, estaPreenchido, primeiroErro } from '../utils/validadores.js';
@@ -130,14 +130,10 @@ export default observer(function Login() {
                 />
                 Lembrar minha senha
               </label>
-              <button
-                type="button"
-                className="auth-link"
-                title={DICAS.RECUPERAR_SENHA}
-                onClick={() => setErro(MENSAGENS.RECUPERACAO_INDISPONIVEL)}
-              >
+              {/* Leva o e-mail ja digitado para a outra tela. */}
+              <Link to={ROTAS.ESQUECI_SENHA} state={{ email }} className="auth-link">
                 Esqueci minha senha →
-              </button>
+              </Link>
             </div>
 
             <button className="auth-botao" type="submit" disabled={enviando}>

@@ -5,10 +5,12 @@ import RotaProtegida from './componentes/RotaProtegida.jsx';
 import SomenteVisitante from './componentes/SomenteVisitante.jsx';
 import { ROTAS } from './constantes/rotas.js';
 import Cadastro from './paginas/Cadastro.jsx';
+import EsqueciSenha from './paginas/EsqueciSenha.jsx';
 import Login from './paginas/Login.jsx';
 import NovoCalculo from './paginas/NovoCalculo.jsx';
 import Painel from './paginas/Painel.jsx';
 import Perfil from './paginas/Perfil.jsx';
+import RedefinirSenha from './paginas/RedefinirSenha.jsx';
 import Relatorios from './paginas/Relatorios.jsx';
 import ResumoSistema from './paginas/ResumoSistema.jsx';
 import { useSessaoStore } from './stores/index.jsx';
@@ -40,6 +42,16 @@ export default function App() {
           </SomenteVisitante>
         }
       />
+      <Route
+        path={ROTAS.ESQUECI_SENHA}
+        element={
+          <SomenteVisitante>
+            <EsqueciSenha />
+          </SomenteVisitante>
+        }
+      />
+      {/* Sem SomenteVisitante: o link do e-mail precisa abrir mesmo com uma sessao aberta. */}
+      <Route path={ROTAS.REDEFINIR_SENHA} element={<RedefinirSenha />} />
 
       {/* Telas internas: exigem login e compartilham menu lateral e cabecalho. */}
       <Route
