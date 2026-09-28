@@ -17,4 +17,7 @@ export const AMBIENTE = {
     segredo: process.env.JWT_SEGREDO,
     expiracao: process.env.JWT_EXPIRACAO || '8h',
   },
+
+  // Fuso usado nas datas impressas nos relatorios (Rio Branco, UTC-5).
+  FUSO_HORARIO: process.env.FUSO_HORARIO || 'America/Rio_Branco',
 };

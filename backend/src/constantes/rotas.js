@@ -4,10 +4,15 @@ export const CAMINHOS = {
   AUTH: '/api/auth',
   LICITACOES: '/api/licitacoes',
   CALCULOS: '/api/calculos',
+  RELATORIOS: '/api/relatorios',
 };
 
 export const CAMINHOS_CALCULO = {
   SIMULAR: '/simular',
+};
+
+export const CAMINHOS_RELATORIO = {
+  PDF: '/:id/pdf',
 };
 
 export const CAMINHOS_AUTH = {

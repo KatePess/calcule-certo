@@ -34,6 +34,9 @@ export const ERROS = {
   LICITACAO_COM_CALCULOS: 'Esta licitação já tem cálculos salvos e não pode ser excluída. Exclua os relatórios dela primeiro.',
 
   CALCULO_NAO_ENCONTRADO: 'Cálculo não encontrado.',
+  RELATORIO_NAO_ENCONTRADO: 'Relatório não encontrado.',
+  RELATORIO_PERIODO_INVALIDO: 'Período do filtro inválido.',
+  RELATORIO_FILTRO_INVALIDO: 'Filtro de licitação inválido.',
   CALCULO_LICITACAO_OBRIGATORIA: 'Escolha a licitação deste cálculo.',
   CALCULO_QUANTIDADE: `A quantidade de itens deve ser um número inteiro entre 1 e ${QUANTIDADE_MAXIMA.toLocaleString('pt-BR')}.`,
   CALCULO_CAMPO_OBRIGATORIO: (campo) => `${campo}: preencha este campo.`,
