@@ -13,4 +13,8 @@ export const STATUS = {
 // Codigo do PostgreSQL para violacao de restricao UNIQUE.
 export const CODIGO_PG_DUPLICADO = '23505';
 
+// Codigo do PostgreSQL para exclusao bloqueada por chave estrangeira
+// (ex.: licitacao que ainda tem calculos).
+export const CODIGO_PG_REFERENCIA = '23503';
+
 export const PREFIXO_TOKEN = 'Bearer';

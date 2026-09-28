@@ -3,7 +3,8 @@ import { termoDeBusca } from '../utils/paginacao.js';
 
 const COLUNAS = `
   l.id, l.numero, l.orgao, l.objeto, l.status, l.data_abertura,
-  l.criado_em, l.atualizado_em
+  l.criado_em, l.atualizado_em,
+  (SELECT COUNT(*)::int FROM calculos c WHERE c.licitacao_id = l.id) AS quantidade_calculos
 `;
 
 // Toda consulta filtra por usuario_id: ninguem enxerga licitacao de outro.
@@ -82,5 +83,11 @@ export const licitacaoRepositorio = {
       [id, usuarioId],
     );
     return rowCount > 0;
+  },
+
+  // Registra atividade na licitacao (ex.: novo calculo), para ela subir nas
+  // listas ordenadas pela mais recente.
+  async registrarAtividade(id, cliente) {
+    await consultar('UPDATE licitacoes SET atualizado_em = NOW() WHERE id = $1', [id], cliente);
   },
 };

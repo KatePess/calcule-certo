@@ -9,6 +9,9 @@ export const ENDPOINTS = {
   LICITACOES: '/licitacoes',
   licitacao: (id) => `/licitacoes/${id}`,
   statusLicitacao: (id) => `/licitacoes/${id}/status`,
+  CALCULOS: '/calculos',
+  SIMULAR_CALCULO: '/calculos/simular',
+  calculo: (id) => `/calculos/${id}`,
 };
 
 export const METODOS = {

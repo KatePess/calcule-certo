@@ -8,6 +8,7 @@ import { ROTAS } from './constantes/rotas.js';
 import Cadastro from './paginas/Cadastro.jsx';
 import Home from './paginas/Home.jsx';
 import Login from './paginas/Login.jsx';
+import NovoCalculo from './paginas/NovoCalculo.jsx';
 import ResumoSistema from './paginas/ResumoSistema.jsx';
 import { useSessaoStore } from './stores/index.jsx';
 
@@ -48,7 +49,7 @@ export default function App() {
         }
       >
         <Route path={ROTAS.HOME} element={<Home />} />
-        <Route path={ROTAS.ORCAMENTO} element={<EmConstrucao titulo="Novo cálculo de licitação" sprint={3} />} />
+        <Route path={ROTAS.ORCAMENTO} element={<NovoCalculo />} />
         <Route path={ROTAS.RELATORIOS} element={<EmConstrucao titulo="Relatórios" sprint={4} />} />
         <Route path={ROTAS.PERFIL} element={<EmConstrucao titulo="Perfil" sprint={5} />} />
         <Route path={ROTAS.RESUMO} element={<ResumoSistema />} />

@@ -83,6 +83,7 @@ export default observer(function ResumoSistema() {
               <th className="tabela__n tabela__opcional">N</th>
               <th>Licitação</th>
               <th className="tabela__opcional">Abertura</th>
+              <th className="tabela__opcional" title="Cálculos salvos para a licitação">Quantidade</th>
               <th>Status</th>
               <th className="tabela__acao">
                 <span className="visualmente-oculto">Ações</span>
@@ -105,6 +106,7 @@ export default observer(function ResumoSistema() {
                   )}
                 </td>
                 <td className="tabela__opcional">{formatarData(licitacao.dataAbertura) || '—'}</td>
+                <td className="tabela__opcional">{String(licitacao.quantidadeCalculos).padStart(2, '0')}</td>
                 <td>
                   <EtiquetaStatus status={licitacao.status} />
                 </td>

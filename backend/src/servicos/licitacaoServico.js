@@ -1,4 +1,4 @@
-import { CODIGO_PG_DUPLICADO, STATUS } from '../constantes/http.js';
+import { CODIGO_PG_DUPLICADO, CODIGO_PG_REFERENCIA, STATUS } from '../constantes/http.js';
 import {
   LISTA_STATUS_LICITACAO,
   STATUS_LICITACAO,
@@ -60,6 +60,7 @@ export function licitacaoPublica(linha) {
     objeto: linha.objeto,
     status: linha.status,
     dataAbertura: linha.data_abertura,
+    quantidadeCalculos: linha.quantidade_calculos,
     criadoEm: linha.criado_em,
     atualizadoEm: linha.atualizado_em,
   };
@@ -120,7 +121,16 @@ export const licitacaoServico = {
   },
 
   async excluir(usuarioId, id) {
-    const excluiu = await licitacaoRepositorio.excluir(id, usuarioId);
+    let excluiu;
+    try {
+      excluiu = await licitacaoRepositorio.excluir(id, usuarioId);
+    } catch (erro) {
+      // O banco recusa excluir licitacao que ainda tem calculos (historico).
+      if (erro.code === CODIGO_PG_REFERENCIA) {
+        throw new ErroDeAplicacao(ERROS.LICITACAO_COM_CALCULOS, STATUS.CONFLITO);
+      }
+      throw erro;
+    }
     if (!excluiu) throw naoEncontrada();
   },
 };

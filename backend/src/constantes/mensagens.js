@@ -1,3 +1,4 @@
+import { QUANTIDADE_MAXIMA, TAMANHO_MAXIMO_NOME_TAXA, TAXAS_ADICIONAIS_MAXIMO } from './calculo.js';
 import { TAMANHO_MAXIMO_LICITACAO } from './licitacao.js';
 import { QUANTIDADE_DIGITOS_CNPJ, TAMANHO_MINIMO_SENHA } from './validacao.js';
 
@@ -30,4 +31,24 @@ export const ERROS = {
   LICITACAO_STATUS_INVALIDO: 'Status de licitação inválido.',
   LICITACAO_DATA_INVALIDA: 'Informe uma data de abertura válida.',
   LICITACAO_DUPLICADA: 'Você já cadastrou uma licitação com este número para este órgão.',
+  LICITACAO_COM_CALCULOS: 'Esta licitação já tem cálculos salvos e não pode ser excluída. Exclua os relatórios dela primeiro.',
+
+  CALCULO_NAO_ENCONTRADO: 'Cálculo não encontrado.',
+  CALCULO_LICITACAO_OBRIGATORIA: 'Escolha a licitação deste cálculo.',
+  CALCULO_QUANTIDADE: `A quantidade de itens deve ser um número inteiro entre 1 e ${QUANTIDADE_MAXIMA.toLocaleString('pt-BR')}.`,
+  CALCULO_CAMPO_OBRIGATORIO: (campo) => `${campo}: preencha este campo.`,
+  CALCULO_VALOR_INVALIDO: (campo) => `${campo}: informe um valor em reais com até 2 casas decimais.`,
+  CALCULO_VALOR_NEGATIVO: (campo) => `${campo}: o valor não pode ser negativo.`,
+  CALCULO_PERCENTUAL_INVALIDO: (campo) => `${campo}: informe um percentual com até 4 casas decimais.`,
+  CALCULO_PERCENTUAL_FORA: (campo) => `${campo}: o percentual deve ser menor que 100%.`,
+  CALCULO_SOMA_PERCENTUAIS: (soma) => `A soma de taxas, comissão e margem chega a ${soma}%. Ela precisa ser menor que 100%.`,
+  CALCULO_SEM_CUSTO: 'Informe ao menos um custo.',
+  CALCULO_ACIMA_LIMITE: 'O valor calculado passa do limite suportado. Revise os custos e percentuais.',
+  CALCULO_TAXAS_ADICIONAIS: `Informe no máximo ${TAXAS_ADICIONAIS_MAXIMO} taxas adicionais, cada uma com nome e percentual.`,
+  CALCULO_NOME_TAXA: `O nome de cada taxa adicional deve ter entre 1 e ${TAMANHO_MAXIMO_NOME_TAXA} caracteres.`,
+};
+
+// Avisos nao bloqueiam a operacao: so pedem atencao.
+export const AVISOS = {
+  PERCENTUAL_ALTO: (soma) => `Taxas e margem somam ${soma}% do preço. Confira os valores.`,
 };

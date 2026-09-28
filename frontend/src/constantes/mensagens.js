@@ -22,6 +22,10 @@ export const VALIDACAO = {
   LICITACAO_NUMERO: 'Informe o número da licitação.',
   LICITACAO_ORGAO: 'Informe o órgão responsável pela licitação.',
   LICITACAO_OBJETO: `A descrição do objeto pode ter até ${TAMANHO_MAXIMO_LICITACAO.OBJETO} caracteres.`,
+  CALCULO_LICITACAO: 'Escolha a licitação deste cálculo.',
+  CALCULO_OBRIGATORIO: (campo) => `${campo}: preencha este campo.`,
+  CALCULO_QUANTIDADE: 'A quantidade de itens deve ser pelo menos 1.',
+  TAXA_ADICIONAL: 'Cada taxa adicional precisa de nome e percentual.',
 };
 
 export const TEXTOS_LOGIN = {
@@ -59,6 +63,32 @@ export const TEXTOS_LICITACAO = {
   SALVANDO: 'Salvando...',
   EXCLUIR: 'Excluir licitação',
   CONFIRMAR_EXCLUSAO: (numero) => `Excluir a licitação ${numero}? Esta ação não pode ser desfeita.`,
+};
+
+export const TEXTOS_CALCULO = {
+  TITULO: 'Novo cálculo de licitação',
+  BLOCO_CUSTO: 'Custo base',
+  BLOCO_PARAMETROS: 'Parâmetros da licitação',
+  INSTRUCAO_INICIO: 'Após todos os campos preenchidos clique em',
+  INSTRUCAO_FIM: 'para gerar seu novo cálculo.',
+  CONFIRMAR: 'Confirmar',
+  CALCULANDO: 'Calculando...',
+  ESCOLHA_LICITACAO: 'Escolha a licitação',
+  SEM_LICITACAO: 'Nenhuma licitação cadastrada. Cadastre a primeira para calcular.',
+  RESUMO_TITULO: 'Resumo do novo orçamento',
+  NOVO_ORCAMENTO: 'Novo orçamento gerado',
+  CUSTOS_TOTAIS: 'Custos totais',
+  TOTAL_TAXAS: 'Total taxas e margem',
+  LUCRO: 'Lucro estimado',
+  VER_DETALHES: 'Ver como foi calculado',
+  OCULTAR_DETALHES: 'Ocultar detalhamento',
+  ATUALIZAR: 'Atualizar cálculo',
+  SALVAR: 'Salvar em Relatórios',
+  SALVANDO: 'Salvando...',
+  SALVO_TITULO: 'Cálculo salvo',
+  SALVO_TEXTO: 'O relatório já está disponível na área de relatórios, pronto para baixar em PDF.',
+  VER_RELATORIOS: 'Ver relatórios',
+  OUTRO_CALCULO: 'Fazer outro cálculo',
 };
 
 export const DICAS = {

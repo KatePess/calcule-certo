@@ -3,6 +3,11 @@ export const CAMINHOS = {
   SAUDE: '/api/saude',
   AUTH: '/api/auth',
   LICITACOES: '/api/licitacoes',
+  CALCULOS: '/api/calculos',
+};
+
+export const CAMINHOS_CALCULO = {
+  SIMULAR: '/simular',
 };
 
 export const CAMINHOS_AUTH = {

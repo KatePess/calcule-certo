@@ -1,0 +1,344 @@
+/* Tela "Novo calculo de licitacao" (Figura C1) e resumo (Figura C2). */
+.calculo__titulo {
+  font-weight: 500;
+  font-size: 1.4rem;
+}
+
+.calculo__licitacao {
+  margin: 0 0 18px;
+  font-size: 0.85rem;
+  color: var(--tinta-suave);
+}
+
+/* ---------- Seletor de licitacao ---------- */
+.seletor-licitacao {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
+  max-width: 820px;
+  margin-bottom: 22px;
+}
+
+.seletor-licitacao__campo {
+  flex: 1 1 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.seletor-licitacao__campo select {
+  padding: 10px 12px;
+  font-size: 0.95rem;
+  color: var(--tinta);
+  background: var(--branco);
+  border: 1px solid var(--linha);
+  border-radius: 8px;
+}
+
+.seletor-licitacao__vazio {
+  flex-basis: 100%;
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--tinta-suave);
+}
+
+/* ---------- Blocos azuis ---------- */
+.calculo__blocos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  max-width: 820px;
+}
+
+.bloco {
+  padding: 14px 16px 20px;
+  background: var(--azul-bloco);
+  border-radius: 16px;
+}
+
+.bloco__titulo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 14px;
+  padding: 4px 4px 14px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--tinta);
+  border-bottom: 1px solid #b9c9dc;
+}
+
+.bloco__titulo svg {
+  color: var(--tinta-suave);
+}
+
+/* ---------- Campos ---------- */
+.campo-calculo {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+
+.campo-calculo label {
+  font-size: 0.78rem;
+  color: var(--tinta);
+}
+
+.campo-calculo__caixa {
+  display: flex;
+  align-items: center;
+  background: var(--branco);
+  border: 1px solid transparent;
+  border-radius: 6px;
+}
+
+.campo-calculo__caixa:focus-within {
+  border-color: var(--azul);
+  box-shadow: 0 0 0 3px rgba(47, 123, 255, 0.15);
+}
+
+.campo-calculo__caixa input {
+  flex: 1;
+  min-width: 0;
+  padding: 9px 12px;
+  font-size: 0.95rem;
+  color: var(--tinta);
+  background: none;
+  border: none;
+}
+
+.campo-calculo__caixa input:focus {
+  outline: none;
+}
+
+/* Melhoria do estudo de caso: diferenciar valor preenchido de placeholder. */
+.campo-calculo__caixa input::placeholder {
+  color: #aab2bf;
+  font-style: italic;
+}
+
+.campo-calculo__caixa:has(input:not(:placeholder-shown)) {
+  border-color: #9cc2ff;
+}
+
+.campo-calculo__caixa input:not(:placeholder-shown) {
+  font-weight: 600;
+}
+
+.campo-calculo__marca {
+  padding-left: 12px;
+  font-size: 0.85rem;
+  color: var(--tinta-fraca);
+}
+
+.campo-calculo__marca--fim {
+  padding: 0 12px 0 0;
+}
+
+.campo-calculo__ajuda {
+  font-size: 0.72rem;
+  color: var(--tinta-suave);
+}
+
+/* ---------- Instrucao e botao ---------- */
+.calculo__instrucao {
+  max-width: 820px;
+  margin: 26px 0 30px;
+  font-size: 1.05rem;
+  color: var(--azul);
+}
+
+.calculo__instrucao b {
+  font-weight: 500;
+  color: var(--tinta);
+}
+
+.calculo__acoes {
+  display: flex;
+  justify-content: center;
+  max-width: 820px;
+}
+
+.botao-confirmar {
+  padding: 8px 14px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--marinho);
+  background: var(--branco);
+  border: 2px solid var(--azul);
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(47, 123, 255, 0.25);
+}
+
+.botao-confirmar:hover:not(:disabled) {
+  background: var(--azul-claro);
+}
+
+/* ---------- Modal de resumo (Figura C2) ---------- */
+.resumo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.resumo__cartao {
+  width: min(320px, 100%);
+  padding: 12px 12px 22px;
+  text-align: center;
+  background: var(--azul-bloco);
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(15, 42, 74, 0.12);
+}
+
+.resumo__titulo {
+  margin: 0 0 12px;
+  font-size: 0.92rem;
+}
+
+.resumo__check {
+  display: inline-grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  margin-bottom: 8px;
+  color: #fff;
+  background: var(--azul);
+  border-radius: 50%;
+}
+
+.resumo__linha {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 9px 0;
+  font-size: 0.9rem;
+  border-bottom: 1px solid #b9c9dc;
+}
+
+.resumo__linha:last-child {
+  border-bottom: none;
+}
+
+.resumo__linha strong {
+  font-weight: 500;
+}
+
+.valor-positivo {
+  color: #1a9a3f;
+}
+
+.valor-negativo {
+  color: var(--erro);
+}
+
+.resumo__comparacao {
+  width: 100%;
+  margin-top: 16px;
+  padding: 10px 14px;
+  font-size: 0.86rem;
+  color: var(--tinta);
+  background: var(--papel);
+  border-left: 4px solid var(--verde);
+  border-radius: 0 8px 8px 0;
+}
+
+.resumo__comparacao p {
+  margin: 0 0 4px;
+}
+
+.resumo__comparacao p:last-child {
+  margin: 0;
+}
+
+.resumo__comparacao--prejuizo {
+  background: var(--erro-fundo);
+  border-left-color: var(--erro);
+}
+
+.resumo__aviso {
+  width: 100%;
+  margin: 12px 0 0;
+  padding: 9px 12px;
+  font-size: 0.85rem;
+  color: #7a5200;
+  background: var(--amarelo-fundo);
+  border-radius: 8px;
+}
+
+.resumo__alternar {
+  margin-top: 12px;
+  padding: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--azul);
+  background: none;
+  border: none;
+}
+
+.resumo__detalhes {
+  width: 100%;
+  margin-top: 6px;
+  font-size: 0.84rem;
+}
+
+.resumo__detalhes table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.resumo__detalhes td {
+  padding: 6px 4px;
+  border-bottom: 1px solid var(--linha);
+}
+
+.resumo__detalhes td:last-child {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.resumo__detalhes-total td {
+  font-weight: 700;
+}
+
+.resumo__nota {
+  margin: 8px 0 0;
+  font-size: 0.78rem;
+  color: var(--tinta-suave);
+}
+
+.resumo .aviso-erro {
+  width: 100%;
+  margin: 12px 0 0;
+}
+
+.resumo__acoes {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.salvo {
+  text-align: center;
+}
+
+.salvo h2 {
+  margin: 4px 0 8px;
+  color: var(--marinho);
+}
+
+.salvo p {
+  margin: 0;
+  color: var(--tinta-suave);
+}
+
+@media (max-width: 720px) {
+  .calculo__blocos {
+    grid-template-columns: 1fr;
+  }
+}
