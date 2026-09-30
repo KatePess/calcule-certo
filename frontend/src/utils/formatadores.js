@@ -20,7 +20,25 @@ export function primeiroNome(nomeCompleto) {
   return String(nomeCompleto ?? '').trim().split(' ')[0];
 }
 
-// "Kate Pessoa dos Santos" -> "KS" (usado no avatar do cabecalho)
+// "68999991234" -> "(68) 99999-1234"; com 10 digitos, "(68) 3223-1234".
+// Formata enquanto a pessoa digita.
+export function formatarTelefone(valor) {
+  const digitos = apenasDigitos(valor).slice(0, 11);
+  if (digitos.length === 0) return '';
+  if (digitos.length <= 2) return `(${digitos}`;
+  const ddd = `(${digitos.slice(0, 2)}) `;
+  if (digitos.length <= 6) return ddd + digitos.slice(2);
+  const meio = digitos.length === 11 ? 7 : 6;
+  return `${ddd}${digitos.slice(2, meio)}-${digitos.slice(meio)}`;
+}
+
+// "Kate Pessoa dos Santos" -> "Kate Santos" (cabe no rodape do menu lateral)
+export function nomeCurto(nomeCompleto) {
+  const partes = String(nomeCompleto ?? '').trim().split(/\s+/).filter(Boolean);
+  return partes.length > 1 ? `${partes[0]} ${partes[partes.length - 1]}` : partes.join('');
+}
+
+// "Kate Pessoa dos Santos" -> "KS" (usado no avatar do menu lateral)
 export function iniciais(nomeCompleto) {
   const partes = String(nomeCompleto ?? '').trim().split(/\s+/).filter(Boolean);
   if (partes.length === 0) return '';

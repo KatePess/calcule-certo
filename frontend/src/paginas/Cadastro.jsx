@@ -6,6 +6,7 @@ import {
   IconeLinkedin,
   IconeOlho,
   IconeOlhoCortado,
+  IconeSetaDireita,
 } from '../componentes/Icones.jsx';
 import { DICAS, TEXTOS_CADASTRO, VALIDACAO } from '../constantes/mensagens.js';
 import { ROTAS } from '../constantes/rotas.js';
@@ -19,7 +20,7 @@ import {
   ehSenhaValida,
   primeiroErro,
 } from '../utils/validadores.js';
-import '../estilos/auth.css';
+import '../estilos/cadastro.css';
 
 const FORMULARIO_VAZIO = { nome: '', cnpj: '', email: '', senha: '' };
 
@@ -63,21 +64,23 @@ export default observer(function Cadastro() {
   }
 
   return (
-    <div className="auth-fundo">
-      <main className="auth-cartao">
-        <section className="auth-painel auth-painel--escuro">
-          <div className="auth-painel__texto">
-            <p className="auth-painel__marca">
-              Calcule <span>Certo</span>
-            </p>
-            <h1 className="auth-painel__titulo">{TEXTOS_CADASTRO.PAINEL_TITULO}</h1>
-            <p className="auth-painel__legenda">{TEXTOS_CADASTRO.PAINEL_LEGENDA}</p>
+    <div className="cadastro-fundo">
+      <main className="cadastro">
+        {/* Painel azul com a borda em diagonal; so decoracao, atras do formulario. */}
+        <div className="cadastro__azul" aria-hidden="true" />
+
+        <section className="cadastro__boas-vindas">
+          <p className="cadastro__marca">
+            Calcule <span>Certo</span>
+          </p>
+          <div className="cadastro__saudacao">
+            <h1>{TEXTOS_CADASTRO.PAINEL_TITULO}</h1>
+            <p>{TEXTOS_CADASTRO.PAINEL_LEGENDA}</p>
           </div>
         </section>
 
-        <section className="auth-lado auth-lado--destaque">
-          <h2 className="auth-titulo">{TEXTOS_CADASTRO.TITULO}</h2>
-          <p className="auth-legenda">{TEXTOS_CADASTRO.LEGENDA}</p>
+        <section className="cadastro__formulario" aria-labelledby="titulo-cadastro">
+          <h2 id="titulo-cadastro">{TEXTOS_CADASTRO.TITULO}</h2>
 
           <form onSubmit={aoEnviar} noValidate>
             {erro && (
@@ -86,61 +89,47 @@ export default observer(function Cadastro() {
               </p>
             )}
 
-            <div className="campo">
-              <label className="campo__rotulo" htmlFor="nome">
-                Nome completo
-              </label>
-              <div className="campo__caixa">
-                <input
-                  id="nome"
-                  value={form.nome}
-                  onChange={(e) => alterar('nome', e.target.value)}
-                  placeholder="Digite seu nome"
-                  autoComplete="name"
-                  required
-                  autoFocus
-                />
-              </div>
+            <div className="cadastro-campo">
+              <label htmlFor="nome">Nome completo</label>
+              <input
+                id="nome"
+                value={form.nome}
+                onChange={(e) => alterar('nome', e.target.value)}
+                placeholder="Digite seu nome"
+                autoComplete="name"
+                required
+                autoFocus
+              />
             </div>
 
-            <div className="campo">
-              <label className="campo__rotulo" htmlFor="cnpj">
-                CNPJ
-              </label>
-              <div className="campo__caixa">
-                <input
-                  id="cnpj"
-                  inputMode="numeric"
-                  value={form.cnpj}
-                  onChange={(e) => alterar('cnpj', formatarCnpj(e.target.value))}
-                  placeholder="Apenas números"
-                />
-              </div>
-              <small className="campo__ajuda">Opcional nesta etapa.</small>
+            {/* O prototipo pede CPF; o sistema segue o diagrama de classes do TCC (CNPJ). */}
+            <div className="cadastro-campo">
+              <label htmlFor="cnpj">CNPJ (opcional)</label>
+              <input
+                id="cnpj"
+                inputMode="numeric"
+                value={form.cnpj}
+                onChange={(e) => alterar('cnpj', formatarCnpj(e.target.value))}
+                placeholder="Apenas números"
+              />
             </div>
 
-            <div className="campo">
-              <label className="campo__rotulo" htmlFor="email-cadastro">
-                E-mail
-              </label>
-              <div className="campo__caixa">
-                <input
-                  id="email-cadastro"
-                  type="email"
-                  value={form.email}
-                  onChange={(e) => alterar('email', e.target.value)}
-                  placeholder="Digite seu e-mail"
-                  autoComplete="email"
-                  required
-                />
-              </div>
+            <div className="cadastro-campo">
+              <label htmlFor="email-cadastro">E-mail</label>
+              <input
+                id="email-cadastro"
+                type="email"
+                value={form.email}
+                onChange={(e) => alterar('email', e.target.value)}
+                placeholder="Digite seu e-mail"
+                autoComplete="email"
+                required
+              />
             </div>
 
-            <div className="campo">
-              <label className="campo__rotulo" htmlFor="senha-cadastro">
-                Senha
-              </label>
-              <div className="campo__caixa">
+            <div className="cadastro-campo">
+              <label htmlFor="senha-cadastro">Senha</label>
+              <div className="cadastro-campo__senha">
                 <input
                   id="senha-cadastro"
                   type={mostrarSenha ? 'text' : 'password'}
@@ -148,38 +137,43 @@ export default observer(function Cadastro() {
                   onChange={(e) => alterar('senha', e.target.value)}
                   placeholder="Crie uma senha"
                   autoComplete="new-password"
+                  aria-describedby="ajuda-senha"
                   required
                 />
                 <button
                   type="button"
-                  className="campo__icone"
                   onClick={() => setMostrarSenha((v) => !v)}
                   aria-label={mostrarSenha ? 'Ocultar senha' : 'Mostrar senha'}
                 >
                   {mostrarSenha ? <IconeOlho /> : <IconeOlhoCortado />}
                 </button>
               </div>
-              <small className="campo__ajuda">Mínimo de {TAMANHO_MINIMO_SENHA} caracteres.</small>
+              <small id="ajuda-senha" className="cadastro-campo__ajuda">
+                Mínimo de {TAMANHO_MINIMO_SENHA} caracteres.
+              </small>
             </div>
 
-            <button className="auth-botao auth-botao--claro" type="submit" disabled={enviando}>
+            <button className="cadastro__enviar" type="submit" disabled={enviando}>
               {enviando ? TEXTOS_CADASTRO.BOTAO_ENVIANDO : TEXTOS_CADASTRO.BOTAO}
             </button>
           </form>
 
-          <p className="auth-divisor">Ou continue com</p>
-          <div className="auth-social">
-            <button type="button" disabled title={DICAS.LOGIN_SOCIAL}>
-              <IconeGoogle />
+          <p className="cadastro__divisor">{TEXTOS_CADASTRO.OUTRAS_FORMAS}</p>
+          <div className="cadastro__social">
+            <button type="button" disabled title={DICAS.LOGIN_SOCIAL} aria-label="Entrar com Google (em breve)">
+              <IconeGoogle tamanho={48} />
             </button>
-            <button type="button" disabled title={DICAS.LOGIN_SOCIAL}>
-              <IconeLinkedin />
+            <button type="button" disabled title={DICAS.LOGIN_SOCIAL} aria-label="Entrar com LinkedIn (em breve)">
+              <IconeLinkedin tamanho={48} />
             </button>
           </div>
+        </section>
 
-          <p className="auth-rodape">
-            Já possui uma conta? <Link to={ROTAS.LOGIN}>Entrar</Link>
-          </p>
+        <section className="cadastro__entrar">
+          <p>{TEXTOS_CADASTRO.JA_TEM_CONTA}</p>
+          <Link to={ROTAS.LOGIN} className="botao-site botao-site--grande">
+            {TEXTOS_CADASTRO.ENTRAR} <IconeSetaDireita tamanho={20} />
+          </Link>
         </section>
       </main>
     </div>

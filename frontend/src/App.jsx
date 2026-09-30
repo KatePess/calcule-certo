@@ -6,6 +6,7 @@ import SomenteVisitante from './componentes/SomenteVisitante.jsx';
 import { ROTAS } from './constantes/rotas.js';
 import Cadastro from './paginas/Cadastro.jsx';
 import EsqueciSenha from './paginas/EsqueciSenha.jsx';
+import Inicio from './paginas/Inicio.jsx';
 import Login from './paginas/Login.jsx';
 import NovoCalculo from './paginas/NovoCalculo.jsx';
 import Painel from './paginas/Painel.jsx';
@@ -25,7 +26,15 @@ export default function App() {
 
   return (
     <Routes>
-      <Route path={ROTAS.RAIZ} element={<Navigate to={ROTAS.LOGIN} replace />} />
+      {/* Tela inicial publica; quem ja entrou vai direto para o painel. */}
+      <Route
+        path={ROTAS.RAIZ}
+        element={
+          <SomenteVisitante>
+            <Inicio />
+          </SomenteVisitante>
+        }
+      />
       <Route
         path={ROTAS.LOGIN}
         element={
@@ -53,7 +62,7 @@ export default function App() {
       {/* Sem SomenteVisitante: o link do e-mail precisa abrir mesmo com uma sessao aberta. */}
       <Route path={ROTAS.REDEFINIR_SENHA} element={<RedefinirSenha />} />
 
-      {/* Telas internas: exigem login e compartilham menu lateral e cabecalho. */}
+      {/* Telas internas: exigem login e compartilham o menu lateral. */}
       <Route
         element={
           <RotaProtegida>
@@ -69,7 +78,7 @@ export default function App() {
         <Route path={ROTAS.RESUMO} element={<ResumoSistema />} />
       </Route>
 
-      <Route path="*" element={<Navigate to={ROTAS.LOGIN} replace />} />
+      <Route path="*" element={<Navigate to={ROTAS.RAIZ} replace />} />
     </Routes>
   );
 }

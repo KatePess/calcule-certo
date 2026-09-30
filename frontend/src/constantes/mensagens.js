@@ -26,6 +26,31 @@ export const VALIDACAO = {
   CALCULO_OBRIGATORIO: (campo) => `${campo}: preencha este campo.`,
   CALCULO_QUANTIDADE: 'A quantidade de itens deve ser pelo menos 1.',
   TAXA_ADICIONAL: 'Cada taxa adicional precisa de nome e percentual.',
+  EMPRESA_EMAIL: 'Informe um e-mail corporativo válido.',
+  EMPRESA_TELEFONE: 'Informe o telefone com DDD: 10 dígitos para fixo ou 11 para celular.',
+  EMPRESA_FUNCIONARIOS: 'O número de funcionários deve ser um número inteiro, sem pontos.',
+};
+
+// Tela inicial publica (landing page do prototipo).
+export const TEXTOS_INICIO = {
+  TITULO: 'Calcule custos com precisão, precifique com segurança.',
+  LEGENDA:
+    'Aumente sua eficiência e precisão com nosso sistema completo para cálculo e gestão de licitações. Cadastre-se e comece já.',
+  COMECAR: 'Começar agora',
+  SAIBA_MAIS: 'Saiba mais',
+  ACESSAR: 'Acessar conta',
+  CADASTRAR: 'Cadastrar-se',
+  DESTAQUES: 'Destaques e funcionalidades',
+  DESTAQUES_ANTERIORES: 'Ver destaques anteriores',
+  DESTAQUES_PROXIMOS: 'Ver próximos destaques',
+  SOBRE: [
+    'O Calcule Certo nasceu como Trabalho de Conclusão de Curso de Sistemas de Informação na UniNORTE, junto com uma empresa que participa de licitações públicas.',
+    'Montar o preço de uma proposta na planilha leva cerca de 40 minutos, e um erro nas taxas da plataforma pode transformar o lucro em prejuízo. O sistema faz essa conta automaticamente, com precisão de centavos, e guarda cada cálculo em um relatório pronto para enviar.',
+  ],
+  SUPORTE_LEGENDA: 'Precisa de ajuda? Comece por aqui.',
+  RODAPE: 'Trabalho de Conclusão de Curso · Sistemas de Informação · UniNORTE',
+  ABRIR_MENU: 'Abrir menu',
+  FECHAR_MENU: 'Fechar menu',
 };
 
 export const TEXTOS_LOGIN = {
@@ -39,11 +64,13 @@ export const TEXTOS_LOGIN = {
 
 export const TEXTOS_CADASTRO = {
   TITULO: 'Criar conta',
-  LEGENDA: 'Preencha os dados abaixo para começar a usar o sistema.',
   PAINEL_TITULO: 'Olá!',
   PAINEL_LEGENDA: 'Crie sua conta gratuitamente, de forma rápida e segura.',
   BOTAO: 'Criar conta',
   BOTAO_ENVIANDO: 'Criando conta...',
+  JA_TEM_CONTA: 'Já possui uma conta? Clique em entrar',
+  ENTRAR: 'Entrar',
+  OUTRAS_FORMAS: 'Ou continue com',
 };
 
 export const TEXTOS_ESQUECI_SENHA = {
@@ -151,11 +178,26 @@ export const TEXTOS_PAINEL = {
 };
 
 export const TEXTOS_PERFIL = {
-  TITULO: 'Perfil',
-  DADOS: 'Meus dados',
+  TITULO: 'Meu perfil',
+  ABRIR_PERFIL: 'Abrir meu perfil',
+  MENU: 'Opções do perfil',
+  RODAPE: 'Para uma melhor experiência e um ambiente seguro, veja como cuidamos dos seus dados em',
+  EMPRESA: 'Dados da empresa',
+  EMPRESA_LEGENDA:
+    'Preencha os dados da empresa que participa das licitações. Nenhum campo é obrigatório, e o CNPJ aparece no cabeçalho dos relatórios em PDF.',
+  EMPRESA_SALVA: 'Dados da empresa salvos.',
+  SALVAR_EMPRESA: 'Salvar dados da empresa',
+  GRUPO_IDENTIFICACAO: 'Identificação',
+  GRUPO_CONTATO: 'Contato',
+  GRUPO_ATUACAO: 'Atuação',
+  GRUPO_LOCALIZACAO: 'Localização',
+  atualizadoEm: (data) => `Última atualização em ${data}.`,
+  DADOS: 'Dados pessoais',
+  DADOS_LEGENDA: 'Seu nome aparece no cabeçalho dos relatórios em PDF.',
   SALVAR_DADOS: 'Salvar dados',
   DADOS_SALVOS: 'Dados atualizados.',
-  SENHA: 'Trocar senha',
+  SENHA: 'Segurança',
+  SENHA_LEGENDA: 'Para trocar a senha, confirme a senha atual. A nova vale a partir do próximo login.',
   SENHA_ATUAL: 'Senha atual',
   NOVA_SENHA: 'Nova senha',
   CONFIRMAR_SENHA: 'Repita a nova senha',
@@ -168,9 +210,13 @@ export const TEXTOS_PERFIL = {
   NOVA_TAXA: 'Nova taxa',
   NOME_TAXA_VAZIO: 'Informe o nome da taxa.',
   PERCENTUAL_VAZIO: 'Informe o percentual da taxa.',
+  NOTIFICACOES: 'Notificações',
+  NOTIFICACOES_LEGENDA:
+    'Os avisos aparecem aqui e no menu quando uma licitação abre nos próximos 7 dias. Licitações aprovadas ou reprovadas não entram.',
+  PRIVACIDADE: 'Privacidade',
+  PRIVACIDADE_LEGENDA: 'Como o Calcule Certo cuida dos seus dados.',
 };
 
 export const DICAS = {
   LOGIN_SOCIAL: 'Login social previsto para uma sprint futura',
-  BUSCA_GLOBAL: 'Busca geral prevista para uma versão futura',
 };

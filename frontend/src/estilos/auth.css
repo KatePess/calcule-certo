@@ -30,11 +30,6 @@
   border-radius: 0 140px 0 0;
 }
 
-.auth-painel--escuro {
-  background: linear-gradient(140deg, #1d2126 0%, #2a2f36 100%);
-  border-radius: 0;
-}
-
 /* Bolhas decorativas que aparecem no prototipo. */
 .auth-painel::before,
 .auth-painel::after {
@@ -67,17 +62,6 @@
   width: 100%;
 }
 
-.auth-painel__marca {
-  margin: 0;
-  font-size: 1.4rem;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-}
-
-.auth-painel__marca span {
-  color: #4f93ff;
-}
-
 .auth-painel__titulo {
   /* as margens automaticas centralizam o bloco entre a marca e a base */
   margin: auto 0 14px;
@@ -103,11 +87,6 @@
   background: var(--papel);
 }
 
-.auth-lado--destaque {
-  background: linear-gradient(160deg, #3c85ff 0%, #2f7bff 100%);
-  color: #fff;
-}
-
 .auth-titulo {
   margin: 0 0 6px;
   font-size: 1.5rem;
@@ -118,10 +97,6 @@
   margin: 0 0 26px;
   font-size: 0.9rem;
   color: var(--tinta-suave);
-}
-
-.auth-lado--destaque .auth-legenda {
-  color: rgba(255, 255, 255, 0.85);
 }
 
 .campo {
@@ -150,10 +125,6 @@
   border: 1px solid transparent;
   border-radius: var(--raio);
   transition: border-color 0.15s, background 0.15s;
-}
-
-.auth-lado--destaque .campo__caixa input {
-  background: #eef2f7;
 }
 
 .campo__caixa input::placeholder {
@@ -192,10 +163,6 @@
   margin-top: 6px;
   font-size: 0.78rem;
   color: var(--tinta-suave);
-}
-
-.auth-lado--destaque .campo__ajuda {
-  color: rgba(255, 255, 255, 0.82);
 }
 
 /* ---------- Linha "lembrar / esqueci a senha" ---------- */
@@ -265,16 +232,7 @@ a.auth-botao {
   cursor: progress;
 }
 
-.auth-botao--claro {
-  color: var(--azul);
-  background: #fff;
-}
-
 /* ---------- Aviso de erro (base em global.css) ---------- */
-.auth-lado--destaque .aviso-erro {
-  color: #7a1f16;
-}
-
 /* ---------- Rodape com login social ---------- */
 .auth-divisor {
   display: flex;
@@ -292,15 +250,6 @@ a.auth-botao {
   flex: 1;
   height: 1px;
   background: var(--linha);
-}
-
-.auth-lado--destaque .auth-divisor {
-  color: rgba(255, 255, 255, 0.9);
-}
-
-.auth-lado--destaque .auth-divisor::before,
-.auth-lado--destaque .auth-divisor::after {
-  background: rgba(255, 255, 255, 0.4);
 }
 
 .auth-social {
@@ -328,19 +277,10 @@ a.auth-botao {
   color: var(--tinta-suave);
 }
 
-.auth-lado--destaque .auth-rodape {
-  color: rgba(255, 255, 255, 0.9);
-}
-
 .auth-rodape a {
   color: var(--azul);
   font-weight: 600;
   text-decoration: none;
-}
-
-.auth-lado--destaque .auth-rodape a {
-  color: #fff;
-  text-decoration: underline;
 }
 
 /* ---------- Responsivo (requisito nao funcional do TCC) ---------- */

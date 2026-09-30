@@ -20,6 +20,7 @@ export const ENDPOINTS = {
   PAINEL: '/painel',
   PERFIL: '/auth/perfil',
   SENHA: '/auth/senha',
+  EMPRESA: '/empresa',
   ESQUECI_SENHA: '/auth/esqueci-senha',
   REDEFINIR_SENHA: '/auth/redefinir-senha',
 };

@@ -59,6 +59,13 @@ export const ERROS = {
   TAXA_TIPO_INVALIDO: 'Escolha se a taxa é da plataforma, uma comissão ou uma taxa adicional.',
   TAXA_DUPLICADA: 'Você já tem uma taxa salva com este nome.',
   TAXA_LIMITE: 'Você atingiu o limite de taxas salvas. Exclua alguma para cadastrar outra.',
+
+  EMPRESA_TEXTO_LONGO: (campo, maximo) => `${campo}: use no máximo ${maximo} caracteres.`,
+  EMPRESA_EMAIL: 'Informe um e-mail corporativo válido.',
+  EMPRESA_TELEFONE: 'Informe o telefone com DDD: 10 dígitos para fixo ou 11 para celular.',
+  EMPRESA_FUNCIONARIOS: 'O número de funcionários deve ser um número inteiro, sem pontos.',
+  EMPRESA_PORTE: 'Escolha um porte de empresa da lista.',
+  EMPRESA_UF: 'Escolha um estado (UF) da lista.',
 };
 
 // Avisos nao bloqueiam a operacao: so pedem atencao.

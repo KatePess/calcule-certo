@@ -1,0 +1,342 @@
+/* Tela de cadastro. Medidas e cores tiradas do prototipo (quadro de 1512 px). */
+.cadastro-fundo {
+  --azul-cadastro: #2f80ed;
+  --azul-cadastro-meio: #286ecc;
+  --azul-cadastro-fim: #1b4a8a;
+  --borda-botao-cadastro: #0088ff;
+
+  display: grid;
+  place-items: center;
+  min-height: 100%;
+  padding: 64px 24px;
+  background: #050a12 url('../assets/cadastro/fundo-vidro.svg') center / cover;
+}
+
+/* ---------- Cartao: grafite a esquerda, azul em diagonal a direita ---------- */
+.cadastro {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 420px;
+  grid-template-rows: 1fr auto;
+  grid-template-areas:
+    'boas-vindas formulario'
+    'entrar formulario';
+  width: min(1196px, 100%);
+  min-height: 850px;
+  padding: 0 85px 0 38px;
+  overflow: hidden;
+  color: #fff;
+  background: #2b2c2e url('../assets/cadastro/painel-grafite.svg') center / cover;
+  border-radius: 6px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+}
+
+/* A diagonal e medida a partir da direita, onde fica o formulario (420 px +
+   85 px de margem): no topo ela passa 32 px antes do titulo e, embaixo, 259 px
+   mais para a esquerda, como no prototipo. Em porcentagem, ela invadiria o
+   formulario nas telas mais estreitas. */
+.cadastro__azul {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 764px;
+  background: linear-gradient(
+    165deg,
+    var(--azul-cadastro) 0%,
+    var(--azul-cadastro-meio) 45%,
+    var(--azul-cadastro-fim) 100%
+  );
+  clip-path: polygon(227px 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.cadastro > section {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- Lado grafite ---------- */
+.cadastro__boas-vindas {
+  grid-area: boas-vindas;
+  padding-top: 27px;
+}
+
+.cadastro__marca {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.cadastro__marca span {
+  color: var(--azul-cadastro);
+}
+
+.cadastro__saudacao {
+  margin-top: 155px;
+}
+
+.cadastro__saudacao h1 {
+  margin: 0 0 12px;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.cadastro__saudacao p {
+  max-width: 380px;
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+
+.cadastro__entrar {
+  grid-area: entrar;
+  padding-bottom: 63px;
+}
+
+.cadastro__entrar p {
+  margin: 0 0 14px;
+  font-size: 1.25rem;
+}
+
+/* ---------- Lado azul: formulario ---------- */
+.cadastro__formulario {
+  grid-area: formulario;
+  padding: 54px 0 30px;
+}
+
+.cadastro__formulario h2 {
+  margin: 0 0 11px;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.cadastro-campo {
+  margin-bottom: 19px;
+}
+
+.cadastro-campo label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 1.2rem;
+}
+
+.cadastro-campo input {
+  width: 100%;
+  height: 70px;
+  padding: 0 16px;
+  font-size: 1.2rem;
+  color: var(--tinta);
+  background: var(--campo);
+  border: none;
+  border-radius: 6px;
+  outline: none;
+}
+
+.cadastro-campo input::placeholder {
+  color: #adadad;
+}
+
+.cadastro-campo input:focus-visible {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.7);
+}
+
+.cadastro-campo__senha {
+  position: relative;
+}
+
+.cadastro-campo__senha input {
+  padding-right: 56px;
+}
+
+.cadastro-campo__senha button {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  display: grid;
+  place-items: center;
+  padding: 6px;
+  color: var(--tinta-suave);
+  background: none;
+  border: none;
+  border-radius: 6px;
+  transform: translateY(-50%);
+}
+
+.cadastro-campo__ajuda {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.cadastro__enviar {
+  width: 100%;
+  height: 70px;
+  margin-top: 16px;
+  font-size: 1.45rem;
+  font-weight: 500;
+  color: #fff;
+  background: transparent;
+  border: 1px solid var(--borda-botao-cadastro);
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 30, 80, 0.18);
+  transition: background 0.15s;
+}
+
+.cadastro__enviar:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.cadastro__enviar:focus-visible,
+.cadastro-campo__senha button:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 2px;
+}
+
+.cadastro__enviar:disabled {
+  opacity: 0.7;
+  cursor: progress;
+}
+
+.cadastro__divisor {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 34px 0 0;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.cadastro__divisor::before,
+.cadastro__divisor::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.85);
+}
+
+/* Login social fica para depois (fora do escopo do TCC): os botoes
+   aparecem como no prototipo, mas desativados, com a dica ao passar o mouse. */
+.cadastro__social {
+  display: flex;
+  justify-content: center;
+  gap: 33px;
+  margin-top: 18px;
+}
+
+.cadastro__social button {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 8px;
+}
+
+/* ---------- Notebook estreito: sem espaco para a diagonal, divisao reta ---------- */
+@media (max-width: 1199px) {
+  .cadastro {
+    padding-right: 40px;
+  }
+
+  .cadastro__azul {
+    width: 492px;
+    clip-path: none;
+  }
+
+  .cadastro__saudacao p,
+  .cadastro__entrar p {
+    max-width: calc(100% - 32px);
+  }
+}
+
+/* ---------- Tablet e celular: uma coluna, formulario no meio ---------- */
+@media (max-width: 900px) {
+  .cadastro-fundo {
+    padding: 24px 16px;
+  }
+
+  .cadastro {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      'boas-vindas'
+      'formulario'
+      'entrar';
+    width: min(560px, 100%);
+    min-height: 0;
+    padding: 0;
+  }
+
+  .cadastro__azul {
+    display: none;
+  }
+
+  .cadastro__boas-vindas {
+    padding: 24px 24px 28px;
+  }
+
+  .cadastro__marca {
+    font-size: 1.6rem;
+  }
+
+  .cadastro__saudacao {
+    margin-top: 28px;
+  }
+
+  .cadastro__saudacao p {
+    font-size: 1.2rem;
+  }
+
+  /* Faixa azul com o topo inclinado, lembrando a diagonal do computador. */
+  .cadastro__formulario {
+    padding: 52px 24px 32px;
+    background: linear-gradient(
+      165deg,
+      var(--azul-cadastro) 0%,
+      var(--azul-cadastro-meio) 45%,
+      var(--azul-cadastro-fim) 100%
+    );
+    clip-path: polygon(0 28px, 100% 0, 100% 100%, 0 100%);
+  }
+
+  .cadastro__formulario h2 {
+    font-size: 1.7rem;
+  }
+
+  .cadastro-campo label {
+    font-size: 1.05rem;
+  }
+
+  .cadastro-campo input {
+    height: 54px;
+    font-size: 1.05rem;
+  }
+
+  .cadastro__enviar {
+    height: 58px;
+    font-size: 1.25rem;
+  }
+
+  .cadastro__divisor {
+    margin-top: 32px;
+  }
+
+  .cadastro__social {
+    margin-top: 18px;
+  }
+
+  .cadastro__social svg {
+    width: 40px;
+    height: 40px;
+  }
+
+  .cadastro__entrar {
+    padding: 24px;
+  }
+
+  .cadastro__entrar p {
+    font-size: 1.05rem;
+  }
+}

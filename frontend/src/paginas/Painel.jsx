@@ -2,12 +2,13 @@ import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import EtiquetaStatus from '../componentes/EtiquetaStatus.jsx';
-import { IconeExclamacao, IconeMais, IconePasta, IconeSetaDireita } from '../componentes/Icones.jsx';
+import { IconeMais, IconePasta, IconeSetaDireita } from '../componentes/Icones.jsx';
+import ListaAlertas from '../componentes/ListaAlertas.jsx';
 import { MENSAGENS, TEXTOS_PAINEL } from '../constantes/mensagens.js';
 import { ROTAS } from '../constantes/rotas.js';
 import { usePainelStore, useSessaoStore } from '../stores/index.jsx';
 import { formatarDataLocal } from '../utils/datas.js';
-import { formatarData, primeiroNome } from '../utils/formatadores.js';
+import { primeiroNome } from '../utils/formatadores.js';
 import { formatarMoeda } from '../utils/moeda.js';
 import '../estilos/painel.css';
 
@@ -102,21 +103,7 @@ export default observer(function Painel() {
               {TEXTOS_PAINEL.ALERTAS}
             </h2>
             {painel.carregado && painel.alertas.length === 0 && <p className="painel__vazio">{TEXTOS_PAINEL.SEM_ALERTAS}</p>}
-            <ul className="painel__lista">
-              {painel.alertas.map((alerta) => (
-                <li key={alerta.id}>
-                  <Link to={ROTAS.RESUMO} className="painel__item">
-                    <span className="painel__item-icone painel__item-icone--vermelho">
-                      <IconeExclamacao tamanho={20} />
-                    </span>
-                    <span className="painel__item-texto">
-                      Licitação {alerta.numero} · {alerta.orgao} {TEXTOS_PAINEL.quandoAbre(alerta.diasParaAbertura)}
-                      <small>{formatarData(alerta.dataAbertura)}</small>
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <ListaAlertas alertas={painel.alertas} />
           </section>
         </div>
       </div>

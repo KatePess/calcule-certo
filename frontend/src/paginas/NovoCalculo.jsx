@@ -125,23 +125,25 @@ export default observer(function NovoCalculo() {
               <IconeCartao tamanho={22} />
               {TEXTOS_CALCULO.BLOCO_CUSTO}
             </h2>
-            {campoMoeda('orcamentoEmpresa', { ajuda: 'Opcional: o preço que a empresa cobraria hoje, para comparar.' })}
-            <div className="campo-calculo">
-              <label htmlFor="quantidadeItens">{ROTULOS_CALCULO.quantidadeItens}</label>
-              <div className="campo-calculo__caixa">
-                <input
-                  id="quantidadeItens"
-                  inputMode="numeric"
-                  autoComplete="off"
-                  maxLength={7}
-                  value={form.quantidadeItens}
-                  placeholder="Ex.: 10"
-                  onChange={(evento) => calculo.alterar('quantidadeItens', evento.target.value.replace(/\D/g, ''))}
-                />
+            <div className="bloco__campos">
+              {campoMoeda('orcamentoEmpresa', { ajuda: 'Opcional: o preço que a empresa cobraria hoje, para comparar.' })}
+              <div className="campo-calculo">
+                <label htmlFor="quantidadeItens">{ROTULOS_CALCULO.quantidadeItens}</label>
+                <div className="campo-calculo__caixa">
+                  <input
+                    id="quantidadeItens"
+                    inputMode="numeric"
+                    autoComplete="off"
+                    maxLength={7}
+                    value={form.quantidadeItens}
+                    placeholder="Ex.: 10"
+                    onChange={(evento) => calculo.alterar('quantidadeItens', evento.target.value.replace(/\D/g, ''))}
+                  />
+                </div>
               </div>
+              {campoMoeda('custoFixo')}
+              {campoMoeda('custoVariavel')}
             </div>
-            {campoMoeda('custoFixo')}
-            {campoMoeda('custoVariavel')}
           </section>
 
           <section className="bloco" aria-labelledby="bloco-parametros">
@@ -149,10 +151,12 @@ export default observer(function NovoCalculo() {
               <IconeResumo tamanho={22} />
               {TEXTOS_CALCULO.BLOCO_PARAMETROS}
             </h2>
-            {campoPercentual('taxaPlataforma', { placeholder: 'Ex.: 5', acessorio: usarTaxaSalva('taxaPlataforma', TIPOS_TAXA.PLATAFORMA) })}
-            {campoMoeda('seguro', { ajuda: 'Opcional. Valor em reais somado ao custo.' })}
-            {campoPercentual('comissaoTerceiros', { placeholder: 'Ex.: 10', acessorio: usarTaxaSalva('comissaoTerceiros', TIPOS_TAXA.COMISSAO) })}
-            {campoPercentual('margemLucro', { placeholder: 'Ex.: 10' })}
+            <div className="bloco__campos">
+              {campoPercentual('taxaPlataforma', { placeholder: 'Ex.: 5', acessorio: usarTaxaSalva('taxaPlataforma', TIPOS_TAXA.PLATAFORMA) })}
+              {campoMoeda('seguro', { ajuda: 'Opcional. Valor em reais somado ao custo.' })}
+              {campoPercentual('comissaoTerceiros', { placeholder: 'Ex.: 10', acessorio: usarTaxaSalva('comissaoTerceiros', TIPOS_TAXA.COMISSAO) })}
+              {campoPercentual('margemLucro', { placeholder: 'Ex.: 10' })}
+            </div>
             <TaxasAdicionais />
           </section>
         </div>

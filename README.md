@@ -16,6 +16,8 @@ Autora: Kate Pessoa dos Santos · Orientador: Prof. Juan Carlos Justiniano
 | 4 | Central de relatórios (Figura C3): filtros, PDF de uma página, editar e excluir — **fecha o MVP** |
 | 5 | Painel inicial com alertas de prazo, taxas salvas para reutilizar e tela de perfil (dados e senha) |
 | 6 | "Esqueci minha senha" com link por e-mail, dependências sem alertas de segurança e roteiro de homologação |
+| Extra | Tela inicial pública (landing page do protótipo), com carrossel de funcionalidades, dúvidas e suporte |
+| Extra | Menu do perfil ao passar o mouse no nome (rodapé do menu lateral) e cadastro dos dados da empresa |
 
 Tudo com layout responsivo para desktop e celular (requisito não funcional do TCC).
 
@@ -64,13 +66,14 @@ isoladamente e o servidor sempre recalcula antes de salvar.
 
 | Camada | Responsabilidade |
 |---|---|
-| `paginas/` | Telas (Login, Cadastro, Painel, Resumo, Novo cálculo, Relatórios, Perfil) |
+| `paginas/` | Telas (Início, Login, Cadastro, Painel, Resumo, Novo cálculo, Relatórios, Perfil) |
 | `componentes/` | Layout (menu e cabeçalho), campos de moeda e percentual, modal, ícones |
 | `stores/` | Estado da aplicação com **MobX** |
 | `servicos/` | Chamadas à API |
 | `constantes/` | Rotas, endpoints, textos, regras de validação |
 | `utils/` | Formatadores, validadores, acesso ao armazenamento |
 | `estilos/` | CSS de cada tela |
+| `assets/` | Imagens da tela inicial |
 
 ### Sobre o MobX
 
@@ -244,6 +247,7 @@ Get-NetTCPConnection -State Listen -LocalPort 3001 | ForEach-Object { Stop-Proce
 | GET, POST | `/api/taxas` | Lista e cadastra taxas salvas |
 | PUT, DELETE | `/api/taxas/:id` | Edita e exclui uma taxa salva |
 | GET | `/api/painel` | Licitações e relatórios recentes e alertas de prazo |
+| GET, PUT | `/api/empresa` | Dados da empresa da conta (razão social, CNPJ, contato, porte...) |
 | GET | `/api/saude` | Verificação de que a API está no ar |
 
 ## Próximos passos

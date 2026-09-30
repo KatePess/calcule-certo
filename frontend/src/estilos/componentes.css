@@ -1,8 +1,10 @@
 /* Componentes compartilhados pelas telas internas. */
 
 /* ---------- Pagina ---------- */
+/* Ocupa toda a largura ao lado do menu; cada tela organiza o espaco com
+   os proprios grids. */
 .pagina {
-  max-width: 1080px;
+  width: 100%;
 }
 
 .pagina__topo {

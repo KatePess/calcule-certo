@@ -847,7 +847,7 @@ Declarados como **trabalhos futuros**, para proteger o prazo:
 - Leitura automática de editais em PDF com inteligência artificial *(TCC, Conclusão)*
 - Histórico de lances *(TCC, Conclusão)*
 - Login com Google e LinkedIn
-- Landing page pública *(existe no protótipo; entra só se sobrar tempo na Sprint 6)*
+- ~~Landing page pública~~ — **feita em 30/09/2026** (tela inicial em `/`)
 - Busca global no cabeçalho
 - Notificações por e-mail de prazos
 - Vários usuários por empresa, com permissões

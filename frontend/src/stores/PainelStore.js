@@ -12,7 +12,7 @@ const ESTADO_INICIAL = {
 };
 
 // Painel inicial (prototipo home-system). Os alertas tambem alimentam o
-// contador do sino no cabecalho.
+// contador ao lado de "Home" no menu lateral.
 export class PainelStore {
   constructor() {
     Object.assign(this, structuredClone(ESTADO_INICIAL));
@@ -42,7 +42,7 @@ export class PainelStore {
     }
   }
 
-  // Usado pelo cabecalho: busca uma vez por sessao; o painel atualiza ao abrir.
+  // Usado pelo menu lateral: busca uma vez por sessao; o painel atualiza ao abrir.
   carregarSeNecessario() {
     if (!this.carregado && !this.carregando) this.carregar();
   }

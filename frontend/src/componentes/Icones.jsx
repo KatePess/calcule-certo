@@ -122,6 +122,55 @@ export function IconeSino({ tamanho }) {
   );
 }
 
+export function IconePredio({ tamanho }) {
+  return (
+    <Svg tamanho={tamanho}>
+      <path d="M4 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16" />
+      <path d="M16 9h2a2 2 0 0 1 2 2v10" />
+      <path d="M2.5 21h19" />
+      <path d="M8 7.5h4M8 11.5h4M8 15.5h4" />
+    </Svg>
+  );
+}
+
+export function IconeCadeado({ tamanho }) {
+  return (
+    <Svg tamanho={tamanho}>
+      <rect x="4.5" y="10.5" width="15" height="10.5" rx="2" />
+      <path d="M8 10.5V7a4 4 0 0 1 8 0v3.5" />
+      <path d="M12 14.5v2.5" />
+    </Svg>
+  );
+}
+
+export function IconeEscudo({ tamanho }) {
+  return (
+    <Svg tamanho={tamanho}>
+      <path d="M12 21s7.5-3.2 7.5-9.5V5.2L12 2.5 4.5 5.2v6.3C4.5 17.8 12 21 12 21Z" />
+      <path d="m9 11.8 2.1 2.1L15.2 9.8" />
+    </Svg>
+  );
+}
+
+export function IconePercentual({ tamanho }) {
+  return (
+    <Svg tamanho={tamanho}>
+      <path d="M19 5 5 19" />
+      <circle cx="7" cy="7" r="2.5" />
+      <circle cx="17" cy="17" r="2.5" />
+    </Svg>
+  );
+}
+
+export function IconeEngrenagem({ tamanho }) {
+  return (
+    <Svg tamanho={tamanho}>
+      <circle cx="12" cy="12" r="3" />
+      <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z" />
+    </Svg>
+  );
+}
+
 export function IconeMenu() {
   return (
     <Svg tamanho={22}>
@@ -239,9 +288,9 @@ export function IconePdf() {
   );
 }
 
-export function IconeGoogle() {
+export function IconeGoogle({ tamanho = 19 }) {
   return (
-    <svg width="19" height="19" viewBox="0 0 48 48" aria-hidden="true">
+    <svg width={tamanho} height={tamanho} viewBox="0 0 48 48" aria-hidden="true">
       <path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.6l6.7-6.7C35.6 2.6 30.2.5 24 .5 14.6.5 6.5 5.9 2.6 13.7l7.8 6.1C12.3 13.9 17.6 9.5 24 9.5Z" />
       <path fill="#4285F4" d="M46.5 24.5c0-1.6-.15-3.2-.4-4.7H24v9h12.7c-.55 3-2.2 5.5-4.7 7.2l7.6 5.9c4.4-4.1 6.9-10.2 6.9-17.4Z" />
       <path fill="#FBBC05" d="M10.4 28.4a14.5 14.5 0 0 1 0-8.6l-7.8-6.1a24 24 0 0 0 0 20.8l7.8-6.1Z" />
@@ -250,9 +299,9 @@ export function IconeGoogle() {
   );
 }
 
-export function IconeLinkedin() {
+export function IconeLinkedin({ tamanho = 19 }) {
   return (
-    <svg width="19" height="19" viewBox="0 0 24 24" aria-hidden="true">
+    <svg width={tamanho} height={tamanho} viewBox="0 0 24 24" aria-hidden="true">
       <rect width="24" height="24" rx="4" fill="#0A66C2" />
       <path
         fill="#fff"
@@ -274,6 +323,12 @@ const POR_NOME = {
   exclamacao: IconeExclamacao,
   andamento: IconeAndamento,
   fechar: IconeFechar,
+  sino: IconeSino,
+  predio: IconePredio,
+  cadeado: IconeCadeado,
+  escudo: IconeEscudo,
+  percentual: IconePercentual,
+  ajuda: IconeAjuda,
 };
 
 export function Icone({ nome, tamanho }) {

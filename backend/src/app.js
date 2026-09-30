@@ -5,6 +5,7 @@ import { CAMINHOS } from './constantes/rotas.js';
 import { rotaNaoEncontrada, tratarErros } from './middleware/tratarErros.js';
 import { rotasAuth } from './rotas/auth.js';
 import { rotasCalculos } from './rotas/calculos.js';
+import { rotasEmpresa } from './rotas/empresa.js';
 import { rotasLicitacoes } from './rotas/licitacoes.js';
 import { rotasPainel } from './rotas/painel.js';
 import { rotasRelatorios } from './rotas/relatorios.js';
@@ -25,6 +26,7 @@ export function criarApp() {
   app.use(CAMINHOS.RELATORIOS, rotasRelatorios);
   app.use(CAMINHOS.TAXAS, rotasTaxas);
   app.use(CAMINHOS.PAINEL, rotasPainel);
+  app.use(CAMINHOS.EMPRESA, rotasEmpresa);
 
   app.use(rotaNaoEncontrada);
   app.use(tratarErros);

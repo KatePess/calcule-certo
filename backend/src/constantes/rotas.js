@@ -7,6 +7,7 @@ export const CAMINHOS = {
   RELATORIOS: '/api/relatorios',
   TAXAS: '/api/taxas',
   PAINEL: '/api/painel',
+  EMPRESA: '/api/empresa',
 };
 
 export const CAMINHOS_CALCULO = {

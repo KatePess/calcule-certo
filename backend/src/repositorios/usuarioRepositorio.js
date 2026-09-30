@@ -34,6 +34,19 @@ export const usuarioRepositorio = {
     return rows[0] ?? null;
   },
 
+  async atualizarNome(id, nome) {
+    const { rows } = await consultar(
+      'UPDATE usuarios SET nome = $2 WHERE id = $1 RETURNING id, nome, email, cnpj',
+      [id, nome],
+    );
+    return rows[0] ?? null;
+  },
+
+  // O CNPJ e da empresa; ele e editado em "Dados da empresa".
+  async atualizarCnpj(id, cnpj, cliente) {
+    await consultar('UPDATE usuarios SET cnpj = $2 WHERE id = $1', [id, cnpj || null], cliente);
+  },
+
   async atualizarSenha(id, senhaHash, cliente) {
     await consultar('UPDATE usuarios SET senha_hash = $2 WHERE id = $1', [id, senhaHash], cliente);
   },

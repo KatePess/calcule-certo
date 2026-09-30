@@ -1,13 +1,12 @@
-/* Tela de perfil: dados, senha e taxas salvas. */
+/* Tela "Meu perfil". O menu do perfil fica em menu-perfil.css: ele abre
+   sobre o nome, no rodape do menu lateral. */
 .perfil {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
-  margin-top: 16px;
+  /* Os formularios se ajustam a largura da area, que muda com o menu lateral. */
+  container-type: inline-size;
 }
 
-.perfil__taxas {
-  grid-column: 1 / -1;
+.perfil .cartao {
+  margin-top: 16px;
 }
 
 .perfil__legenda {
@@ -16,11 +15,119 @@
   color: var(--tinta-suave);
 }
 
+.perfil__vazio {
+  margin: 0;
+  color: var(--tinta-suave);
+}
+
+/* Campos lado a lado quando ha espaco (dados pessoais e troca de senha). */
+.perfil__campos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px 16px;
+  align-items: start;
+}
+
 .formulario__campo input:disabled {
   color: var(--tinta-suave);
   background: var(--papel);
 }
 
+/* ---------- Dados da empresa ---------- */
+.empresa-form {
+  gap: 22px;
+}
+
+.empresa-form__grupo {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 16px;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.empresa-form__grupo legend {
+  grid-column: 1 / -1;
+  width: 100%;
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--azul-profundo);
+  border-bottom: 1px solid var(--linha);
+}
+
+.empresa-form__largo {
+  grid-column: 1 / -1;
+}
+
+.empresa-form__acoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+}
+
+@container (max-width: 560px) {
+  .empresa-form__grupo {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Contato e localizacao: um grupo embaixo do outro, ou lado a lado em tela larga. */
+.empresa-form__par {
+  display: grid;
+  gap: 22px 32px;
+}
+
+/* Tela larga: quatro colunas, com razao social e ramo ocupando duas. Contato
+   e localizacao dividem a linha, cada um com duas colunas. */
+@container (min-width: 900px) {
+  .empresa-form__grupo {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .empresa-form__largo {
+    grid-column: span 2;
+  }
+
+  .empresa-form__par {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .empresa-form__par .empresa-form__grupo {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ---------- Secao Privacidade ---------- */
+.privacidade {
+  display: grid;
+  gap: 16px 32px;
+  margin: 0;
+}
+
+@container (min-width: 800px) {
+  .privacidade {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.privacidade dt {
+  font-weight: 600;
+  color: var(--tinta);
+}
+
+.privacidade dd {
+  margin: 4px 0 0;
+  line-height: 1.55;
+  color: var(--tinta-suave);
+}
+
+/* ---------- Taxas salvas ---------- */
 .taxas {
   display: flex;
   flex-direction: column;
@@ -82,8 +189,7 @@
   margin-top: 4px;
 }
 
-@media (max-width: 900px) {
-  .perfil,
+@container (max-width: 560px) {
   .taxa-form__campos {
     grid-template-columns: 1fr;
   }

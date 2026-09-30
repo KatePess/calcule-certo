@@ -1,5 +1,6 @@
 import { createContext, useContext } from 'react';
 import { CalculoStore } from './CalculoStore.js';
+import { EmpresaStore } from './EmpresaStore.js';
 import { LicitacaoStore } from './LicitacaoStore.js';
 import { PainelStore } from './PainelStore.js';
 import { RelatorioStore } from './RelatorioStore.js';
@@ -14,6 +15,7 @@ export class RaizStore {
     this.relatorios = new RelatorioStore();
     this.painel = new PainelStore();
     this.taxas = new TaxaStore();
+    this.empresa = new EmpresaStore();
     // Quando a sessao termina, os dados do usuario anterior sao apagados,
     // para que a proxima pessoa a entrar nao os veja.
     this.sessao = new SessaoStore(() => this.limparDadosDoUsuario());
@@ -25,6 +27,7 @@ export class RaizStore {
     this.relatorios.limpar();
     this.painel.limpar();
     this.taxas.limpar();
+    this.empresa.limpar();
   }
 }
 
@@ -62,4 +65,8 @@ export function usePainelStore() {
 
 export function useTaxaStore() {
   return useStores().taxas;
+}
+
+export function useEmpresaStore() {
+  return useStores().empresa;
 }

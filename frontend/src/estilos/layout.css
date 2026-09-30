@@ -1,10 +1,10 @@
-/* Moldura das telas internas, conforme o prototipo: menu azul-marinho a
-   esquerda, cabecalho na mesma cor e conteudo claro com canto arredondado. */
+/* Moldura das telas internas: menu lateral com gradiente a esquerda e
+   conteudo claro ao lado. Nao ha barra no topo, a nao ser no celular. */
 .interno {
   display: grid;
-  grid-template-columns: 250px 1fr;
+  grid-template-columns: 264px 1fr;
   min-height: 100%;
-  background: var(--menu);
+  background: var(--fundo-app-azul);
 }
 
 /* ---------- Menu lateral ---------- */
@@ -14,158 +14,240 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
-  padding: 28px 18px 26px 22px;
+  padding: 28px 16px 20px;
+  overflow-y: auto;
   color: #fff;
+  background: linear-gradient(175deg, var(--menu-gradiente-inicio) 0%, var(--menu-gradiente-fim) 100%);
 }
 
 .menu__marca {
-  margin: 0 0 42px;
+  margin: 0 0 18px;
+  padding: 6px 14px 24px;
   font-size: 1.35rem;
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.menu__marca span {
+  color: var(--menu-destaque);
+}
+
+/* Ocupa o espaco livre, empurrando "Sair" e o usuario para o rodape. */
+.menu__navegacao {
+  flex: 1;
 }
 
 .menu__itens {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 4px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
 .menu__item {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 12px;
-  width: fit-content;
-  padding: 6px 2px;
-  font-size: 1.02rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.72);
+  gap: 14px;
+  width: 100%;
+  padding: 12px 14px;
+  font: inherit;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.78);
   text-decoration: none;
   background: none;
   border: none;
-  border-bottom: 2px solid transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.menu__item svg {
+  flex-shrink: 0;
 }
 
 .menu__item:hover {
   color: #fff;
+  background: rgba(255, 255, 255, 0.08);
 }
 
-.menu__item--ativo {
+.menu__item:focus-visible {
+  outline: 2px solid var(--menu-destaque);
+  outline-offset: 2px;
+}
+
+.menu__item[aria-current='page'] {
+  font-weight: 600;
   color: #fff;
-  border-bottom-color: #fff;
+  background: rgba(255, 255, 255, 0.16);
 }
 
-.menu__sair {
-  margin-top: auto;
+/* Filete claro a esquerda do item da tela atual. */
+.menu__item[aria-current='page']::before {
+  content: '';
+  position: absolute;
+  left: -16px;
+  top: 9px;
+  bottom: 9px;
+  width: 4px;
+  border-radius: 0 4px 4px 0;
+  background: var(--menu-destaque);
 }
 
-/* ---------- Cabecalho ---------- */
+/* Quantidade de alertas de prazo, ao lado de "Home". */
+.menu__contador {
+  margin-left: auto;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 7px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 22px;
+  text-align: center;
+  color: var(--menu-gradiente-inicio);
+  background: var(--laranja);
+  border-radius: 999px;
+}
+
+/* ---------- Rodape do menu: abaixo da linha, quem esta logado ---------- */
+.menu__rodape {
+  margin-top: 12px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+/* O bloco com o nome abre o menu do perfil (MenuPerfil.jsx); nao ha item
+   "Perfil" na lista. */
+.menu__usuario {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 8px 10px;
+  font: inherit;
+  color: #fff;
+  text-align: left;
+  background: none;
+  border: none;
+  border-radius: 10px;
+  transition: background 0.15s;
+}
+
+.menu__usuario:hover,
+.menu__usuario[aria-expanded='true'] {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.menu__usuario:focus-visible {
+  outline: 2px solid var(--menu-destaque);
+  outline-offset: 2px;
+}
+
+/* Na tela "Meu perfil", o bloco fica destacado como um item do menu. */
+.menu__usuario--ativo,
+.menu__usuario--ativo:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.menu__usuario > svg {
+  flex-shrink: 0;
+  margin-left: auto;
+  opacity: 0.6;
+}
+
+.menu__avatar {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--menu-gradiente-inicio);
+  background: var(--menu-destaque);
+  border-radius: 50%;
+}
+
+.menu__usuario-dados {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.menu__usuario-nome,
+.menu__usuario-email {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.menu__usuario-nome {
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.menu__usuario-email {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+/* ---------- Area principal ---------- */
 .interno__principal {
   display: flex;
   flex-direction: column;
   min-width: 0;
 }
 
-.cabecalho {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  min-height: 96px;
-  padding: 18px 40px 18px 44px;
-}
-
-.cabecalho__menu {
+/* Faixa do topo: so aparece no celular, para abrir a gaveta do menu. */
+.topo-celular {
   display: none;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  color: #fff;
-  background: none;
-  border: none;
 }
 
-.cabecalho__busca {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: min(420px, 100%);
-  padding: 0 14px;
-  color: var(--tinta-fraca);
-  background: #fff;
-  border-radius: 6px;
-}
-
-.cabecalho__busca input {
-  flex: 1;
-  min-width: 0;
-  padding: 11px 0;
-  font-size: 0.95rem;
-  background: none;
-  border: none;
-}
-
-.cabecalho__busca input:disabled {
-  cursor: not-allowed;
-}
-
-.cabecalho__acoes {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  margin-left: auto;
-}
-
-.cabecalho__icone {
-  position: relative;
+.topo-celular__menu {
   display: grid;
   place-items: center;
-  width: 38px;
-  height: 38px;
+  width: 42px;
+  height: 42px;
   color: #fff;
-  background: none;
+  background: rgba(255, 255, 255, 0.12);
   border: none;
-  border-radius: 50%;
+  border-radius: 10px;
 }
 
-.cabecalho__icone:hover {
-  background: rgba(255, 255, 255, 0.1);
+.topo-celular__menu:focus-visible {
+  outline: 2px solid var(--menu-destaque);
+  outline-offset: 2px;
 }
 
-.cabecalho__contador {
-  position: absolute;
-  top: 2px;
-  right: 1px;
-  min-width: 17px;
-  height: 17px;
-  padding: 0 4px;
-  font-size: 0.68rem;
-  font-weight: 700;
-  line-height: 17px;
-  color: #fff;
-  background: #f28a2e;
-  border-radius: 999px;
-}
-
-.cabecalho__avatar {
-  display: grid;
-  place-items: center;
-  width: 54px;
-  height: 54px;
+.topo-celular__marca {
+  margin: 0;
+  font-size: 1.1rem;
   font-weight: 700;
   color: #fff;
-  background: linear-gradient(145deg, #3c85ff, #1c4a8a);
-  border: 3px solid var(--azul);
-  border-radius: 50%;
+}
+
+.topo-celular__marca span {
+  color: var(--menu-destaque);
 }
 
 /* ---------- Conteudo ---------- */
+/* O degrade fica preso a tela (fixed): o cinza esta sempre na parte de baixo
+   e o conteudo passa por cima ao rolar. Onde o navegador nao aceita fixed
+   (Safari do iPhone), ele acompanha a pagina, sem prejuizo. */
 .interno__conteudo {
   flex: 1;
-  padding: 34px 44px 56px;
-  background: var(--fundo-app);
-  border-top-left-radius: 40px;
+  padding: 40px 44px 56px;
+  background: linear-gradient(
+      180deg,
+      var(--fundo-app-azul) 0%,
+      #f3f8fe 36%,
+      var(--fundo-app-branco) 66%,
+      var(--fundo-app-cinza) 100%
+    )
+    fixed;
 }
 
 .interno__sombra {
@@ -182,14 +264,14 @@
     position: fixed;
     inset: 0 auto 0 0;
     z-index: 40;
-    width: 260px;
+    width: min(264px, 84vw);
     transform: translateX(-100%);
     transition: transform 0.2s ease;
-    background: var(--menu);
   }
 
   .interno--menu-aberto .menu {
     transform: translateX(0);
+    box-shadow: 12px 0 40px rgba(9, 30, 66, 0.35);
   }
 
   .interno__sombra {
@@ -204,29 +286,25 @@
     display: block;
   }
 
-  .cabecalho {
-    min-height: 72px;
-    padding: 12px 16px;
-    gap: 10px;
-  }
-
-  .cabecalho__menu {
-    display: grid;
-  }
-
-  .cabecalho__busca {
-    display: none;
-  }
-
-  .cabecalho__avatar {
-    width: 42px;
-    height: 42px;
-    font-size: 0.85rem;
+  .topo-celular {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 16px;
+    background: linear-gradient(100deg, var(--menu-gradiente-inicio) 0%, var(--menu-gradiente-fim) 100%);
   }
 
   .interno__conteudo {
     padding: 24px 16px 40px;
-    border-top-left-radius: 24px;
-    border-top-right-radius: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu,
+  .menu__item {
+    transition: none;
   }
 }

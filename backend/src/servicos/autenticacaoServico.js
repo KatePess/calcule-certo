@@ -71,13 +71,20 @@ export const autenticacaoServico = {
     return { usuario: usuarioPublico(usuario), token: gerarToken(usuario) };
   },
 
+  // O CNPJ so muda se vier na requisicao: a tela "Dados pessoais" manda so o
+  // nome, e o CNPJ passou a ser editado em "Dados da empresa".
   async atualizarPerfil(usuarioId, dados) {
     const nome = textoLimpo(dados?.nome);
-    const cnpj = apenasDigitos(dados?.cnpj);
     if (!ehNomeValido(nome)) throw new ErroDeAplicacao(ERROS.NOME_INVALIDO, STATUS.REQUISICAO_INVALIDA);
-    if (!ehCnpjValido(cnpj)) throw new ErroDeAplicacao(ERROS.CNPJ_INVALIDO, STATUS.REQUISICAO_INVALIDA);
 
-    const usuario = await usuarioRepositorio.atualizarPerfil(usuarioId, { nome, cnpj });
+    let usuario;
+    if (dados?.cnpj === undefined) {
+      usuario = await usuarioRepositorio.atualizarNome(usuarioId, nome);
+    } else {
+      const cnpj = apenasDigitos(dados.cnpj);
+      if (!ehCnpjValido(cnpj)) throw new ErroDeAplicacao(ERROS.CNPJ_INVALIDO, STATUS.REQUISICAO_INVALIDA);
+      usuario = await usuarioRepositorio.atualizarPerfil(usuarioId, { nome, cnpj });
+    }
     if (!usuario) throw new ErroDeAplicacao(ERROS.USUARIO_NAO_ENCONTRADO, STATUS.NAO_ENCONTRADO);
     return usuarioPublico(usuario);
   },

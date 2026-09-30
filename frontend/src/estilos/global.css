@@ -7,11 +7,23 @@
   --azul-bloco: #dcebfa;
   --marinho: #0f2a4a;
   --menu: #0e1e3a;
+  /* Barra lateral: azul escuro em cima, azul puxado para o verde embaixo. */
+  --menu-gradiente-inicio: #0c2150;
+  --menu-gradiente-fim: #2186a8;
+  --menu-destaque: #8fe3ef;
+  /* Botoes escuros e arredondados das telas publicas (inicio e cadastro). */
+  --marinho-botao: #0a2b4e;
+  --marinho-botao-hover: #143f6d;
   --tinta: #12263f;
   --tinta-suave: #4a5768;
   --tinta-fraca: #8a94a3;
   --papel: #f4f5f7;
   --fundo-app: #f1f2f7;
+  /* Fundo das telas internas: azul bem claro no alto, branco no meio e
+     cinza claro na parte de baixo da tela. */
+  --fundo-app-azul: #e8f1fd;
+  --fundo-app-branco: #ffffff;
+  --fundo-app-cinza: #e3e7ed;
   --branco: #ffffff;
   --campo: #e4e5e9;
   --linha: #d8dae0;
@@ -72,6 +84,37 @@ select {
   overflow: hidden;
   clip: rect(0 0 0 0);
   white-space: nowrap;
+}
+
+/* ---------- Botao escuro e arredondado das telas publicas ---------- */
+.botao-site {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 40px;
+  padding: 0 20px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  text-decoration: none;
+  background: var(--marinho-botao);
+  border-radius: 999px;
+  transition: background 0.15s;
+}
+
+.botao-site:hover {
+  background: var(--marinho-botao-hover);
+}
+
+.botao-site:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 2px;
+}
+
+.botao-site--grande {
+  font-size: 1.25rem;
 }
 
 /* ---------- Avisos ---------- */
