@@ -123,8 +123,6 @@ export const TEXTOS_CALCULO = {
   TITULO: 'Novo cálculo de licitação',
   BLOCO_CUSTO: 'Custo base',
   BLOCO_PARAMETROS: 'Parâmetros da licitação',
-  INSTRUCAO_INICIO: 'Após todos os campos preenchidos clique em',
-  INSTRUCAO_FIM: 'para gerar seu novo cálculo.',
   CONFIRMAR: 'Confirmar',
   CALCULANDO: 'Calculando...',
   ESCOLHA_LICITACAO: 'Escolha a licitação',
@@ -174,7 +172,6 @@ export const TEXTOS_PAINEL = {
   ALERTAS: 'Alertas e prazos',
   SEM_ALERTAS: 'Nenhuma licitação abre nos próximos 7 dias.',
   quandoAbre: (dias) => (dias === 0 ? 'abre hoje' : dias === 1 ? 'abre amanhã' : `abre em ${dias} dias`),
-  calculos: (n) => (n === 1 ? '1 cálculo' : `${n} cálculos`),
 };
 
 export const TEXTOS_PERFIL = {

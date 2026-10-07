@@ -1,5 +1,7 @@
 // Estilos base primeiro: o CSS de cada tela, trazido pelo App, precisa vir
 // depois para poder ajustar os estilos compartilhados.
+// Fonte Inter empacotada no projeto (nao depende de internet nem do sistema).
+import '@fontsource-variable/inter';
 import './estilos/global.css';
 import './estilos/componentes.css';
 import { StrictMode } from 'react';

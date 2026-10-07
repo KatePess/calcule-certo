@@ -25,7 +25,6 @@ export default observer(function NovoCalculo() {
   const navegar = useNavigate();
   const { calculoId } = useParams();
   const { form } = calculo;
-  const licitacao = calculo.licitacaoSelecionada;
 
   useEffect(() => {
     calculo.carregarLicitacoes();
@@ -81,20 +80,21 @@ export default observer(function NovoCalculo() {
 
   return (
     <section className="pagina">
-      <nav className="migalhas" aria-label="Você está em">
-        <Link to={ROTAS.HOME}>
-          <IconeCasa tamanho={16} /> Home
-        </Link>
-        <IconeChevron tamanho={14} />
-        <span>Orçamento</span>
-        <IconeChevron tamanho={14} />
-        <span className="migalhas__atual">{calculo.edicao ? 'Refazer cálculo' : 'Novo cálculo'}</span>
-      </nav>
-
-      <h1 className="pagina__titulo calculo__titulo">{TEXTOS_CALCULO.TITULO}</h1>
-      <p className="calculo__licitacao">
-        {licitacao ? `(Licitação ${licitacao.numero} · ${licitacao.orgao})` : '(escolha a licitação abaixo)'}
-      </p>
+      <header className="calculo__cabecalho">
+        <div className="calculo__titulos">
+          <h1 className="pagina__titulo calculo__titulo">{TEXTOS_CALCULO.TITULO}</h1>
+          <nav className="migalhas" aria-label="Você está em">
+            <Link to={ROTAS.HOME}>
+              <IconeCasa tamanho={16} /> Home
+            </Link>
+            <IconeChevron tamanho={14} />
+            <span>Orçamento</span>
+            <IconeChevron tamanho={14} />
+            <span className="migalhas__atual">{calculo.edicao ? 'Refazer cálculo' : 'Novo cálculo'}</span>
+          </nav>
+        </div>
+        <SeletorLicitacao />
+      </header>
 
       {calculo.edicao && (
         <p className="aviso-info calculo__edicao" role="status">
@@ -102,8 +102,6 @@ export default observer(function NovoCalculo() {
           será criado; o anterior continua no histórico.
         </p>
       )}
-
-      <SeletorLicitacao />
 
       <form
         className="calculo"
@@ -160,10 +158,6 @@ export default observer(function NovoCalculo() {
             <TaxasAdicionais />
           </section>
         </div>
-
-        <p className="calculo__instrucao">
-          {TEXTOS_CALCULO.INSTRUCAO_INICIO} <b>CONFIRMAR</b> {TEXTOS_CALCULO.INSTRUCAO_FIM}
-        </p>
 
         <div className="calculo__acoes">
           <button type="submit" className="botao-confirmar" disabled={calculo.simulando}>

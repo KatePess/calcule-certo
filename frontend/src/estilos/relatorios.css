@@ -21,23 +21,15 @@
 }
 
 .relatorios__filtros select {
+  height: 44px;
   /* A lista de licitacoes pode ter nomes longos: sem limite, o filtro
      esticaria ate a metade da tela. */
   max-width: 280px;
-  padding: 8px 12px;
-  font-size: 0.85rem;
-  color: var(--tinta);
-  background: var(--branco);
-  border: 1px solid var(--linha);
-  border-radius: 999px;
-  box-shadow: 0 2px 5px rgba(15, 42, 74, 0.08);
 }
 
-.relatorios__dia {
-  margin: 22px 0 10px;
-  font-size: 1.15rem;
-  font-weight: 500;
-  color: var(--tinta);
+/* Cada dia e um cartao (igual aos das outras telas); os relatorios sao itens dentro dele. */
+.relatorios__grupo + .relatorios__grupo {
+  margin-top: 32px;
 }
 
 .relatorios__lista {
@@ -55,10 +47,8 @@
   grid-template-columns: auto minmax(0, 1fr) auto auto auto auto auto;
   align-items: center;
   gap: 14px 20px;
-  padding: 10px 18px;
-  background: var(--branco);
-  border-radius: 6px;
-  box-shadow: 0 3px 8px rgba(15, 42, 74, 0.12);
+  /* Sem fundo nem borda: os itens ficam soltos dentro do cartao do dia. */
+  padding: 12px 4px;
 }
 
 .relatorio__licitacao,
@@ -73,7 +63,21 @@
 
 .relatorio__licitacao {
   align-items: flex-start;
+  gap: 2px;
+  font-size: 0.95rem;
   text-align: left;
+}
+
+.relatorio__licitacao span {
+  font-weight: 500;
+  color: var(--tinta);
+}
+
+/* Seletor com o pai (.relatorio) para vencer a regra compartilhada de
+   "small" com a data, que vem depois no arquivo. */
+.relatorio .relatorio__licitacao small {
+  font-size: 0.88rem;
+  color: var(--tinta-fraca);
 }
 
 .relatorio__data {
@@ -125,7 +129,9 @@
   text-align: center;
   color: var(--tinta-suave);
   background: var(--branco);
-  border-radius: 12px;
+  border: 1px solid var(--borda-cartao);
+  border-radius: 16px;
+  box-shadow: var(--sombra-cartao);
 }
 
 .relatorios__vazio p {

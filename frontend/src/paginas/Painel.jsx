@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import EtiquetaStatus from '../componentes/EtiquetaStatus.jsx';
-import { IconeMais, IconePasta, IconeSetaDireita } from '../componentes/Icones.jsx';
+import { IconeMais, IconePasta, IconeRelogio, IconeResumo, IconeSetaDireita } from '../componentes/Icones.jsx';
 import ListaAlertas from '../componentes/ListaAlertas.jsx';
 import { MENSAGENS, TEXTOS_PAINEL } from '../constantes/mensagens.js';
 import { ROTAS } from '../constantes/rotas.js';
@@ -27,11 +27,8 @@ export default observer(function Painel() {
 
   return (
     <section className="pagina painel">
-      <div className="painel__topo">
-        <div>
-          <h1 className="pagina__titulo pagina__titulo--grande">Olá, {primeiroNome(usuario.nome)}!</h1>
-          <p className="pagina__legenda pagina__legenda--destaque">{TEXTOS_PAINEL.LEGENDA}</p>
-        </div>
+      <div className="pagina__topo">
+        <h1 className="pagina__titulo">Olá, {primeiroNome(usuario.nome)}!</h1>
         <Link to={ROTAS.ORCAMENTO} className="botao botao--escuro painel__novo">
           {TEXTOS_PAINEL.NOVO_CALCULO}
           <IconeMais tamanho={18} />
@@ -47,6 +44,7 @@ export default observer(function Painel() {
       <div className="painel__grade">
         <section className="cartao painel__licitacoes" aria-labelledby="painel-licitacoes">
           <h2 className="cartao__titulo" id="painel-licitacoes">
+            <IconeResumo tamanho={22} />
             {TEXTOS_PAINEL.LICITACOES}
           </h2>
           {carregandoPrimeiraVez && <p className="painel__vazio">{MENSAGENS.CARREGANDO}</p>}
@@ -56,14 +54,16 @@ export default observer(function Painel() {
           <ul className="painel__lista">
             {painel.licitacoesRecentes.map((licitacao) => (
               <li key={licitacao.id} className="painel__licitacao">
+                <span className="painel__item-icone painel__item-icone--azul">
+                  <IconeResumo tamanho={20} />
+                </span>
                 <div>
                   <span className="painel__licitacao-titulo">
                     Licitação {licitacao.numero} · {licitacao.orgao}
                   </span>
                   {licitacao.objeto && <span className="painel__licitacao-objeto">{licitacao.objeto}</span>}
-                  <EtiquetaStatus status={licitacao.status} compacta />
                 </div>
-                <span className="painel__licitacao-calculos">{TEXTOS_PAINEL.calculos(licitacao.quantidadeCalculos)}</span>
+                <EtiquetaStatus status={licitacao.status} compacta />
               </li>
             ))}
           </ul>
@@ -76,6 +76,7 @@ export default observer(function Painel() {
         <div className="painel__lateral">
           <section className="cartao" aria-labelledby="painel-relatorios">
             <h2 className="cartao__titulo" id="painel-relatorios">
+              <IconePasta tamanho={22} />
               {TEXTOS_PAINEL.RELATORIOS}
             </h2>
             {painel.carregado && painel.relatoriosRecentes.length === 0 && (
@@ -100,6 +101,7 @@ export default observer(function Painel() {
 
           <section className="cartao" id="alertas" aria-labelledby="painel-alertas">
             <h2 className="cartao__titulo" id="painel-alertas">
+              <IconeRelogio tamanho={22} />
               {TEXTOS_PAINEL.ALERTAS}
             </h2>
             {painel.carregado && painel.alertas.length === 0 && <p className="painel__vazio">{TEXTOS_PAINEL.SEM_ALERTAS}</p>}

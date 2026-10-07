@@ -19,11 +19,19 @@
   --tinta-fraca: #8a94a3;
   --papel: #f4f5f7;
   --fundo-app: #f1f2f7;
-  /* Fundo das telas internas: azul bem claro no alto, branco no meio e
-     cinza claro na parte de baixo da tela. */
-  --fundo-app-azul: #e8f1fd;
-  --fundo-app-branco: #ffffff;
-  --fundo-app-cinza: #e3e7ed;
+  /* Fundo das telas internas: azul bem claro no alto, quase branco no meio e
+     cinza claro na parte de baixo da tela. Um pouco mais escuro que o branco
+     dos cartoes, para eles se destacarem. */
+  /* Mesmas cores do gradiente do menu lateral (marinho em cima, azul-esverdeado
+     embaixo), bem clareadas e puxadas para o cinza. */
+  --fundo-app-azul: #e8edf8;
+  --fundo-app-claro: #f5f8fc;
+  --fundo-app-cinza: #e3f2f6;
+  /* Cartoes da tela de calculo (e o seletor de licitacao acima deles): borda
+     no azul-escuro bem clareado (um terco dele misturado com branco) e sombra
+     leve no tom de baixo do gradiente da barra lateral. */
+  --borda-cartao: #d3e6ee; /* quase o tom da sombra (#2186a8 bem claro) */
+  --sombra-cartao: 0 0 5px rgba(33, 134, 168, 0.15);
   --branco: #ffffff;
   --campo: #e4e5e9;
   --linha: #d8dae0;
@@ -36,7 +44,9 @@
   --erro-fundo: #fdecea;
   --raio: 12px;
   --sombra: 0 6px 18px rgba(15, 42, 74, 0.08);
-  --fonte: 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif;
+  /* Inter aceita qualquer peso entre 100 e 900 (ex.: 600 = semi-negrito);
+     a Segoe UI so tinha alguns pesos e existe so no Windows. */
+  --fonte: 'Inter Variable', 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif;
 }
 
 * {
@@ -68,6 +78,20 @@ button:disabled {
 input,
 select {
   font-family: inherit;
+}
+
+/* Todos os dropdowns seguem o da tela de orcamento. */
+select {
+  height: 44px;
+  min-width: 0;
+  padding: 0 12px;
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--tinta);
+  background-color: var(--branco);
+  border: 1px solid var(--borda-cartao);
+  border-radius: 8px;
+  box-shadow: var(--sombra-cartao);
 }
 
 .tela-carregando {

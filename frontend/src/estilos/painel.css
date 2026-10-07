@@ -27,7 +27,7 @@
 .painel__lista {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 16px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -41,11 +41,15 @@
 
 .painel__licitacao {
   display: flex;
-  align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 12px 14px;
-  background: var(--azul-bloco);
+  /* Sem espaco nas bordas: a faixa do icone encosta na lateral, como nos
+     itens de Relatorios e Alertas; o texto e o status tem o proprio espaco. */
+  padding: 0;
+  overflow: hidden;
+  align-items: stretch;
+  background: #f5f9fe;
+  border: 1px solid #cfe2f6;
   border-radius: 8px;
 }
 
@@ -53,30 +57,28 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 4px;
+  gap: 6px;
   min-width: 0;
 }
 
+/* Mesmas cores dos itens de Relatorios e Alertas: cinza no titulo e cinza
+   mais claro no subtitulo. */
 .painel__licitacao-titulo {
   font-size: 0.98rem;
-  color: var(--azul);
+  color: var(--tinta-suave);
 }
 
 .painel__licitacao-objeto {
   font-size: 0.82rem;
-  color: var(--tinta-suave);
-}
-
-.painel__licitacao-calculos {
-  font-size: 0.82rem;
-  font-style: italic;
-  color: var(--tinta-suave);
-  white-space: nowrap;
+  color: var(--tinta-fraca);
 }
 
 .painel__ver-todas {
-  margin-top: 16px;
-  border-radius: 999px;
+  display: flex;
+  width: fit-content;
+  margin-top: 32px;
+  margin-left: auto;
+  border-radius: 8px;
   text-decoration: none;
 }
 
@@ -86,8 +88,10 @@
   overflow: hidden;
   color: var(--tinta-suave);
   text-decoration: none;
-  background: var(--azul-bloco);
-  border-radius: 6px;
+  /* O azul que era fundo virou borda; o fundo e o mesmo tom, quase branco. */
+  background: #f5f9fe;
+  border: 1px solid #cfe2f6;
+  border-radius: 8px;
 }
 
 .painel__item:hover .painel__item-texto {
@@ -102,8 +106,18 @@
   color: #fff;
 }
 
+.painel__licitacao > div {
+  flex: 1;
+  padding: 14px 0;
+}
+
+.painel__licitacao > .etiqueta {
+  align-self: flex-start;
+  margin: 14px 16px 0 0;
+}
+
 .painel__item-icone--azul {
-  background: var(--azul);
+  background: var(--azul-escuro);
 }
 
 .painel__item-icone--vermelho {

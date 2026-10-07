@@ -237,14 +237,17 @@
 /* O degrade fica preso a tela (fixed): o cinza esta sempre na parte de baixo
    e o conteudo passa por cima ao rolar. Onde o navegador nao aceita fixed
    (Safari do iPhone), ele acompanha a pagina, sem prejuizo. */
+/* Margem lateral: 44 px ate cerca de 1400 px de tela; dai cresce aos poucos
+   (96 px em 1920) ate no maximo 140 px, para o conteudo nao encostar nas
+   bordas das telas grandes. */
 .interno__conteudo {
   flex: 1;
-  padding: 40px 44px 56px;
+  padding: 40px clamp(44px, 10vw - 96px, 140px) 56px;
   background: linear-gradient(
       180deg,
       var(--fundo-app-azul) 0%,
-      #f3f8fe 36%,
-      var(--fundo-app-branco) 66%,
+      #eff3fa 36%,
+      var(--fundo-app-claro) 66%,
       var(--fundo-app-cinza) 100%
     )
     fixed;

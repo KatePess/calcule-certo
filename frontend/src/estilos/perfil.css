@@ -5,8 +5,8 @@
   container-type: inline-size;
 }
 
-.perfil .cartao {
-  margin-top: 16px;
+.perfil .cartao + .cartao {
+  margin-top: 32px;
 }
 
 .perfil__legenda {

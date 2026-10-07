@@ -1,12 +1,14 @@
 import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import EtiquetaStatus from '../componentes/EtiquetaStatus.jsx';
-import { Icone, IconeBusca, IconeMais } from '../componentes/Icones.jsx';
+import { IconeBusca, IconeCasa, IconeChevron, IconeMais } from '../componentes/Icones.jsx';
 import LicitacaoModal from '../componentes/LicitacaoModal.jsx';
 import Paginacao from '../componentes/Paginacao.jsx';
-import { OPCOES_STATUS, STATUS_LICITACAO } from '../constantes/licitacao.js';
+import { OPCOES_STATUS } from '../constantes/licitacao.js';
 import { MENSAGENS, TEXTOS_RESUMO } from '../constantes/mensagens.js';
 import { ESPERA_BUSCA_MS, TAMANHO_PAGINA } from '../constantes/paginacao.js';
+import { ROTAS } from '../constantes/rotas.js';
 import { useLicitacaoStore } from '../stores/index.jsx';
 import { formatarData } from '../utils/formatadores.js';
 import '../estilos/resumo.css';
@@ -37,7 +39,13 @@ export default observer(function ResumoSistema() {
       <div className="pagina__topo">
         <div>
           <h1 className="pagina__titulo">{TEXTOS_RESUMO.TITULO}</h1>
-          <p className="pagina__legenda">{TEXTOS_RESUMO.LEGENDA}</p>
+          <nav className="migalhas" aria-label="Você está em">
+            <Link to={ROTAS.HOME}>
+              <IconeCasa tamanho={16} /> Home
+            </Link>
+            <IconeChevron tamanho={14} />
+            <span className="migalhas__atual">{TEXTOS_RESUMO.TITULO}</span>
+          </nav>
         </div>
         <button type="button" className="botao botao--escuro" onClick={() => setEmEdicao(null)}>
           {TEXTOS_RESUMO.NOVA}
@@ -113,14 +121,11 @@ export default observer(function ResumoSistema() {
                 <td className="tabela__acao">
                   <button
                     type="button"
-                    className="botao-status"
-                    title="Editar licitação"
+                    className="botao botao--primario botao--tabela"
                     aria-label={`Editar licitação ${licitacao.numero}`}
                     onClick={() => setEmEdicao(licitacao)}
                   >
-                    <span className={`botao-status__icone etiqueta--${STATUS_LICITACAO[licitacao.status]?.tom}`}>
-                      <Icone nome={STATUS_LICITACAO[licitacao.status]?.icone} tamanho={14} />
-                    </span>
+                    Editar
                   </button>
                 </td>
               </tr>

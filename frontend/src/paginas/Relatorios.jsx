@@ -9,6 +9,7 @@ import {
   IconeEditar,
   IconeLixeira,
   IconePdf,
+  IconeRelogio,
 } from '../componentes/Icones.jsx';
 import Modal from '../componentes/Modal.jsx';
 import Paginacao from '../componentes/Paginacao.jsx';
@@ -79,18 +80,17 @@ export default observer(function Relatorios() {
 
   return (
     <section className="pagina">
-      {/* No layout o titulo visivel e a trilha abaixo; o h1 fica para leitores de tela. */}
-      <h1 className="visualmente-oculto">{TEXTOS_RELATORIOS.TITULO}</h1>
-      <nav className="migalhas" aria-label="Você está em">
-        <Link to={ROTAS.HOME}>
-          <IconeCasa tamanho={16} /> Home
-        </Link>
-        <IconeChevron tamanho={14} />
-        <span className="migalhas__atual">Relatórios</span>
-      </nav>
-
-      <div className="relatorios__topo">
-        <p className="relatorios__legenda">{TEXTOS_RELATORIOS.LEGENDA}</p>
+      <div className="pagina__topo">
+        <div>
+          <h1 className="pagina__titulo">{TEXTOS_RELATORIOS.TITULO}</h1>
+          <nav className="migalhas" aria-label="Você está em">
+            <Link to={ROTAS.HOME}>
+              <IconeCasa tamanho={16} /> Home
+            </Link>
+            <IconeChevron tamanho={14} />
+            <span className="migalhas__atual">{TEXTOS_RELATORIOS.TITULO}</span>
+          </nav>
+        </div>
         <div className="relatorios__filtros">
           <select
             value={relatorios.filtros.dias}
@@ -138,8 +138,11 @@ export default observer(function Relatorios() {
       )}
 
       {grupos.map((grupo) => (
-        <section key={grupo.rotulo} className="relatorios__grupo" aria-label={grupo.rotulo}>
-          <h2 className="relatorios__dia">{grupo.rotulo}</h2>
+        <section key={grupo.rotulo} className="cartao relatorios__grupo" aria-label={grupo.rotulo}>
+          <h2 className="cartao__titulo">
+            <IconeRelogio tamanho={22} />
+            {grupo.rotulo}
+          </h2>
           <ul className="relatorios__lista">
             {grupo.itens.map((relatorio) => {
               const baixado = Boolean(relatorio.baixadoEm);
@@ -148,7 +151,7 @@ export default observer(function Relatorios() {
                 <li key={relatorio.id} className="relatorio">
                   <IconePdf />
                   <div className="relatorio__licitacao">
-                    <span>(Licitação {relatorio.licitacao.numero})</span>
+                    <span>Licitação {relatorio.licitacao.numero}</span>
                     <small>{relatorio.licitacao.orgao}</small>
                   </div>
                   <div className="relatorio__data">

@@ -1,28 +1,45 @@
 /* Tela "Novo calculo de licitacao" (Figura C1) e resumo (Figura C2). */
-.calculo__titulo {
-  font-weight: 500;
-  font-size: 1.4rem;
+/* Cabecalho: titulo e trilha (Home > Orcamento > ...) a esquerda e a escolha
+   da licitacao a direita, alinhada ao topo do titulo. Sem espaco para os dois
+   lado a lado, a escolha desce para baixo do titulo. */
+.calculo__cabecalho {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px 32px;
+  margin-bottom: 56px;
 }
 
-.calculo__licitacao {
-  margin: 0 0 18px;
-  font-size: 0.85rem;
-  color: var(--tinta-suave);
+.calculo__titulos {
+  flex: 1 1 auto;
+}
+
+.calculo__titulo {
+  margin: 0 0 10px;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.calculo__cabecalho .migalhas {
+  margin: 0;
 }
 
 /* ---------- Seletor de licitacao ---------- */
 .seletor-licitacao {
   display: flex;
+  flex: 0 1 560px;
+  /* Sem isto, o seletor nunca fica mais estreito que a licitacao de nome mais
+     longo e empurra a pagina para fora da tela no celular. */
+  min-width: 0;
   align-items: flex-end;
   flex-wrap: wrap;
   gap: 12px;
-  margin-bottom: 22px;
 }
 
-/* Mesma largura do bloco "Custo base", logo abaixo. */
 .seletor-licitacao__campo {
-  flex: 0 1 calc(50% - 11px);
-  min-width: min(320px, 100%);
+  flex: 1 1 280px;
+  min-width: min(280px, 100%);
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -30,13 +47,22 @@
   font-weight: 500;
 }
 
+/* Seletor e botao com a mesma altura. */
+.seletor-licitacao__campo select,
+.seletor-licitacao__nova {
+  height: 44px;
+}
+
 .seletor-licitacao__campo select {
-  padding: 10px 12px;
-  font-size: 0.95rem;
-  color: var(--tinta);
-  background: var(--branco);
-  border: 1px solid var(--linha);
-  border-radius: 8px;
+  width: 100%;
+}
+
+.seletor-licitacao__nova {
+  font-weight: 500;
+  color: #fff;
+  background: var(--azul-escuro);
+  border-color: var(--azul-escuro);
+  box-shadow: var(--sombra-cartao);
 }
 
 .seletor-licitacao__vazio {
@@ -46,21 +72,24 @@
   color: var(--tinta-suave);
 }
 
-/* ---------- Blocos azuis ---------- */
+/* ---------- Cartoes "Custo base" e "Parametros", um embaixo do outro ---------- */
+/* O mesmo espaco separa os cartoes entre si e do botao Confirmar. */
 .calculo__blocos {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 22px;
+  gap: 32px;
 }
 
 .bloco {
   container-type: inline-size;
-  padding: 14px 16px 20px;
-  background: var(--azul-bloco);
+  padding: 14px 20px 28px;
+  background: var(--branco);
+  border: 1px solid var(--borda-cartao);
   border-radius: 16px;
+  box-shadow: var(--sombra-cartao);
 }
 
-/* Campos do bloco: uma coluna quando o bloco e estreito, duas quando ha espaco. */
+/* Campos do cartao: um por linha no celular, dois em telas medias e os
+   quatro lado a lado quando o cartao e largo. */
 .bloco__campos {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -74,52 +103,75 @@
   }
 }
 
+@container (min-width: 900px) {
+  .bloco__campos {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* Rotulos dos campos dos cartoes: 14 px, em semi-negrito. So nesta tela: o
+   .campo-calculo tambem e usado no formulario de taxas do Perfil. */
+.bloco .campo-calculo label,
+.bloco .taxas-adicionais__titulo {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+/* No cartao branco, os campos precisam de borda para aparecer. */
+.bloco .campo-calculo__caixa,
+.bloco .taxas-adicionais__nome {
+  border-color: var(--linha);
+}
+
+.bloco .campo-calculo__caixa:focus-within,
+.bloco .taxas-adicionais__nome:focus {
+  border-color: var(--azul);
+}
+
 .bloco__titulo {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin: 0 0 14px;
+  margin: 0 0 24px;
   padding: 4px 4px 14px;
-  font-size: 0.95rem;
-  font-weight: 500;
+  font-size: 1.1rem;
+  font-weight: 600;
   color: var(--tinta);
-  border-bottom: 1px solid #b9c9dc;
+  border-bottom: 1px solid #e6eaf0;
 }
 
 .bloco__titulo svg {
   color: var(--tinta-suave);
 }
 
-/* ---------- Instrucao e botao ---------- */
-.calculo__instrucao {
-  margin: 26px 0 30px;
-  font-size: 1.05rem;
-  color: var(--azul);
-}
-
-.calculo__instrucao b {
-  font-weight: 500;
-  color: var(--tinta);
-}
-
+/* ---------- Botao Confirmar: a direita, com o gradiente da barra lateral ---------- */
 .calculo__acoes {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
+  margin-top: 32px;
 }
 
 .botao-confirmar {
-  padding: 8px 14px;
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: var(--marinho);
-  background: var(--branco);
-  border: 2px solid var(--azul);
+  padding: 16px 48px;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  background: linear-gradient(100deg, var(--menu-gradiente-inicio) 0%, var(--menu-gradiente-fim) 100%);
+  border: none;
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(47, 123, 255, 0.25);
+  box-shadow: 0 2px 8px rgba(12, 33, 80, 0.25);
+  transition: filter 0.15s;
 }
 
 .botao-confirmar:hover:not(:disabled) {
-  background: var(--azul-claro);
+  filter: brightness(1.12);
+}
+
+.botao-confirmar:disabled {
+  opacity: 0.7;
+  cursor: progress;
 }
 
 /* ---------- Modal de resumo (Figura C2) ---------- */
@@ -282,10 +334,6 @@
 }
 
 @media (max-width: 720px) {
-  .calculo__blocos {
-    grid-template-columns: 1fr;
-  }
-
   .seletor-licitacao__campo {
     flex-basis: 100%;
   }
@@ -295,21 +343,18 @@
 }
 
 /* ---------- Taxas salvas e adicionais ---------- */
+/* Mesmo estilo dos outros dropdowns, so que compacto (fica sob o campo). */
 .seletor-taxa {
   align-self: flex-start;
-  margin-top: 2px;
-  padding: 3px 6px;
-  font-size: 0.74rem;
-  color: var(--azul-escuro);
-  background: rgba(255, 255, 255, 0.7);
-  border: 1px dashed #9cc2ff;
-  border-radius: 6px;
+  height: 32px;
+  margin-top: 4px;
+  font-size: 0.8rem;
 }
 
 .taxas-adicionais {
   margin-top: 4px;
   padding-top: 12px;
-  border-top: 1px solid #b9c9dc;
+  border-top: 1px solid var(--linha);
 }
 
 .taxas-adicionais__titulo {

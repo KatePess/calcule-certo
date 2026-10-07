@@ -7,18 +7,25 @@
   width: 100%;
 }
 
+/* Cabecalho das telas: titulo e trilha a esquerda, acao principal a direita
+   (alinhada ao topo do titulo) e um respiro grande antes do conteudo. */
 .pagina__topo {
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
   justify-content: space-between;
-  gap: 16px;
+  gap: 20px 32px;
   flex-wrap: wrap;
-  margin-bottom: 22px;
+  margin-bottom: 56px;
+}
+
+.pagina__topo .migalhas {
+  margin: 0;
 }
 
 .pagina__titulo {
-  margin: 0 0 4px;
-  font-size: 1.45rem;
+  margin: 0 0 10px;
+  font-size: 2rem;
+  font-weight: 700;
   color: var(--marinho);
 }
 
@@ -62,18 +69,28 @@
 
 /* ---------- Cartao ---------- */
 .cartao {
-  padding: 20px 22px;
+  padding: 14px 20px 28px;
   background: var(--branco);
-  border-radius: 14px;
-  box-shadow: var(--sombra);
+  border: 1px solid var(--borda-cartao);
+  border-radius: 16px;
+  box-shadow: var(--sombra-cartao);
 }
 
+/* Titulo do cartao, com icone opcional a esquerda (como nos cartoes do orcamento). */
 .cartao__titulo {
-  margin: 0 0 14px;
-  padding-bottom: 10px;
-  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 24px;
+  padding: 4px 4px 14px;
+  font-size: 1.1rem;
   font-weight: 600;
-  border-bottom: 1px solid var(--linha);
+  border-bottom: 1px solid #e6eaf0;
+}
+
+.cartao__titulo svg {
+  flex-shrink: 0;
+  color: var(--tinta-suave);
 }
 
 .cartao--vazio {
@@ -134,12 +151,15 @@
   border-color: var(--azul);
 }
 
+/* Acao principal do cabecalho (igual a "Nova licitacao" do orcamento). */
 .botao--escuro {
+  height: 44px;
+  font-weight: 500;
   color: #fff;
-  background: var(--marinho);
-  border-radius: 999px;
-  padding: 11px 22px;
-  box-shadow: 0 4px 10px rgba(15, 42, 74, 0.25);
+  background: var(--azul-escuro);
+  border-color: var(--azul-escuro);
+  border-radius: 10px;
+  box-shadow: var(--sombra-cartao);
 }
 
 .botao--verde {
@@ -212,13 +232,12 @@ select:focus-visible {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  font-size: 0.85rem;
-  font-weight: 500;
+  font-size: 0.875rem;
+  font-weight: 600;
   color: var(--tinta);
 }
 
-.formulario__campo input,
-.formulario__campo select {
+.formulario__campo input {
   width: 100%;
   padding: 10px 12px;
   font-size: 0.95rem;
@@ -229,7 +248,7 @@ select:focus-visible {
 }
 
 .formulario__campo input:focus,
-.formulario__campo select:focus {
+.formulario__campo select:focus-visible {
   outline: none;
   border-color: var(--azul);
   box-shadow: 0 0 0 3px rgba(47, 123, 255, 0.15);
@@ -464,9 +483,16 @@ select:focus-visible {
 }
 
 /* ---------- Tabela ---------- */
+/* A tabela fica dentro de um cartao igual aos das outras telas. */
 .tabela-rolagem {
   overflow-x: auto;
-  border-radius: 6px;
+  /* Recuo nas laterais: as linhas divisorias e a do cabecalho nao encostam
+     na borda do cartao. */
+  padding: 0 20px 8px;
+  background: var(--branco);
+  border: 1px solid var(--borda-cartao);
+  border-radius: 16px;
+  box-shadow: var(--sombra-cartao);
 }
 
 .tabela {
@@ -476,11 +502,13 @@ select:focus-visible {
 }
 
 .tabela th {
-  padding: 16px 18px;
+  padding: 18px 18px 14px;
+  font-size: 0.875rem;
   font-weight: 600;
   text-align: left;
-  color: #fff;
-  background: var(--menu);
+  color: var(--tinta);
+  background: var(--branco);
+  border-bottom: 1px solid #e6eaf0;
   white-space: nowrap;
 }
 
@@ -490,12 +518,19 @@ select:focus-visible {
   color: var(--tinta-suave);
 }
 
-.tabela tbody tr:nth-child(odd) {
-  background: var(--papel);
+.tabela tbody tr + tr td {
+  border-top: 1px solid #eef1f5;
 }
 
-.tabela tbody tr:nth-child(even) {
-  background: #e9eaee;
+/* Botao de acao dentro de uma linha da tabela (ex.: "Editar"). */
+.botao--tabela {
+  padding: 8px 20px;
+  font-weight: 500;
+  border-radius: 8px;
+}
+
+.tabela tbody tr:hover {
+  background: var(--papel);
 }
 
 .tabela__n {
@@ -524,7 +559,6 @@ select:focus-visible {
   padding: 28px;
   text-align: center;
   color: var(--tinta-suave);
-  background: var(--papel);
 }
 
 .botao-status {
@@ -587,18 +621,22 @@ select:focus-visible {
   display: flex;
   align-items: center;
   gap: 8px;
+  height: 44px;
   padding: 0 12px;
   color: var(--tinta-fraca);
   background: var(--branco);
-  border: 1px solid var(--linha);
-  border-radius: 10px;
+  /* Mesmo estilo dos dropdowns (global.css). */
+  border: 1px solid var(--borda-cartao);
+  border-radius: 8px;
+  box-shadow: var(--sombra-cartao);
 }
 
 .filtros__busca input {
   flex: 1;
   min-width: 0;
   padding: 10px 0;
-  font-size: 0.93rem;
+  font-size: 0.95rem;
+  color: var(--tinta);
   border: none;
   background: none;
 }
@@ -607,13 +645,8 @@ select:focus-visible {
   outline: none;
 }
 
-.filtros select {
-  padding: 10px 12px;
-  font-size: 0.93rem;
-  color: var(--tinta);
-  background: var(--branco);
-  border: 1px solid var(--linha);
-  border-radius: 10px;
+.formulario__campo select {
+  width: 100%;
 }
 
 .tabela__so-celular {

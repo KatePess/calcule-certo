@@ -5,8 +5,8 @@ import { useCalculoStore } from '../stores/index.jsx';
 import { IconeMais } from './Icones.jsx';
 import LicitacaoModal from './LicitacaoModal.jsx';
 
-// Escolha da licitacao no topo da tela de calculo. O botao de nova licitacao
-// reaproveita o mesmo modal usado no Resumo do sistema.
+// Escolha da licitacao, a direita do titulo da tela de calculo. O botao de
+// nova licitacao reaproveita o mesmo modal usado no Resumo do sistema.
 export default observer(function SeletorLicitacao() {
   const calculo = useCalculoStore();
   const [criando, setCriando] = useState(false);
@@ -14,7 +14,9 @@ export default observer(function SeletorLicitacao() {
   return (
     <div className="seletor-licitacao">
       <label className="seletor-licitacao__campo">
-        <span>Licitação</span>
+        {/* Sem rotulo visivel (o "Escolha a licitacao" ja explica), mas o
+            leitor de tela continua anunciando o nome do campo. */}
+        <span className="visualmente-oculto">Licitação</span>
         <select
           value={calculo.licitacaoId}
           onChange={(evento) => calculo.selecionarLicitacao(evento.target.value)}
@@ -29,7 +31,7 @@ export default observer(function SeletorLicitacao() {
         </select>
       </label>
 
-      <button type="button" className="botao botao--secundario" onClick={() => setCriando(true)}>
+      <button type="button" className="botao seletor-licitacao__nova" onClick={() => setCriando(true)}>
         <IconeMais tamanho={16} />
         Nova licitação
       </button>

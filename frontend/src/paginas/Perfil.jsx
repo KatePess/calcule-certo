@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import CampoPercentual from '../componentes/CampoPercentual.jsx';
-import { IconeChevron, IconeEditar, IconeLixeira, IconeMais } from '../componentes/Icones.jsx';
+import { IconeCasa, IconeChevron, IconeEditar, IconeLixeira, IconeMais } from '../componentes/Icones.jsx';
 import ListaAlertas from '../componentes/ListaAlertas.jsx';
 import { EMPRESA_VAZIA, OPCOES_PORTE, TAMANHO_MAXIMO_EMPRESA, UFS } from '../constantes/empresa.js';
 import { MENSAGENS, TEXTOS_PAINEL, TEXTOS_PERFIL, VALIDACAO } from '../constantes/mensagens.js';
@@ -567,14 +567,26 @@ export default function Perfil() {
 
   return (
     <section className="pagina perfil">
-      {idAberta !== SECAO_PADRAO && (
-        <nav className="migalhas" aria-label="Você está em">
-          <Link to={ROTAS.PERFIL}>{TEXTOS_PERFIL.TITULO}</Link>
-          <IconeChevron tamanho={14} />
-          <span className="migalhas__atual">{secao.rotulo}</span>
-        </nav>
-      )}
-      <h1 className="pagina__titulo">{TEXTOS_PERFIL.TITULO}</h1>
+      <div className="pagina__topo">
+        <div>
+          <h1 className="pagina__titulo">{TEXTOS_PERFIL.TITULO}</h1>
+          <nav className="migalhas" aria-label="Você está em">
+            <Link to={ROTAS.HOME}>
+              <IconeCasa tamanho={16} /> Home
+            </Link>
+            <IconeChevron tamanho={14} />
+            {idAberta === SECAO_PADRAO ? (
+              <span className="migalhas__atual">{TEXTOS_PERFIL.TITULO}</span>
+            ) : (
+              <>
+                <Link to={ROTAS.PERFIL}>{TEXTOS_PERFIL.TITULO}</Link>
+                <IconeChevron tamanho={14} />
+                <span className="migalhas__atual">{secao.rotulo}</span>
+              </>
+            )}
+          </nav>
+        </div>
+      </div>
       <Conteudo key={idAberta} />
     </section>
   );
