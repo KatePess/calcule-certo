@@ -191,7 +191,7 @@ const DadosDaEmpresa = observer(function DadosDaEmpresa() {
             {campoTexto('razaoSocial', 'Razão social', {
               largo: true,
               autoComplete: 'organization',
-              placeholder: 'Ex.: Kate Serviços Elétricos LTDA',
+              placeholder: 'Ex.: Silva Máquinas Pesadas LTDA',
             })}
             {campoTexto('nomeFantasia', 'Nome fantasia', { placeholder: 'Como a empresa é conhecida' })}
             <label className="formulario__campo">
@@ -230,7 +230,7 @@ const DadosDaEmpresa = observer(function DadosDaEmpresa() {
             </label>
             {campoTexto('ramoAtividade', 'Ramo de atividade', {
               largo: true,
-              placeholder: 'Ex.: manutenção elétrica, locação de máquinas',
+              placeholder: 'Ex.: manutenção de máquinas pesadas',
             })}
           </fieldset>
 

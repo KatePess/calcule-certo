@@ -84,7 +84,7 @@ describe('API de relatórios', () => {
     const resposta = await api.get(`/relatorios/${relatorioId}/pdf`, { token: kate.token });
     assert.equal(resposta.status, 200);
     assert.equal(resposta.cabecalhos.get('content-type'), 'application/pdf');
-    assert.match(resposta.cabecalhos.get('content-disposition'), /^attachment; filename="calculo-licitacao-2045-A-\d{4}-\d{2}-\d{2}\.pdf"$/);
+    assert.match(resposta.cabecalhos.get('content-disposition'), /^attachment; filename="proposta-licitacao-2045-A-\d{4}-\d{2}-\d{2}\.pdf"$/);
     assert.equal(resposta.dados.subarray(0, 5).toString(), '%PDF-');
     assert.ok(resposta.dados.length > 5000);
 

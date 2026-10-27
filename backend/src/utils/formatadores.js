@@ -64,3 +64,25 @@ export function dataIsoNoFuso(data, fuso) {
     new Date(data),
   );
 }
+
+// Data no fuso informado: "30/10/2026".
+export function formatarDataBR(data, fuso) {
+  return new Intl.DateTimeFormat('pt-BR', { timeZone: fuso, day: '2-digit', month: '2-digit', year: 'numeric' }).format(
+    new Date(data),
+  );
+}
+
+// Data por extenso, usada no local e data da proposta: "30 de outubro de 2026".
+export function formatarDataExtensoBR(data, fuso) {
+  return new Intl.DateTimeFormat('pt-BR', { timeZone: fuso, day: 'numeric', month: 'long', year: 'numeric' }).format(
+    new Date(data),
+  );
+}
+
+// "68999991234" -> "(68) 99999-1234"; "6832241234" -> "(68) 3224-1234".
+export function formatarTelefoneBR(telefone) {
+  const d = apenasDigitos(telefone);
+  if (d.length === 11) return `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`;
+  if (d.length === 10) return `(${d.slice(0, 2)}) ${d.slice(2, 6)}-${d.slice(6)}`;
+  return telefone ?? '';
+}

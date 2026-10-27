@@ -1,6 +1,8 @@
 import { STATUS } from '../constantes/http.js';
 import { ERROS } from '../constantes/mensagens.js';
+import { DIGITOS_NUMERO_PROPOSTA } from '../constantes/proposta.js';
 import { calculoRepositorio } from '../repositorios/calculoRepositorio.js';
+import { empresaRepositorio } from '../repositorios/empresaRepositorio.js';
 import { relatorioRepositorio } from '../repositorios/relatorioRepositorio.js';
 import { usuarioRepositorio } from '../repositorios/usuarioRepositorio.js';
 import { ErroDeAplicacao } from '../utils/ErroDeAplicacao.js';
@@ -46,10 +48,17 @@ export function relatorioPublico(linha) {
   };
 }
 
-// Nome legivel e seguro para o arquivo: calculo-licitacao-1101-2026-10-30.pdf
+// Nome legivel e seguro para o arquivo: proposta-licitacao-1101-2026-10-30.pdf
 function nomeDoArquivo(relatorio, fuso) {
   const numero = relatorio.licitacao_numero.replace(/[^\w-]+/g, '-').replace(/^-+|-+$/g, '') || 'sem-numero';
-  return `calculo-licitacao-${numero}-${dataIsoNoFuso(relatorio.gerado_em, fuso)}.pdf`;
+  return `proposta-licitacao-${numero}-${dataIsoNoFuso(relatorio.gerado_em, fuso)}.pdf`;
+}
+
+// Numero da proposta impresso no PDF: "0012/2026" (id do relatorio e ano em
+// que o calculo foi salvo). Nao muda se a pessoa baixar de novo.
+function numeroDaProposta(relatorio, fuso) {
+  const ano = dataIsoNoFuso(relatorio.gerado_em, fuso).slice(0, 4);
+  return `${String(relatorio.id).padStart(DIGITOS_NUMERO_PROPOSTA, '0')}/${ano}`;
 }
 
 export const relatorioServico = {
@@ -73,14 +82,17 @@ export const relatorioServico = {
     const relatorio = await relatorioRepositorio.buscarPorId(id, usuarioId);
     if (!relatorio) throw naoEncontrado();
 
-    const [linhaCalculo, usuario] = await Promise.all([
+    const [linhaCalculo, usuario, empresa] = await Promise.all([
       calculoRepositorio.buscarPorId(relatorio.calculo_id, usuarioId),
       usuarioRepositorio.buscarPorId(usuarioId),
+      empresaRepositorio.buscar(usuarioId),
     ]);
 
     const conteudo = await gerarPdf({
       calculo: calculoPublico(linhaCalculo),
       usuario,
+      empresa,
+      numeroProposta: numeroDaProposta(relatorio, fuso),
       geradoEm: new Date(),
       fuso,
     });

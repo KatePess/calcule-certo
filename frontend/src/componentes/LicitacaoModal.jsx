@@ -112,7 +112,7 @@ export default function LicitacaoModal({ licitacao, aoFechar, aoSalvar, aoExclui
             value={form.orgao}
             maxLength={TAMANHO_MAXIMO_LICITACAO.ORGAO}
             onChange={(e) => alterar('orgao', e.target.value)}
-            placeholder="Ex.: SEMSUR"
+            placeholder="Ex.: DERACRE"
           />
         </label>
 
@@ -122,7 +122,7 @@ export default function LicitacaoModal({ licitacao, aoFechar, aoSalvar, aoExclui
             value={form.objeto}
             maxLength={TAMANHO_MAXIMO_LICITACAO.OBJETO}
             onChange={(e) => alterar('objeto', e.target.value)}
-            placeholder="Ex.: Manutenção da iluminação pública"
+            placeholder="Ex.: Manutenção corretiva de retroescavadeira"
           />
         </label>
 
