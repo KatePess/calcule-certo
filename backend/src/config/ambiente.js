@@ -30,6 +30,23 @@ export const AMBIENTE = {
   // Endereco do front-end, usado nos links enviados por e-mail.
   URL_FRONT: (process.env.URL_FRONT || 'http://localhost:5173').replace(/\/+$/, ''),
 
+  // Endereco publico desta API. O Google e o LinkedIn devolvem a pessoa para
+  // URL_API + /api/auth/social/<provedor>/retorno, que precisa estar
+  // cadastrado igualzinho no painel de cada provedor.
+  URL_API: (process.env.URL_API || 'http://localhost:3001').replace(/\/+$/, ''),
+
+  // Login social. Sem o ID e o segredo, o botao avisa que nao esta configurado.
+  LOGIN_SOCIAL: {
+    google: {
+      clienteId: process.env.GOOGLE_CLIENT_ID || '',
+      segredo: process.env.GOOGLE_CLIENT_SECRET || '',
+    },
+    linkedin: {
+      clienteId: process.env.LINKEDIN_CLIENT_ID || '',
+      segredo: process.env.LINKEDIN_CLIENT_SECRET || '',
+    },
+  },
+
   // Sem SMTP_HOST o e-mail nao sai: em desenvolvimento ele aparece no terminal.
   SMTP: {
     host: process.env.SMTP_HOST || '',

@@ -56,6 +56,22 @@ export class SessaoStore {
     });
   }
 
+  // Login com Google/LinkedIn: a API ja devolveu o token; falta buscar o
+  // usuario. Fica so nesta aba, como no login sem "Lembrar minha senha".
+  async entrarComToken(token) {
+    guardarToken(token, false);
+    try {
+      const { usuario } = await autenticacaoServico.usuarioLogado();
+      runInAction(() => {
+        this.usuario = usuario;
+        this.aviso = '';
+      });
+    } catch (erro) {
+      limparToken();
+      throw erro;
+    }
+  }
+
   async cadastrar(dadosUsuario) {
     const { usuario, token } = await autenticacaoServico.cadastrar(dadosUsuario);
     guardarToken(token, false);

@@ -63,7 +63,8 @@ export const autenticacaoServico = {
       throw new ErroDeAplicacao(ERROS.FALHA_LOGIN, STATUS.ERRO_INTERNO);
     }
 
-    const senhaConfere = usuario && (await conferirSenha(senha, usuario.senha_hash));
+    // Conta criada pelo Google ou LinkedIn nao tem senha: so entra por la.
+    const senhaConfere = usuario?.senha_hash && (await conferirSenha(senha, usuario.senha_hash));
     if (!senhaConfere) {
       throw new ErroDeAplicacao(ERROS.CREDENCIAIS_INVALIDAS, STATUS.NAO_AUTORIZADO);
     }

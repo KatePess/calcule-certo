@@ -8,7 +8,8 @@ import {
   IconeOlhoCortado,
   IconeSetaDireita,
 } from '../componentes/Icones.jsx';
-import { DICAS, TEXTOS_CADASTRO, VALIDACAO } from '../constantes/mensagens.js';
+import { PROVEDORES_SOCIAIS, urlLoginSocial } from '../constantes/api.js';
+import { TEXTOS_CADASTRO, TEXTOS_LOGIN_SOCIAL, VALIDACAO } from '../constantes/mensagens.js';
 import { ROTAS } from '../constantes/rotas.js';
 import { TAMANHO_MINIMO_SENHA } from '../constantes/validacao.js';
 import { useSessaoStore } from '../stores/index.jsx';
@@ -160,12 +161,20 @@ export default observer(function Cadastro() {
 
           <p className="cadastro__divisor">{TEXTOS_CADASTRO.OUTRAS_FORMAS}</p>
           <div className="cadastro__social">
-            <button type="button" disabled title={DICAS.LOGIN_SOCIAL} aria-label="Entrar com Google (em breve)">
+            <a
+              href={urlLoginSocial(PROVEDORES_SOCIAIS.GOOGLE)}
+              title={TEXTOS_LOGIN_SOCIAL.ENTRAR_GOOGLE}
+              aria-label={TEXTOS_LOGIN_SOCIAL.ENTRAR_GOOGLE}
+            >
               <IconeGoogle tamanho={48} />
-            </button>
-            <button type="button" disabled title={DICAS.LOGIN_SOCIAL} aria-label="Entrar com LinkedIn (em breve)">
+            </a>
+            <a
+              href={urlLoginSocial(PROVEDORES_SOCIAIS.LINKEDIN)}
+              title={TEXTOS_LOGIN_SOCIAL.ENTRAR_LINKEDIN}
+              aria-label={TEXTOS_LOGIN_SOCIAL.ENTRAR_LINKEDIN}
+            >
               <IconeLinkedin tamanho={48} />
-            </button>
+            </a>
           </div>
         </section>
 

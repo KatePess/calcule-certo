@@ -258,7 +258,7 @@ a.auth-botao {
   gap: 16px;
 }
 
-.auth-social button {
+.auth-social a {
   display: grid;
   place-items: center;
   width: 42px;
@@ -266,8 +266,17 @@ a.auth-botao {
   background: #fff;
   border: 1px solid var(--linha);
   border-radius: 10px;
-  opacity: 0.55;
-  cursor: not-allowed;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.auth-social a:hover {
+  border-color: var(--azul);
+  box-shadow: var(--sombra-cartao);
+}
+
+.auth-social a:focus-visible {
+  outline: 2px solid var(--azul);
+  outline-offset: 2px;
 }
 
 .auth-rodape {

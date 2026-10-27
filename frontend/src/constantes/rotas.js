@@ -8,6 +8,9 @@ export const ROTAS = {
   // O link do e-mail aponta para ca: precisa bater com CAMINHO_TELA_REDEFINIR
   // em backend/src/constantes/recuperacaoSenha.js.
   REDEFINIR_SENHA: '/redefinir-senha',
+  // A API devolve o login com Google/LinkedIn para ca: precisa bater com
+  // CAMINHO_TELA_LOGIN_SOCIAL em backend/src/constantes/loginSocial.js.
+  LOGIN_SOCIAL: '/login/social',
   HOME: '/home',
   ORCAMENTO: '/orcamento',
   RELATORIOS: '/relatorios',

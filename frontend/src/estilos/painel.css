@@ -145,8 +145,37 @@
   }
 }
 
+/* Sem isto, o item mais largo (chip que nao quebra) empurra o cartao para
+   fora da tela no celular. */
+.painel__grade > * {
+  min-width: 0;
+}
+
 @media (max-width: 640px) {
   .painel__novo {
     width: 100%;
+  }
+
+  /* No celular, o status desce para baixo do titulo e o texto usa a largura toda. */
+  .painel__licitacao {
+    flex-wrap: wrap;
+    position: relative;
+    padding-left: 52px;
+  }
+
+  .painel__licitacao > .painel__item-icone {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  .painel__licitacao > div {
+    flex-basis: 100%;
+    padding: 14px 16px 6px;
+  }
+
+  .painel__licitacao > .etiqueta {
+    margin: 0 0 14px 16px;
   }
 }

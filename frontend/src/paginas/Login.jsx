@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   IconeGoogle,
   IconeLinkedin,
@@ -8,7 +8,8 @@ import {
   IconeOlhoCortado,
   IconePessoa,
 } from '../componentes/Icones.jsx';
-import { DICAS, TEXTOS_LOGIN, VALIDACAO } from '../constantes/mensagens.js';
+import { PROVEDORES_SOCIAIS, urlLoginSocial } from '../constantes/api.js';
+import { TEXTOS_LOGIN, TEXTOS_LOGIN_SOCIAL, VALIDACAO } from '../constantes/mensagens.js';
 import { ROTAS } from '../constantes/rotas.js';
 import { useSessaoStore } from '../stores/index.jsx';
 import { ehEmailValido, estaPreenchido, primeiroErro } from '../utils/validadores.js';
@@ -17,12 +18,14 @@ import '../estilos/auth.css';
 export default observer(function Login() {
   const sessao = useSessaoStore();
   const navegar = useNavigate();
+  // Erro do login com Google/LinkedIn, trazido pela tela LoginSocial.
+  const erroSocial = useLocation().state?.erro ?? '';
 
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [lembrar, setLembrar] = useState(false);
   const [mostrarSenha, setMostrarSenha] = useState(false);
-  const [erro, setErro] = useState('');
+  const [erro, setErro] = useState(erroSocial);
   const [enviando, setEnviando] = useState(false);
 
   async function aoEnviar(evento) {
@@ -143,12 +146,20 @@ export default observer(function Login() {
 
           <p className="auth-divisor">Ou continue com</p>
           <div className="auth-social">
-            <button type="button" disabled title={DICAS.LOGIN_SOCIAL}>
+            <a
+              href={urlLoginSocial(PROVEDORES_SOCIAIS.GOOGLE)}
+              title={TEXTOS_LOGIN_SOCIAL.ENTRAR_GOOGLE}
+              aria-label={TEXTOS_LOGIN_SOCIAL.ENTRAR_GOOGLE}
+            >
               <IconeGoogle />
-            </button>
-            <button type="button" disabled title={DICAS.LOGIN_SOCIAL}>
+            </a>
+            <a
+              href={urlLoginSocial(PROVEDORES_SOCIAIS.LINKEDIN)}
+              title={TEXTOS_LOGIN_SOCIAL.ENTRAR_LINKEDIN}
+              aria-label={TEXTOS_LOGIN_SOCIAL.ENTRAR_LINKEDIN}
+            >
               <IconeLinkedin />
-            </button>
+            </a>
           </div>
 
           <p className="auth-rodape">

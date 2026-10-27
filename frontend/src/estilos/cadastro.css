@@ -225,13 +225,20 @@
   margin-top: 18px;
 }
 
-.cadastro__social button {
+.cadastro__social a {
   display: grid;
   place-items: center;
-  padding: 0;
-  background: none;
-  border: none;
   border-radius: 8px;
+  transition: transform 0.15s;
+}
+
+.cadastro__social a:hover {
+  transform: translateY(-2px);
+}
+
+.cadastro__social a:focus-visible {
+  outline: 2px solid var(--azul);
+  outline-offset: 4px;
 }
 
 /* ---------- Notebook estreito: sem espaco para a diagonal, divisao reta ---------- */

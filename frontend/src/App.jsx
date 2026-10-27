@@ -8,6 +8,7 @@ import Cadastro from './paginas/Cadastro.jsx';
 import EsqueciSenha from './paginas/EsqueciSenha.jsx';
 import Inicio from './paginas/Inicio.jsx';
 import Login from './paginas/Login.jsx';
+import LoginSocial from './paginas/LoginSocial.jsx';
 import NovoCalculo from './paginas/NovoCalculo.jsx';
 import Painel from './paginas/Painel.jsx';
 import Perfil from './paginas/Perfil.jsx';
@@ -59,6 +60,8 @@ export default function App() {
           </SomenteVisitante>
         }
       />
+      {/* Volta do Google/LinkedIn: guarda o token e segue para o painel. */}
+      <Route path={ROTAS.LOGIN_SOCIAL} element={<LoginSocial />} />
       {/* Sem SomenteVisitante: o link do e-mail precisa abrir mesmo com uma sessao aberta. */}
       <Route path={ROTAS.REDEFINIR_SENHA} element={<RedefinirSenha />} />
 

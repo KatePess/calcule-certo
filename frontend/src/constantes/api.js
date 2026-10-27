@@ -25,6 +25,15 @@ export const ENDPOINTS = {
   REDEFINIR_SENHA: '/auth/redefinir-senha',
 };
 
+// Login com Google/LinkedIn: o navegador vai ate a API (nao e um fetch), que
+// redireciona para o provedor e depois de volta para ROTAS.LOGIN_SOCIAL.
+export const urlLoginSocial = (provedor) => `${BASE_API}/auth/social/${provedor}`;
+
+export const PROVEDORES_SOCIAIS = {
+  GOOGLE: 'google',
+  LINKEDIN: 'linkedin',
+};
+
 export const METODOS = {
   GET: 'GET',
   POST: 'POST',

@@ -26,6 +26,8 @@ export const CAMINHOS_AUTH = {
   SENHA: '/senha',
   ESQUECI_SENHA: '/esqueci-senha',
   REDEFINIR_SENHA: '/redefinir-senha',
+  SOCIAL: '/social/:provedor',
+  SOCIAL_RETORNO: '/social/:provedor/retorno',
 };
 
 // Padrao usado pelos modulos de cadastro (licitacoes, taxas...).

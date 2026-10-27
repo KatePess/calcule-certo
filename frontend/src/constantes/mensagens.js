@@ -214,6 +214,9 @@ export const TEXTOS_PERFIL = {
   PRIVACIDADE_LEGENDA: 'Como o Calcule Certo cuida dos seus dados.',
 };
 
-export const DICAS = {
-  LOGIN_SOCIAL: 'Login social previsto para uma sprint futura',
+export const TEXTOS_LOGIN_SOCIAL = {
+  ENTRAR_GOOGLE: 'Entrar com Google',
+  ENTRAR_LINKEDIN: 'Entrar com LinkedIn',
+  CONCLUINDO: 'Concluindo o login...',
+  FALHA: 'Não foi possível concluir o login. Tente novamente.',
 };
