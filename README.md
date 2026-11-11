@@ -13,10 +13,12 @@ Autora: Kate Pessoa dos Santos · Orientador: Prof. Juan Carlos Justiniano
 | 1 | Login e cadastro, senha com hash **bcrypt**, sessão por **JWT** com "Lembrar minha senha" |
 | 2 | Menu lateral, cadastro de licitações (criar, editar, mudar status, excluir) com busca e paginação |
 | 3 | Tela de novo cálculo (Figura C1), motor de cálculo com precisão de centavos e resumo (Figura C2) |
-| 4 | Central de relatórios (Figura C3): filtros, PDF de uma página, editar e excluir — **fecha o MVP** |
+| 4 | Central de relatórios (Figura C3): filtros, PDF, editar e excluir — **fecha o MVP** |
 | 5 | Painel inicial com alertas de prazo, taxas salvas para reutilizar e tela de perfil (dados e senha) |
 | 6 | "Esqueci minha senha" com link por e-mail, dependências sem alertas de segurança e roteiro de homologação |
-| Extra | Tela inicial pública (landing page do protótipo), com carrossel de funcionalidades, dúvidas e suporte |
+| 7 | Login e cadastro com **Google** e **LinkedIn** (OAuth 2.0 / OpenID Connect); a conta é criada no primeiro acesso |
+| Extra | Tela inicial pública: apresentação, "Como funciona" em três passos, "Sobre nós" e dúvidas frequentes |
+| Extra | PDF no formato de **proposta comercial** pronta para enviar ao órgão (dados da empresa, valor por extenso, validade) |
 | Extra | Menu do perfil ao passar o mouse no nome (rodapé do menu lateral) e cadastro dos dados da empresa |
 
 Tudo com layout responsivo para desktop e celular (requisito não funcional do TCC).
@@ -234,6 +236,8 @@ Get-NetTCPConnection -State Listen -LocalPort 3001 | ForEach-Object { Stop-Proce
 | PUT | `/api/auth/senha` | Troca a senha (exige a senha atual) |
 | POST | `/api/auth/esqueci-senha` | Envia o link de recuperação (resposta igual exista ou não a conta) |
 | POST | `/api/auth/redefinir-senha` | Define a nova senha com o link (uso único, 30 minutos) |
+| GET | `/api/auth/social/:provedor` | Leva para o login do Google ou do LinkedIn |
+| GET | `/api/auth/social/:provedor/retorno` | Recebe a resposta do provedor, cria ou encontra a conta e volta para o site com o token |
 | GET | `/api/licitacoes` | Lista paginada, com filtro por status e busca |
 | POST | `/api/licitacoes` | Cadastra licitação |
 | GET, PUT, DELETE | `/api/licitacoes/:id` | Consulta, edita e exclui |
@@ -254,4 +258,6 @@ Get-NetTCPConnection -State Listen -LocalPort 3001 | ForEach-Object { Stop-Proce
 
 - Homologação com a empresa parceira: validar a fórmula e comparar com a
   planilha — roteiro em [docs/HOMOLOGACAO.md](docs/HOMOLOGACAO.md)
-- Fora do escopo do TCC: login social (Google / LinkedIn) e busca geral
+- Modelo de negócio: oferecer como SaaS por assinatura mensal (teste grátis, planos e
+  cobrança por plataforma de pagamento) e hospedar o sistema na internet
+- Fora do escopo do TCC: busca geral
