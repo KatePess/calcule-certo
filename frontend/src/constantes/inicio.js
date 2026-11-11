@@ -1,40 +1,25 @@
-import imagemCadastro from '../assets/inicio/cadastro-orcamento.webp';
-import imagemCalculo from '../assets/inicio/calculo-automatico.webp';
-import imagemNovos from '../assets/inicio/novos-orcamentos.webp';
-import imagemRelatorio from '../assets/inicio/relatorio-pdf.webp';
 import { ROTAS } from './rotas.js';
 
 // Partes da tela inicial que o menu do topo alcanca (ancoras #id).
 export const SECOES_INICIO = [
+  { id: 'como-funciona', rotulo: 'Como funciona' },
   { id: 'sobre', rotulo: 'Sobre nós' },
   { id: 'duvidas', rotulo: 'Dúvidas' },
-  { id: 'suporte', rotulo: 'Suporte' },
 ];
 
-export const ID_DESTAQUES = 'destaques';
-
-// Cartoes do carrossel "Destaques e funcionalidades". Com mais de quatro,
-// as setas passam a aparecer tambem no computador.
-export const DESTAQUES = [
+// Secao "Como funciona": o fluxo principal do sistema.
+export const PASSOS_COMO_FUNCIONA = [
   {
-    titulo: 'Cálculo automático',
-    descricao: 'Deixe o sistema trabalhar por você de forma eficiente.',
-    imagem: imagemCalculo,
+    titulo: 'Cadastre a licitação',
+    texto: 'Número, órgão, objeto e data de abertura.',
   },
   {
-    titulo: 'Cadastro de orçamento',
-    descricao: 'Integre seus orçamentos de forma fácil e segura.',
-    imagem: imagemCadastro,
+    titulo: 'Informe custos e taxas',
+    texto: 'Custos, taxa da plataforma, comissão e margem.',
   },
   {
-    titulo: 'Geração de novos orçamentos',
-    descricao: 'Mantenha seus dados sempre em dia com um clique.',
-    imagem: imagemNovos,
-  },
-  {
-    titulo: 'Emissão de relatório PDF',
-    descricao: 'Relatórios profissionais prontos para apresentação.',
-    imagem: imagemRelatorio,
+    titulo: 'Baixe a proposta',
+    texto: 'Preço certo e proposta em PDF pronta.',
   },
 ];
 
@@ -53,8 +38,9 @@ export const PERGUNTAS_FREQUENTES = [
     resposta: 'Sim. Salve as taxas no seu perfil e preencha com um clique na tela de cálculo.',
   },
   {
-    pergunta: 'Como envio o cálculo para a minha equipe?',
-    resposta: 'Todo cálculo salvo vira um relatório em PDF, pronto para baixar e enviar.',
+    pergunta: 'O que vai na proposta em PDF?',
+    resposta:
+      'Os dados da sua empresa, o órgão e o objeto da licitação, os itens com quantidade e valores, o valor global por extenso, a validade e o campo de assinatura. Custos e margem de lucro ficam só no sistema.',
   },
   {
     pergunta: 'Meus dados ficam protegidos?',
@@ -63,21 +49,16 @@ export const PERGUNTAS_FREQUENTES = [
   },
 ];
 
-// Atalhos da secao "Suporte": `rota` abre outra tela; `ancora`, outra parte desta.
-export const ATALHOS_SUPORTE = [
-  {
-    titulo: 'Esqueci minha senha',
-    texto: 'Receba um link por e-mail para criar uma nova senha.',
-    rota: ROTAS.ESQUECI_SENHA,
-  },
-  {
-    titulo: 'Perguntas frequentes',
-    texto: 'Veja como o cálculo funciona e tire outras dúvidas.',
-    ancora: 'duvidas',
-  },
-  {
-    titulo: 'Criar uma conta',
-    texto: 'Cadastre-se gratuitamente e faça o primeiro cálculo.',
-    rota: ROTAS.CADASTRO,
-  },
+// Numeros em destaque na secao "Sobre nos".
+export const NUMEROS_SOBRE = [
+  { valor: '40 min', texto: 'para montar um preço na planilha' },
+  { valor: 'R$ 0,01', texto: 'de precisão em cada cálculo' },
+  { valor: '1 clique', texto: 'para baixar a proposta em PDF' },
+];
+
+// Links do rodape (substituem a antiga secao "Suporte").
+export const LINKS_RODAPE = [
+  { rotulo: 'Acessar conta', rota: ROTAS.LOGIN },
+  { rotulo: 'Criar conta', rota: ROTAS.CADASTRO },
+  { rotulo: 'Esqueci minha senha', rota: ROTAS.ESQUECI_SENHA },
 ];

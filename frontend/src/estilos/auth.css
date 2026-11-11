@@ -4,7 +4,11 @@
   display: grid;
   place-items: center;
   padding: 32px 16px;
-  background: linear-gradient(160deg, #4f93ff 0%, var(--azul) 42%, #1b4fa8 100%);
+  /* Mesmo fundo com ondas da tela inicial. */
+  background:
+    radial-gradient(ellipse 60% 55% at 50% 50%, rgba(12, 33, 80, 0.35), transparent 75%),
+    url('../assets/inicio/fundo-ondas.svg') center / cover no-repeat,
+    var(--menu-gradiente-inicio);
 }
 
 .auth-cartao {
@@ -15,7 +19,7 @@
   border-radius: 22px;
   overflow: hidden;
   background: var(--papel);
-  box-shadow: 0 24px 60px rgba(9, 30, 66, 0.28);
+  box-shadow: 0 30px 80px rgba(6, 19, 46, 0.5);
 }
 
 /* ---------- Painel ilustrado da esquerda ---------- */
@@ -26,7 +30,7 @@
   align-items: stretch;
   padding: 48px 44px;
   color: #fff;
-  background: linear-gradient(150deg, var(--azul-escuro) 0%, #2b6fd6 55%, var(--azul) 100%);
+  background: linear-gradient(150deg, var(--menu-gradiente-inicio) 0%, #1a4f80 55%, var(--menu-gradiente-fim) 100%);
   border-radius: 0 140px 0 0;
 }
 
@@ -66,6 +70,7 @@
   /* as margens automaticas centralizam o bloco entre a marca e a base */
   margin: auto 0 14px;
   font-size: 1.65rem;
+  font-weight: 500;
   line-height: 1.25;
   letter-spacing: 0.01em;
 }
@@ -73,6 +78,7 @@
 .auth-painel__legenda {
   margin: 0 0 auto;
   font-size: 0.98rem;
+  font-style: italic;
   line-height: 1.5;
   color: rgba(255, 255, 255, 0.88);
   max-width: 30ch;
@@ -210,10 +216,12 @@
   font-size: 0.98rem;
   font-weight: 600;
   color: #fff;
-  background: var(--azul);
+  background: linear-gradient(100deg, var(--menu-gradiente-inicio) 0%, var(--menu-gradiente-fim) 100%);
   border: none;
   border-radius: var(--raio);
-  transition: filter 0.15s, opacity 0.15s;
+  /* Mesma sombra dos botoes da tela inicial. */
+  box-shadow: 0 10px 24px rgba(6, 19, 46, 0.3), 0 2px 6px rgba(6, 19, 46, 0.2);
+  transition: filter 0.15s, opacity 0.15s, transform 0.15s;
 }
 
 /* Links com cara de botao (ex.: "Voltar para o login"). */
@@ -224,7 +232,8 @@ a.auth-botao {
 }
 
 .auth-botao:hover:not(:disabled) {
-  filter: brightness(1.07);
+  filter: brightness(1.1);
+  transform: translateY(-1px);
 }
 
 .auth-botao:disabled {
@@ -287,7 +296,7 @@ a.auth-botao {
 }
 
 .auth-rodape a {
-  color: var(--azul);
+  color: var(--menu-gradiente-fim);
   font-weight: 600;
   text-decoration: none;
 }

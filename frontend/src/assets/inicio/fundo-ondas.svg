@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+  <!-- Fundo da tela inicial: faixas onduladas nas cores do sistema
+       (marinho, azul-petroleo e um azul mais claro), com sombra entre as
+       camadas para dar volume. O centro fica mais calmo por causa do texto. -->
+  <defs>
+    <linearGradient id="base" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0c2150"/>
+      <stop offset="0.55" stop-color="#1a4f80"/>
+      <stop offset="1" stop-color="#2186a8"/>
+    </linearGradient>
+    <linearGradient id="marinho" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a1c45"/>
+      <stop offset="1" stop-color="#1a3f7a"/>
+    </linearGradient>
+    <linearGradient id="marinhoClaro" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#173a72"/>
+      <stop offset="1" stop-color="#245a92"/>
+    </linearGradient>
+    <linearGradient id="petroleo" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2186a8"/>
+      <stop offset="1" stop-color="#1b5f8a"/>
+    </linearGradient>
+    <linearGradient id="petroleoBrilho" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#1f7ea3"/>
+      <stop offset="0.6" stop-color="#3aa6c4"/>
+      <stop offset="1" stop-color="#8fe3ef"/>
+    </linearGradient>
+    <linearGradient id="cinza" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4fa6c8"/>
+      <stop offset="1" stop-color="#2a76a4"/>
+    </linearGradient>
+    <linearGradient id="cinzaFaixa" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#8fe3ef" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#8fe3ef" stop-opacity="0.1"/>
+    </linearGradient>
+    <filter id="sombra" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="-10" stdDeviation="22" flood-color="#06132e" flood-opacity="0.45"/>
+    </filter>
+    <filter id="grao" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.5 0"/>
+    </filter>
+  </defs>
+
+  <rect width="1440" height="900" fill="url(#base)"/>
+
+  <!-- Canto superior direito: cupula marinho e faixa petroleo com brilho -->
+  <path filter="url(#sombra)" fill="url(#petroleoBrilho)" opacity="0.9"
+        d="M840 0C910 130 965 265 1115 300C1270 336 1370 262 1440 205L1440 0Z"/>
+  <path filter="url(#sombra)" fill="url(#marinho)"
+        d="M905 0C965 95 1005 205 1125 236C1262 270 1362 204 1440 145L1440 0Z"/>
+
+  <!-- Faixa fina azul-clara no alto, a esquerda -->
+  <path fill="url(#cinzaFaixa)"
+        d="M0 112C45 82 85 44 112 0L64 0C46 30 25 50 0 66Z"/>
+
+  <!-- Lado esquerdo: faixa petroleo sobre o bloco marinho -->
+  <path filter="url(#sombra)" fill="url(#petroleo)"
+        d="M0 300C185 215 390 258 495 425C578 552 615 712 720 900L0 900Z"/>
+  <path filter="url(#sombra)" fill="url(#marinho)"
+        d="M0 385C165 305 345 345 445 488C545 630 528 785 610 900L0 900Z"/>
+  <path fill="none" stroke="#ffffff" stroke-opacity="0.22" stroke-width="2.5"
+        d="M0 385C165 305 345 345 445 488C545 630 528 785 610 900"/>
+
+  <!-- Canto inferior direito: faixa marinho e onda azul-clara -->
+  <path filter="url(#sombra)" fill="url(#marinhoClaro)"
+        d="M700 900C805 650 975 545 1160 522C1300 505 1390 420 1440 345L1440 900Z"/>
+  <path filter="url(#sombra)" fill="url(#cinza)"
+        d="M800 900C895 705 1030 615 1190 592C1322 573 1398 490 1440 418L1440 900Z"/>
+  <path fill="none" stroke="#ffffff" stroke-opacity="0.35" stroke-width="2"
+        d="M700 900C805 650 975 545 1160 522C1300 505 1390 420 1440 345"/>
+
+  <!-- Graos bem leves, para o fundo nao parecer liso -->
+  <rect width="1440" height="900" filter="url(#grao)" opacity="0.07"/>
+</svg>

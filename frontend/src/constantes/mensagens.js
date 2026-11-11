@@ -33,21 +33,16 @@ export const VALIDACAO = {
 
 // Tela inicial publica (landing page do prototipo).
 export const TEXTOS_INICIO = {
-  TITULO: 'Calcule custos com precisão, precifique com segurança.',
-  LEGENDA:
-    'Aumente sua eficiência e precisão com nosso sistema completo para cálculo e gestão de licitações. Cadastre-se e comece já.',
+  TITULO: 'Calcule com precisão e ganhe mais tempo.',
+  LEGENDA: 'Informe seus custos e receba o preço com taxas e lucro já incluídos, e o PDF pronto para envio.',
   COMECAR: 'Começar agora',
   SAIBA_MAIS: 'Saiba mais',
   ACESSAR: 'Acessar conta',
   CADASTRAR: 'Cadastrar-se',
-  DESTAQUES: 'Destaques e funcionalidades',
-  DESTAQUES_ANTERIORES: 'Ver destaques anteriores',
-  DESTAQUES_PROXIMOS: 'Ver próximos destaques',
+  COMO_FUNCIONA_LEGENDA: 'Do edital à proposta em três passos.',
   SOBRE: [
-    'O Calcule Certo nasceu como Trabalho de Conclusão de Curso de Sistemas de Informação na UniNORTE, junto com uma empresa que participa de licitações públicas.',
-    'Montar o preço de uma proposta na planilha leva cerca de 40 minutos, e um erro nas taxas da plataforma pode transformar o lucro em prejuízo. O sistema faz essa conta automaticamente, com precisão de centavos, e guarda cada cálculo em um relatório pronto para enviar.',
+    'Projeto de TCC de Sistemas de Informação da UniNORTE, criado com uma empresa que participa de licitações para acabar com o erro de preço feito na planilha.',
   ],
-  SUPORTE_LEGENDA: 'Precisa de ajuda? Comece por aqui.',
   RODAPE: 'Trabalho de Conclusão de Curso · Sistemas de Informação · UniNORTE',
   ABRIR_MENU: 'Abrir menu',
   FECHAR_MENU: 'Fechar menu',

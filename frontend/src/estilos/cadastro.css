@@ -1,18 +1,21 @@
 /* Tela de cadastro. Medidas e cores tiradas do prototipo (quadro de 1512 px). */
 .cadastro-fundo {
-  --azul-cadastro: #2f80ed;
-  --azul-cadastro-meio: #286ecc;
-  --azul-cadastro-fim: #1b4a8a;
-  --borda-botao-cadastro: #0088ff;
+  /* Mesmas cores da tela inicial: marinho a esquerda, azul-petroleo a direita. */
+  --azul-cadastro: var(--menu-gradiente-fim);
+  --azul-cadastro-meio: #1f6f97;
+  --azul-cadastro-fim: #1a4f80;
 
   display: grid;
   place-items: center;
   min-height: 100%;
   padding: 64px 24px;
-  background: #050a12 url('../assets/cadastro/fundo-vidro.svg') center / cover;
+  background:
+    radial-gradient(ellipse 60% 55% at 50% 50%, rgba(12, 33, 80, 0.35), transparent 75%),
+    url('../assets/inicio/fundo-ondas.svg') center / cover no-repeat,
+    var(--menu-gradiente-inicio);
 }
 
-/* ---------- Cartao: grafite a esquerda, azul em diagonal a direita ---------- */
+/* ---------- Cartao: marinho a esquerda, azul-petroleo em diagonal a direita ---------- */
 .cadastro {
   position: relative;
   display: grid;
@@ -26,9 +29,9 @@
   padding: 0 85px 0 38px;
   overflow: hidden;
   color: #fff;
-  background: #2b2c2e url('../assets/cadastro/painel-grafite.svg') center / cover;
-  border-radius: 6px;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+  background: linear-gradient(160deg, var(--menu-gradiente-inicio) 0%, #10295c 100%);
+  border-radius: 22px;
+  box-shadow: 0 30px 80px rgba(6, 19, 46, 0.5);
 }
 
 /* A diagonal e medida a partir da direita, onde fica o formulario (420 px +
@@ -55,7 +58,7 @@
   z-index: 1;
 }
 
-/* ---------- Lado grafite ---------- */
+/* ---------- Lado marinho ---------- */
 .cadastro__boas-vindas {
   grid-area: boas-vindas;
   padding-top: 27px;
@@ -69,7 +72,7 @@
 }
 
 .cadastro__marca span {
-  color: var(--azul-cadastro);
+  color: var(--menu-destaque);
 }
 
 .cadastro__saudacao {
@@ -79,14 +82,16 @@
 .cadastro__saudacao h1 {
   margin: 0 0 12px;
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .cadastro__saudacao p {
   max-width: 380px;
   margin: 0;
   font-size: 1.5rem;
+  font-style: italic;
   line-height: 1.2;
+  color: rgba(255, 255, 255, 0.92);
 }
 
 .cadastro__entrar {
@@ -97,6 +102,18 @@
 .cadastro__entrar p {
   margin: 0 0 14px;
   font-size: 1.25rem;
+}
+
+.cadastro__entrar .botao-site {
+  background: transparent;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.85), 0 10px 24px rgba(6, 19, 46, 0.4),
+    0 2px 6px rgba(6, 19, 46, 0.25);
+  transition: background 0.15s, transform 0.15s;
+}
+
+.cadastro__entrar .botao-site:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-1px);
 }
 
 /* ---------- Lado azul: formulario ---------- */
@@ -175,17 +192,18 @@
   height: 70px;
   margin-top: 16px;
   font-size: 1.45rem;
-  font-weight: 500;
-  color: #fff;
-  background: transparent;
-  border: 1px solid var(--borda-botao-cadastro);
-  border-radius: 8px;
-  box-shadow: 0 2px 12px rgba(0, 30, 80, 0.18);
-  transition: background 0.15s;
+  font-weight: 600;
+  color: var(--marinho-botao);
+  background: #fff;
+  border: none;
+  border-radius: 999px;
+  box-shadow: 0 10px 24px rgba(6, 19, 46, 0.4), 0 2px 6px rgba(6, 19, 46, 0.25);
+  transition: background 0.15s, transform 0.15s;
 }
 
 .cadastro__enviar:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.08);
+  background: #e6efff;
+  transform: translateY(-1px);
 }
 
 .cadastro__enviar:focus-visible,
