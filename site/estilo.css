@@ -150,6 +150,10 @@ a:focus-visible {
   font-size: 1.8rem;
 }
 
+.secao > p + p {
+  margin-top: 14px;
+}
+
 .secao > p {
   max-width: 680px;
   margin: 0 auto;
@@ -258,7 +262,7 @@ a:focus-visible {
   flex-wrap: wrap;
   justify-content: center;
   gap: 8px 24px;
-  margin: 10px 0 14px;
+  margin: 10px 0 0;
 }
 
 .rodape a {

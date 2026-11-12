@@ -41,9 +41,9 @@ export const TEXTOS_INICIO = {
   CADASTRAR: 'Cadastrar-se',
   COMO_FUNCIONA_LEGENDA: 'Do edital à proposta em três passos.',
   SOBRE: [
-    'Projeto de TCC de Sistemas de Informação da UniNORTE, criado com uma empresa que participa de licitações para acabar com o erro de preço feito na planilha.',
+    'O Calcule Certo nasceu dentro de uma empresa que participa de licitações públicas, onde montar o preço de cada proposta na planilha tomava tempo e abria espaço para erros.',
+    'Nossa missão é dar segurança a quem disputa licitações: custos, taxa da plataforma, comissão e margem de lucro calculados com precisão de centavos, e a proposta pronta para envio.',
   ],
-  RODAPE: 'Trabalho de Conclusão de Curso · Sistemas de Informação · UniNORTE',
   ABRIR_MENU: 'Abrir menu',
   FECHAR_MENU: 'Fechar menu',
 };

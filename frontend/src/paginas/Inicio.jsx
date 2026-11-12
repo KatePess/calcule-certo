@@ -166,7 +166,6 @@ export default function Inicio() {
             </Link>
           ))}
         </nav>
-        <p>{TEXTOS_INICIO.RODAPE}</p>
       </footer>
     </div>
   );

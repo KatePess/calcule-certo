@@ -379,7 +379,7 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 8px 28px;
-  margin: 10px 0 14px;
+  margin: 10px 0 0;
 }
 
 .site-rodape__links a {
