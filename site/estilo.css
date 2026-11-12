@@ -1,0 +1,300 @@
+/* Site publico do Calcule Certo (GitHub Pages): apresentacao, politica de
+   privacidade e termos de uso. Mesmas cores da tela inicial do sistema. */
+:root {
+  --marinho: #0c2150;
+  --petroleo: #2186a8;
+  --destaque: #8fe3ef;
+  --tinta: #12263f;
+  --tinta-suave: #4a5768;
+  --linha: #dfe6ee;
+  --fundo-claro: #f4f7fb;
+  --branco: #ffffff;
+  --fonte: 'Inter', 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--fonte);
+  color: var(--tinta);
+  background: var(--branco);
+  line-height: 1.6;
+}
+
+a {
+  color: var(--petroleo);
+}
+
+a:focus-visible {
+  outline: 3px solid var(--destaque);
+  outline-offset: 2px;
+}
+
+/* ---------- Topo e vitrine com ondas ---------- */
+.topo {
+  position: relative;
+  color: #fff;
+  background:
+    radial-gradient(ellipse 55% 45% at 50% 45%, rgba(12, 33, 80, 0.45), transparent 75%),
+    url('fundo-ondas.svg') center / cover no-repeat,
+    var(--marinho);
+}
+
+/* Embaixo, o azul se desfaz no branco, como na tela inicial do sistema. */
+.topo::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 48px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0), #fff);
+  pointer-events: none;
+}
+
+.topo--curto {
+  padding-bottom: 72px;
+}
+
+.barra {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: min(1120px, 100% - 32px);
+  margin: 0 auto;
+  padding: 28px 0;
+}
+
+.marca {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+}
+
+.marca span {
+  color: var(--destaque);
+}
+
+.barra nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+}
+
+.barra nav a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.barra nav a:hover {
+  text-decoration: underline;
+}
+
+.vitrine {
+  width: min(820px, 100% - 32px);
+  margin: 0 auto;
+  padding: 72px 0 120px;
+  text-align: center;
+}
+
+.vitrine h1 {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 400;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+.vitrine p {
+  max-width: 560px;
+  margin: 28px auto 0;
+  font-size: 1.08rem;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.topo--curto h1 {
+  width: min(820px, 100% - 32px);
+  margin: 24px auto 0;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 400;
+  text-align: center;
+}
+
+.topo--curto .atualizacao {
+  margin: 10px 0 0;
+  font-style: italic;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+/* ---------- Secoes da pagina inicial ---------- */
+.secao {
+  width: min(1120px, 100% - 32px);
+  margin: 0 auto;
+  padding: 80px 0 0;
+  text-align: center;
+}
+
+.secao h2 {
+  margin: 0 0 8px;
+  font-size: 1.8rem;
+}
+
+.secao > p {
+  max-width: 680px;
+  margin: 0 auto;
+  color: var(--tinta-suave);
+}
+
+.cartoes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  margin: 36px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cartao {
+  padding: 28px 22px;
+  text-align: center;
+  background: var(--branco);
+  border: 1px solid var(--linha);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(12, 33, 80, 0.06);
+}
+
+.cartao strong {
+  display: block;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--petroleo);
+}
+
+.cartao h3 {
+  margin: 8px 0 6px;
+  font-size: 1.15rem;
+}
+
+.cartao p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--tinta-suave);
+}
+
+.tecnologias {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tecnologias li {
+  padding: 6px 14px;
+  font-size: 0.9rem;
+  background: var(--fundo-claro);
+  border: 1px solid var(--linha);
+  border-radius: 999px;
+}
+
+/* ---------- Paginas de texto (privacidade e termos) ---------- */
+.documento {
+  width: min(760px, 100% - 32px);
+  margin: 0 auto;
+  padding: 56px 0 0;
+}
+
+.documento h2 {
+  margin: 40px 0 10px;
+  font-size: 1.3rem;
+}
+
+.documento h2:first-child {
+  margin-top: 0;
+}
+
+.documento p,
+.documento li {
+  color: var(--tinta-suave);
+}
+
+.documento ul {
+  padding-left: 22px;
+}
+
+.documento li + li {
+  margin-top: 6px;
+}
+
+.documento strong {
+  color: var(--tinta);
+}
+
+/* ---------- Rodape ---------- */
+.rodape {
+  margin-top: 96px;
+  padding: 36px 16px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.85);
+  background: var(--marinho);
+}
+
+.rodape nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 24px;
+  margin: 10px 0 14px;
+}
+
+.rodape a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.rodape a:hover {
+  text-decoration: underline;
+}
+
+.rodape p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.rodape .marca {
+  font-size: 1.25rem;
+}
+
+/* ---------- Celular ---------- */
+@media (max-width: 760px) {
+  .barra {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .vitrine {
+    padding: 40px 0 88px;
+  }
+
+  .cartoes {
+    grid-template-columns: 1fr;
+  }
+
+  .secao {
+    padding-top: 64px;
+  }
+}
