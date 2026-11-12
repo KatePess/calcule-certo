@@ -42,7 +42,7 @@ export function montarEmail({ paragrafos, link, rodape }) {
   const url = escaparHtml(link.url);
   const html = `<div style="font-family:Arial,sans-serif;color:#0f2340;max-width:520px;line-height:1.5">
 ${paragrafos.map((paragrafo) => `<p>${escaparHtml(paragrafo)}</p>`).join('\n')}
-<p><a href="${url}" style="display:inline-block;padding:12px 22px;background:#2f7bff;color:#ffffff;border-radius:8px;text-decoration:none;font-weight:bold">${escaparHtml(link.rotulo)}</a></p>
+<p><a href="${url}" style="display:inline-block;padding:12px 22px;background:#2186a8;color:#ffffff;border-radius:8px;text-decoration:none;font-weight:bold">${escaparHtml(link.rotulo)}</a></p>
 <p style="font-size:13px;color:#5b6b82">${escaparHtml(link.alternativo)}<br>${url}</p>
 <p style="font-size:13px;color:#5b6b82">${escaparHtml(rodape)}</p>
 <p><strong>${escaparHtml(ASSINATURA_EMAIL)}</strong></p>
