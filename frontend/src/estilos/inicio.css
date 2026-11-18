@@ -91,9 +91,18 @@
 /* Faixas onduladas em marinho, azul-petroleo e azul mais claro (ver
    fundo-ondas.svg). Um veu escuro e suave no centro garante a leitura do
    texto branco. Embaixo, tudo se dissolve no branco da pagina. */
+/* Ocupa a altura da janela, seja qual for a tela (notebook, Mac, monitor
+   grande), para a passagem do azul para o branco cair sempre no fim da
+   primeira tela. O conteudo fica centralizado na vertical; o padding de cima
+   reserva o espaco do topo e o de baixo, o da faixa de transicao. */
 .vitrine {
   position: relative;
-  padding: 168px 0 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 140px 0 clamp(120px, 14vh, 200px);
   color: #fff;
   background:
     radial-gradient(ellipse 55% 45% at 50% 42%, rgba(12, 33, 80, 0.45), transparent 75%),
@@ -107,7 +116,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  height: 48px;
+  /* Em telas altas a faixa cresce junto, para a transicao nao parecer um corte. */
+  height: clamp(48px, 7vh, 96px);
   /* Paradas em curva (e nao em linha reta) evitam a faixa "nebulosa". */
   background: linear-gradient(
     180deg,
@@ -450,7 +460,7 @@
   }
 
   .vitrine {
-    padding-top: 128px;
+    padding-top: 112px;
   }
 
   .passos,
