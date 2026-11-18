@@ -20,6 +20,8 @@ Autora: Kate Pessoa dos Santos · Orientador: Prof. Juan Carlos Justiniano
 | Extra | Tela inicial pública: apresentação, "Como funciona" em três passos, "Sobre nós" e dúvidas frequentes |
 | Extra | PDF no formato de **proposta comercial** pronta para enviar ao órgão (dados da empresa, valor por extenso, validade) |
 | Extra | Menu do perfil ao passar o mouse no nome (rodapé do menu lateral) e cadastro dos dados da empresa |
+| Extra | Site público em [katepess.github.io/calcule-certo](https://katepess.github.io/calcule-certo/) com política de privacidade e termos de uso (pasta `site/`, publicado pelo GitHub Pages) |
+| Extra | E-mail real de recuperação de senha (SMTP), com botão no padrão de cores do sistema |
 
 Tudo com layout responsivo para desktop e celular (requisito não funcional do TCC).
 

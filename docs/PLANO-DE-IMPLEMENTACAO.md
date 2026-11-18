@@ -115,7 +115,7 @@ Estas cinco definem a fórmula e **bloqueiam a Sprint 3**. Peça também uma **c
 | Q7 | O diagrama de classes usa `double` para dinheiro, o que contradiz o requisito de precisão absoluta | Trocar para `decimal` no diagrama |
 | Q8 | O texto da Figura C2 fala em PDF com "o histórico de todas as operações"; a Figura C3 mostra um PDF por cálculo | Um PDF por cálculo |
 | Q9 | `RelatorioPDF.pathArquivo` pressupõe guardar o arquivo em disco | Gerar o PDF no momento do download, sem guardar arquivo; o registro do relatório continua existindo |
-| Q10 | Login com Google e LinkedIn está no protótipo | Mover para trabalhos futuros |
+| Q10 | Login com Google e LinkedIn está no protótipo | Inicialmente movido para trabalhos futuros; **implementado na Sprint 7** (27/10/2026) |
 | Q11 | CPF (protótipo) ou CNPJ (diagrama de classes) no cadastro | Manter CNPJ, já implementado |
 | Q12 | O sistema precisa estar publicado na internet para a banca? | Apresentar localmente; publicar só se exigido (tarefa opcional na Sprint 6) |
 
@@ -595,6 +595,12 @@ Os testes usam o executor nativo do Node (`node --test`), sem instalar nada. O f
 > **Situação em 28/09/2026:** as Sprints 2 a 6 estão implementadas e testadas.
 > Continuam abertos só os itens que dependem da empresa parceira (fórmula e
 > homologação) ou do texto do TCC (diagrama de classes e resultados).
+>
+> **Atualização em 18/11/2026 (Demo Day):** depois do plano original entraram a
+> **Sprint 7** (login com Google e LinkedIn, OAuth 2.0 / OpenID Connect) e os extras:
+> novo visual das telas, PDF no formato de proposta comercial, site público com
+> política de privacidade e termos de uso (GitHub Pages) e envio real do e-mail de
+> recuperação de senha. Os itens abertos continuam os mesmos.
 
 **Rotina de cada sprint** (TCC 2.8): planejamento no primeiro dia · desenvolvimento · revisão com o stakeholder na reunião quinzenal · commit e push no GitHub · cartões atualizados no Trello.
 
@@ -846,7 +852,7 @@ Declarados como **trabalhos futuros**, para proteger o prazo:
 
 - Leitura automática de editais em PDF com inteligência artificial *(TCC, Conclusão)*
 - Histórico de lances *(TCC, Conclusão)*
-- Login com Google e LinkedIn
+- ~~Login com Google e LinkedIn~~ — **feito na Sprint 7, em 27/10/2026**
 - ~~Landing page pública~~ — **feita em 30/09/2026** (tela inicial em `/`)
 - Busca global no cabeçalho
 - Notificações por e-mail de prazos
