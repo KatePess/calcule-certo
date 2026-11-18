@@ -9,6 +9,7 @@
     "start": "node src/server.js",
     "migrar": "node src/scripts/migrar.js",
     "db:setup": "node src/scripts/setup-db.js",
+    "db:demo-oficina": "node src/scripts/demo-oficina.js",
     "test": "node --env-file=.env.teste --test --test-concurrency=1"
   },
   "dependencies": {

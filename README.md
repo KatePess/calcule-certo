@@ -184,6 +184,23 @@ com o link, aparece **no terminal da API**. Para testar, clique em
 |---|---|
 | kate@calculecerto.com | calcule123 |
 
+### Conta da apresentação (oficina de máquinas pesadas)
+
+Para a demonstração, há uma conta mais completa: empresa preenchida (sai no
+PDF da proposta), 4 licitações em situações diferentes, 3 cálculos já feitos
+e taxas salvas. Crie com:
+
+```bash
+cd backend
+npm run db:demo-oficina
+```
+
+| E-mail | Senha |
+|---|---|
+| kate@silvamaquinas.com.br | oficina123 |
+
+Se a conta já existir, o comando não altera nada.
+
 ## Testes
 
 ```bash
